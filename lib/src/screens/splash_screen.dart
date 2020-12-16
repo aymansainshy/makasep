@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../screens/login_screen.dart';
+
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -13,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 3)).then((_) {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => HomeScreen(),
+          builder: (context) => LoginScreen(),
         ),
       );
     });
@@ -35,36 +37,42 @@ class _SplashScreenState extends State<SplashScreen> {
         color: Colors.white,
         child: Column(
           children: [
-            SizedBox(height: screenUtil.setHeight(100)),
-            Container(
-              margin: EdgeInsets.only(top: 30),
-              padding: _isLandScape
-                  ? EdgeInsets.only(top: 10)
-                  : EdgeInsets.only(top: 40),
-              // color: Colors.red,
-              height: _isLandScape
-                  ? screenUtil.setHeight(1200)
-                  : screenUtil.setHeight(900),
-              width: _isLandScape
-                  ? screenUtil.setWidth(1000)
-                  : screenUtil.setWidth(1000),
-              child: Image.asset(
-                "assets/images/makasep_logo.png",
-                fit: _isLandScape ? BoxFit.contain : BoxFit.cover,
+            Expanded(
+              child: Container(),
+            ),
+            Expanded(
+              flex: 2,
+              child: Container(
+                margin: EdgeInsets.only(top: 30),
+                padding: _isLandScape
+                    ? EdgeInsets.only(top: 10)
+                    : EdgeInsets.only(top: 40),
+                // color: Colors.red,
+                height: _isLandScape
+                    ? screenUtil.setHeight(1200)
+                    : screenUtil.setHeight(900),
+                width: _isLandScape
+                    ? screenUtil.setWidth(1000)
+                    : screenUtil.setWidth(1000),
+                child: Image.asset(
+                  "assets/images/makasep_logo.png",
+                  fit: _isLandScape ? BoxFit.contain : BoxFit.cover,
+                ),
+              ),
+            ),
+            Transform.translate(
+              offset: Offset(0, -25),
+              child: Text(
+                "We well never let you down ",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: _isLandScape
+                      ? screenUtil.setSp(30)
+                      : screenUtil.setSp(45),
+                ),
               ),
             ),
             Spacer(),
-            Text(
-              "We well never let you down ",
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize:
-                    _isLandScape ? screenUtil.setSp(30) : screenUtil.setSp(45),
-              ),
-            ),
-            SizedBox(
-              height: screenUtil.setHeight(30),
-            ),
             CircularProgressIndicator(
               backgroundColor: Colors.grey,
               strokeWidth: 2.0,
