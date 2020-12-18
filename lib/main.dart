@@ -18,10 +18,10 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: AnimatedSplashScreen(
-        imagePath: 'assets/images/makasep_logo.png',
         home: LoginScreen(),
         duration: 2500,
         type: AnimatedSplashType.StaticDuration,
+        imagePath: 'assets/images/makasep_logo.png',
       ),
     );
   }

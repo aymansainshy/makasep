@@ -59,10 +59,10 @@ class _AnimatedSplashState extends State<AnimatedSplashScreen>
     _animationController.reset();
   }
 
-  navigator(home) {
-    Navigator.of(context).pushReplacement(
-        CupertinoPageRoute(builder: (BuildContext context) => home));
-  }
+  // navigator(home) {
+  //   Navigator.of(context).pushReplacement(
+  //       CupertinoPageRoute(builder: (BuildContext context) => home));
+  // }
 
   @override
   Widget build(BuildContext context) {
