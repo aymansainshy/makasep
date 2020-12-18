@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:makasep/src/widgets/build_form_field.dart';
+
+import '../widgets/build_form_field.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login-screen';
@@ -131,34 +132,39 @@ class _LogInFormState extends State<LogInForm> {
               textInputAction: TextInputAction.done,
               keyboardType: TextInputType.number,
               prefixIcon: Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.only(left: 5),
                 child: Container(
-                  height: widget.screenUtil.setHeight(40),
                   width: widget.screenUtil.setWidth(180),
-                  child: Expanded(
-                    child: Row(
-                      children: [
-                        Container(
-                          height: widget.screenUtil.setHeight(40),
-                          width: widget.screenUtil.setWidth(60),
-                          child: Image.asset(
-                            "assets/images/sudan-flag.png",
-                            fit: BoxFit.cover,
+                  // color: Colors.red,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        // color: Colors.blue,
+                        height: widget.screenUtil.setHeight(40),
+                        width: widget.screenUtil.setWidth(50),
+                        child: Image.asset(
+                          "assets/images/sudan-flag.png",
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      // Spacer(),
+                      FittedBox(
+                        child: Text(
+                          "+249",
+                          style: TextStyle(
+                            fontSize: 10,
                           ),
                         ),
-                        Spacer(),
-                        Text(
-                          "+249",
-                        ),
-                        SizedBox(width: 3),
-                        Container(
-                          height: widget.screenUtil.setHeight(70),
-                          width: 2,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(width: 5),
-                      ],
-                    ),
+                      ),
+
+                      Container(
+                        height: widget.screenUtil.setHeight(100),
+                        width: 0.55645555,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(width: 5),
+                    ],
                   ),
                 ),
               ),
