@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../utils/app_constant.dart';
+import '../screens/sign_up_screen.dart';
 import '../widgets/build_form_field.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -40,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                         fit: BoxFit.cover,
                         // color: Colors.grey,
                         height: isLandScape
-                            ? screenUtil.setHeight(600)
+                            ? screenUtil.setHeight(700)
                             : screenUtil.setHeight(600),
                         width: isLandScape
                             ? screenUtil.setHeight(700)
@@ -56,10 +58,12 @@ class LoginScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 25),
                 child: Text(
-                  "Sign Up",
+                  "Log in",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: screenUtil.setSp(60),
+                    fontSize: isLandScape
+                        ? screenUtil.setSp(30)
+                        : screenUtil.setSp(50),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -242,20 +246,20 @@ class _LogInFormState extends State<LogInForm> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
-                color: Colors.blueGrey,
+                color: AppColors.primaryColor,
                 textColor: Colors.white,
                 child: Text(
                   "Log in",
                   style: TextStyle(
                     fontSize: widget.isLandScape
-                        ? widget.screenUtil.setSp(35)
+                        ? widget.screenUtil.setSp(25)
                         : widget.screenUtil.setSp(45),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 onPressed: () {
-                  _saveForm();
-                  // Navigator.of(context).pushNamed(TapScreen.routeName);
+                  // _saveForm();
+                  Navigator.of(context).pushNamed(SignUpScreen.routeName);
                 },
               ),
             ),
@@ -272,7 +276,7 @@ class _LogInFormState extends State<LogInForm> {
                   Radius.circular(5),
                 ),
                 border: Border.all(
-                  color: Colors.blueGrey,
+                  color: AppColors.primaryColor,
                   width: 1.0,
                 ),
               ),
@@ -281,19 +285,19 @@ class _LogInFormState extends State<LogInForm> {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 color: Colors.white,
-                textColor: Colors.blueGrey,
+                textColor: AppColors.primaryColor,
                 child: Text(
                   "Sign Up",
                   style: TextStyle(
                     fontSize: widget.isLandScape
-                        ? widget.screenUtil.setSp(35)
+                        ? widget.screenUtil.setSp(25)
                         : widget.screenUtil.setSp(45),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 onPressed: () {
-                  _saveForm();
-                  // Navigator.of(context).pushNamed(TapScreen.routeName);
+                  // _saveForm();
+                  Navigator.of(context).pushNamed(SignUpScreen.routeName);
                 },
               ),
             ),
