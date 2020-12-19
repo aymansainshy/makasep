@@ -5,8 +5,8 @@ import '../utils/custom_page_transition.dart';
 // import '../lang/app_locelazation.dart';
 
 class AppColors {
-  static const Color primaryColor = Color.fromRGBO(30, 46, 89, 1);
-  static const Color scondryColor = Color.fromRGBO(98, 171, 53, 1);
+  static const Color primaryColor = Color.fromRGBO(119, 129, 155, 1);
+  static const Color scondryColor = Color.fromRGBO(30, 46, 89, 1);
 }
 
 ThemeData appTheme = ThemeData(

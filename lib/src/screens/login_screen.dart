@@ -277,7 +277,7 @@ class _LogInFormState extends State<LogInForm> {
                   Radius.circular(5),
                 ),
                 border: Border.all(
-                  color: AppColors.primaryColor,
+                  color: AppColors.scondryColor,
                   width: 1.0,
                 ),
               ),
@@ -286,7 +286,7 @@ class _LogInFormState extends State<LogInForm> {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 color: Colors.white,
-                textColor: AppColors.primaryColor,
+                textColor: AppColors.scondryColor,
                 child: Text(
                   "Sign Up",
                   style: TextStyle(

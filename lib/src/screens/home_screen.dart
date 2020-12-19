@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:makasep/src/utils/app_constant.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/category_Item.dart';
@@ -30,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       key: _scaffoldKey,
       drawer: Drawer(),
       appBar: AppBar(
+        backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         elevation: 0.0,
         title: Text("Home Screen"),

@@ -266,7 +266,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
               height: widget.screenUtil.setHeight(50),
             ),
             SlideTransition(
-              position: _slidAnimation2,
+              position: _slidAnimation,
               child: BuilFormField(
                 fieldName: "Phone ",
                 contentPadding: 8.0,
@@ -456,7 +456,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                     child: Text(
                       "Sign In ",
                       style: TextStyle(
-                        color: AppColors.primaryColor,
+                        color: AppColors.scondryColor,
                         fontSize: isLandScape
                             ? screenUtil.setSp(28)
                             : screenUtil.setSp(40),
