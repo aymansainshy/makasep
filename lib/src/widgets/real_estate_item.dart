@@ -40,15 +40,12 @@ class _MealItemState extends State<RealEstateItem> {
                     ),
                     child: Container(
                       color: Colors.white,
-                      child: Hero(
-                        tag: 'realEstateID',
-                        child: FadeInImage(
-                          placeholder: AssetImage(
-                            "assets/images/breakfast.png",
-                          ),
-                          image: AssetImage("assets/images/sudan.png"),
-                          fit: BoxFit.fill,
+                      child: FadeInImage(
+                        placeholder: AssetImage(
+                          "assets/images/breakfast.png",
                         ),
+                        image: AssetImage("assets/images/sudan.png"),
+                        fit: BoxFit.fill,
                       ),
                       height: widget.isLandScape
                           ? widget.screenUtil.setHeight(660)
