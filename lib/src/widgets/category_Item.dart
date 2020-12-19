@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../screens/real_estates_screen.dart';
 import '../models/category_model.dart';
 
 class CategoryItem extends StatelessWidget {
@@ -16,7 +17,9 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed(RealEstateScreen.routeName);
+      },
       child: Container(
         height: screenUtil.setHeight(400),
         width: screenUtil.setWidth(400),
