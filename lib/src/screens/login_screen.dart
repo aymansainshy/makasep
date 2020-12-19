@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:makasep/src/screens/home_screen.dart';
 
 import '../utils/app_constant.dart';
 import '../screens/sign_up_screen.dart';
@@ -259,7 +260,7 @@ class _LogInFormState extends State<LogInForm> {
                 ),
                 onPressed: () {
                   // _saveForm();
-                  Navigator.of(context).pushNamed(SignUpScreen.routeName);
+                  Navigator.of(context).pushNamed(HomeScreen.routeName);
                 },
               ),
             ),
