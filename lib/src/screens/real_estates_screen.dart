@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/app_constant.dart';
+import '../widgets/real_estate_item.dart';
 
 class RealEstateScreen extends StatefulWidget {
   static const routeName = "/real-estate-screen";
@@ -27,10 +28,7 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
-    ScreenUtil.init(context);
-    ScreenUtil screenUtil = ScreenUtil();
-    var isLandScape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
@@ -42,36 +40,67 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
             automaticallyImplyLeading: false,
             pinned: true,
             elevation: 0.0,
-            backgroundColor: Colors.transparent,
+            collapsedHeight: 115,
+            backgroundColor: Colors.white,
             flexibleSpace: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Column(
                 children: [
-                  Expanded(
-                    child: IconButton(
-                      icon: Icon(Icons.search),
-                      onPressed: () {},
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: IconButton(
+                          icon: Icon(Icons.search),
+                          onPressed: () {},
+                        ),
+                      ),
+                      _buildTapSelector(
+                        mediaQuery / 4,
+                        "Newest",
+                        0,
+                      ),
+                      _buildTapSelector(
+                        mediaQuery / 4,
+                        "Price",
+                        1,
+                      ),
+                      _buildTapSelector(
+                        mediaQuery / 4,
+                        "Area",
+                        2,
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Row(
+                      children: [
+                        DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            items: [
+                              DropdownMenuItem(child: Text("Khartoum")),
+                              DropdownMenuItem(child: Text("Bahry")),
+                              DropdownMenuItem(child: Text("Omdurman")),
+                              DropdownMenuItem(child: Text("Alhaj Yousef")),
+                            ],
+                            onChanged: (value) {},
+                          ),
+                        ),
+                        SizedBox(width: 5),
+                        DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            items: [
+                              DropdownMenuItem(child: Text("Apartment")),
+                              DropdownMenuItem(child: Text("Home")),
+                              DropdownMenuItem(child: Text("Building")),
+                            ],
+                            onChanged: (value) {},
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  SizedBox(height: 4),
-                  _buildTapSelector(
-                    mediaQuery / 4,
-                    "Newest",
-                    0,
-                  ),
-                  SizedBox(height: 4),
-                  _buildTapSelector(
-                    mediaQuery / 4,
-                    "Price",
-                    1,
-                  ),
-                  SizedBox(height: 4),
-                  _buildTapSelector(
-                    mediaQuery / 4,
-                    "Area",
-                    2,
-                  ),
+                  )
                 ],
               ),
             ),
@@ -150,6 +179,10 @@ class Area extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
+    ScreenUtil screenUtil = ScreenUtil();
+    var isLandScape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) => Container(
@@ -158,11 +191,12 @@ class Area extends StatelessWidget {
             left: 4,
             right: 4,
           ),
-          child: Center(
-            child: Text("Area"),
+          child: RealEstateItem(
+            screenUtil: screenUtil,
+            isLandScape: isLandScape,
           ),
         ),
-        childCount: 50,
+        childCount: 25,
       ),
     );
   }
@@ -187,7 +221,7 @@ class Price extends StatelessWidget {
             child: Text("Price"),
           ),
         ),
-        childCount: 50,
+        childCount: 30,
       ),
     );
   }
@@ -200,6 +234,10 @@ class Newest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
+    ScreenUtil screenUtil = ScreenUtil();
+    var isLandScape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) => Container(
@@ -208,11 +246,12 @@ class Newest extends StatelessWidget {
             left: 4,
             right: 4,
           ),
-          child: Center(
-            child: Text("Newest"),
+          child: RealEstateItem(
+            screenUtil: screenUtil,
+            isLandScape: isLandScape,
           ),
         ),
-        childCount: 50,
+        childCount: 25,
       ),
     );
   }
