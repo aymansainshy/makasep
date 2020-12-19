@@ -266,7 +266,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
               height: widget.screenUtil.setHeight(50),
             ),
             SlideTransition(
-              position: _slidAnimation,
+              position: _slidAnimation2,
               child: BuilFormField(
                 fieldName: "Phone ",
                 contentPadding: 8.0,
