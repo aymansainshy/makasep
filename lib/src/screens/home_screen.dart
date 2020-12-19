@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/category_Item.dart';
 import '../providers/categories_provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -62,52 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                 ),
-                itemBuilder: (context, index) => Container(
-                  height: screenUtil.setHeight(400),
-                  width: screenUtil.setWidth(400),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5),
-                    ),
-                    border: Border.all(
-                      color: Colors.grey.shade300,
-                      width: 1.0,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 5.0,
-                        spreadRadius: 0.1,
-                        offset: Offset(0.5, 3),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          margin: EdgeInsets.all(20),
-                          child: Image.asset(
-                            categoriesProvider.categoryList[index].imageUrl,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          categoriesProvider.categoryList[index].title,
-                          style: TextStyle(
-                            color: Colors.grey.shade600,
-                            fontWeight: FontWeight.bold,
-                            fontSize: screenUtil.setSp(40),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                itemBuilder: (context, index) => CategoryItem(
+                  screenUtil: screenUtil,
+                  category: categoriesProvider.categoryList[index],
                 ),
               ),
             ),

@@ -13,10 +13,12 @@ ThemeData appTheme = ThemeData(
   primaryColor: AppColors.primaryColor,
   visualDensity: VisualDensity.adaptivePlatformDensity,
   // fontFamily: 'Cairo',
-  pageTransitionsTheme: PageTransitionsTheme(builders: {
-    TargetPlatform.android: CustomPageTransitionBuilder(),
-    TargetPlatform.iOS: CustomPageTransitionBuilder(),
-  }),
+  pageTransitionsTheme: PageTransitionsTheme(
+    builders: {
+      TargetPlatform.android: CustomPageTransitionBuilder(),
+      TargetPlatform.iOS: CustomPageTransitionBuilder(),
+    },
+  ),
   //.copyWith(
   //  pageTransitionsTheme: const PageTransitionsTheme(
   //    builders: <TargetPlatform, PageTransitionsBuilder>{
