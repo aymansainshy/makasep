@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../screens/real_estate_detail_screen.dart';
 import '../utils/app_constant.dart';
 
 class RealEstateItem extends StatefulWidget {
@@ -21,7 +22,9 @@ class _MealItemState extends State<RealEstateItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed(RealEstateDetailScreen.routeName);
+      },
       child: Container(
         height: widget.isLandScape ? 150 : 130,
         child: Card(
