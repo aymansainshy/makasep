@@ -12,7 +12,7 @@ class AppColors {
 ThemeData appTheme = ThemeData(
   primaryColor: AppColors.primaryColor,
   visualDensity: VisualDensity.adaptivePlatformDensity,
-  // fontFamily: 'Cairo',
+  fontFamily: 'Cairo',
   pageTransitionsTheme: PageTransitionsTheme(
     builders: {
       TargetPlatform.android: CustomPageTransitionBuilder(),
