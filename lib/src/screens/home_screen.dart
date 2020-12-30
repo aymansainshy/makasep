@@ -4,6 +4,7 @@ import 'package:makasep/src/utils/app_constant.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/category_Item.dart';
+import '../widgets/drawer.dart';
 import '../providers/categories_provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Provider.of<CategoriesProvider>(context, listen: false);
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(),
+      drawer: AppDrawer(),
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
