@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../utils/app_constant.dart';
 import '../widgets/real_estate_item.dart';
+import '../utils/app_constant.dart';
 
 class RealEstateScreen extends StatefulWidget {
   static const routeName = "/real-estate-screen";

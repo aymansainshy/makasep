@@ -27,107 +27,150 @@ class _AppDrawerState extends State<AppDrawer> {
         // backgroundColor: AppColors.primaryColor,
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Container(
-                height: 260,
-                padding: const EdgeInsets.only(top: 20),
-                color: AppColors.primaryColor,
-                child: Column(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 25),
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        Container(),
-                        Spacer(),
-                        DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            // dropdownColor: AppColors.primaryColor,
-                            items: langugeProvider.languages
-                                .map(
-                                  (lang) => DropdownMenuItem(
-                                    value: lang.localName,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          lang.localName,
-                                          style: TextStyle(
-                                            fontSize: isLandScape
-                                                ? screenUtil.setSp(20)
-                                                : screenUtil.setSp(35),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Container(
-                                          height: isLandScape
-                                              ? screenUtil.setHeight(55)
-                                              : screenUtil.setHeight(40),
-                                          width: isLandScape
-                                              ? screenUtil.setWidth(55)
-                                              : screenUtil.setWidth(40),
-                                          child: Image.asset(
-                                            lang.flag,
-                                            fit: BoxFit.contain,
-                                          ),
-                                        )
-                                      ],
+                    Container(),
+                    Spacer(),
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        // dropdownColor: AppColors.primaryColor,
+                        items: langugeProvider.languages
+                            .map(
+                              (lang) => DropdownMenuItem(
+                                value: lang.localName,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      lang.localName,
+                                      style: TextStyle(
+                                        fontSize: isLandScape
+                                            ? screenUtil.setSp(20)
+                                            : screenUtil.setSp(35),
+                                      ),
                                     ),
-                                    onTap: () {
-                                      langugeProvider
-                                          .changeLanguage(Locale(lang.code));
-                                    },
-                                  ),
-                                )
-                                .toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                appLang = value;
-                              });
-                            },
-                            value: appLang,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    CircleAvatar(
-                      radius: 55,
-                      backgroundColor: Colors.white,
-                    ),
-                    Text(
-                      "Ayman Sainshy",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                      height: isLandScape
+                                          ? screenUtil.setHeight(55)
+                                          : screenUtil.setHeight(40),
+                                      width: isLandScape
+                                          ? screenUtil.setWidth(55)
+                                          : screenUtil.setWidth(40),
+                                      child: Image.asset(
+                                        lang.flag,
+                                        fit: BoxFit.contain,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                onTap: () {
+                                  langugeProvider
+                                      .changeLanguage(Locale(lang.code));
+                                },
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            appLang = value;
+                          });
+                        },
+                        value: appLang,
                       ),
                     ),
                   ],
                 ),
-              ),
-              Expanded(
-                child: GridView(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.5,
-                    crossAxisSpacing: 3,
-                    mainAxisSpacing: 3,
+                CircleAvatar(
+                  radius: 55,
+                  backgroundColor: AppColors.primaryColor,
+                  child: CircleAvatar(
+                    radius: 53,
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.person,
+                      size: 100,
+                      color: AppColors.primaryColor,
+                    ),
                   ),
+                ),
+                Text(
+                  "Ayman Sainshy",
+                  style: TextStyle(
+                    color: AppColors.primaryColor,
+                    fontSize: 16,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Divider(
+                  color: AppColors.primaryColor,
+                ),
+                SizedBox(height: 10),
+                Row(
                   children: [
-                    BuilDraweGridViewItem(),
-                    BuilDraweGridViewItem(),
-                    BuilDraweGridViewItem(),
-                    BuilDraweGridViewItem(),
-                    BuilDraweGridViewItem(),
-                    BuilDraweGridViewItem(),
-                    BuilDraweGridViewItem(),
-                    BuilDraweGridViewItem(),
+                    Expanded(
+                      child: BuilDraweGridViewItem(
+                        imageUrl: "assets/icons/file-contract.png",
+                      ),
+                    ),
+                    Expanded(
+                      child: BuilDraweGridViewItem(
+                        imageUrl: "assets/icons/bestadbertise2.png",
+                      ),
+                    ),
                   ],
                 ),
-              ),
-            ],
+                Row(
+                  children: [
+                    Expanded(
+                      child: BuilDraweGridViewItem(
+                        imageUrl: "assets/icons/buildeing.png",
+                      ),
+                    ),
+                    Expanded(
+                      child: BuilDraweGridViewItem(
+                        imageUrl: "assets/icons/newspaper.png",
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: BuilDraweGridViewItem(
+                        imageUrl: "assets/icons/bell.png",
+                      ),
+                    ),
+                    Expanded(
+                      child: BuilDraweGridViewItem(
+                        imageUrl: "assets/icons/Star.png",
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: BuilDraweGridViewItem(
+                        imageUrl: "assets/icons/money-bill-wave-alt.png",
+                      ),
+                    ),
+                    Expanded(
+                      child: BuilDraweGridViewItem(
+                        imageUrl: "assets/icons/other.png",
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -137,12 +180,17 @@ class _AppDrawerState extends State<AppDrawer> {
 
 class BuilDraweGridViewItem extends StatelessWidget {
   const BuilDraweGridViewItem({
+    this.imageUrl,
     Key key,
   }) : super(key: key);
+
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 100,
+      // width: 180,
       decoration: BoxDecoration(
         color: AppColors.primaryColor,
         borderRadius: BorderRadius.all(
@@ -156,10 +204,11 @@ class BuilDraweGridViewItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            child: Icon(
-              Icons.add,
-              size: 40,
-              color: Colors.white,
+            child: Container(
+              padding: EdgeInsets.only(top: 5),
+              child: Image.asset(
+                imageUrl,
+              ),
             ),
           ),
           Expanded(

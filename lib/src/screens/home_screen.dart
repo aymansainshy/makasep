@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:makasep/src/utils/app_constant.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/category_Item.dart';
-import '../widgets/drawer.dart';
 import '../providers/categories_provider.dart';
+import '../widgets/category_Item.dart';
+import '../utils/app_constant.dart';
+import '../widgets/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = "/Home-screen";
