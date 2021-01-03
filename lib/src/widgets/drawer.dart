@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../utils/app_constant.dart';
+import '../screens/build_and _ contractor_screen.dart';
+import '../screens/especial_offers_screen.dart';
+import '../screens/add_advertise_screen.dart';
+import '../screens/favorites_screen.dart';
+import '../screens/today_ads_screen.dart';
 import '../lang/language_provider.dart';
+import '../screens/order_screen.dart';
+import '../screens/home_screen.dart';
+import '../utils/app_constant.dart';
 
 class AppDrawer extends StatefulWidget {
   @override
@@ -117,40 +124,69 @@ class _AppDrawerState extends State<AppDrawer> {
                   children: [
                     Expanded(
                       child: BuilDraweGridViewItem(
-                        imageUrl: "assets/icons/file-contract.png",
+                        imageUrl: "assets/icons/home.png",
+                        text: "Home",
+                        function: () {
+                          Navigator.of(context).pushNamed(HomeScreen.routeName);
+                        },
                       ),
                     ),
+                    Expanded(
+                      child: BuilDraweGridViewItem(
+                        imageUrl: "assets/icons/file-contract.png",
+                        text: "Add Advertisement",
+                        function: () {
+                          Navigator.of(context)
+                              .pushNamed(AddAdvertiseScreen.routeName);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
                     Expanded(
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/bestadbertise2.png",
+                        text: "Best Offers",
+                        function: () {
+                          Navigator.of(context)
+                              .pushNamed(EspecialOffersScreen.routeName);
+                        },
                       ),
                     ),
-                  ],
-                ),
-                Row(
-                  children: [
                     Expanded(
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/buildeing.png",
+                        text: "Buildeing & Contractors",
+                        function: () {
+                          Navigator.of(context)
+                              .pushNamed(BuildAndContractors.routeName);
+                        },
                       ),
                     ),
+                  ],
+                ),
+                Row(
+                  children: [
                     Expanded(
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/newspaper.png",
+                        text: "Today Ads",
+                        function: () {
+                          Navigator.of(context)
+                              .pushNamed(TodayAdsScreen.routeName);
+                        },
                       ),
                     ),
-                  ],
-                ),
-                Row(
-                  children: [
                     Expanded(
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/bell.png",
-                      ),
-                    ),
-                    Expanded(
-                      child: BuilDraweGridViewItem(
-                        imageUrl: "assets/icons/Star.png",
+                        text: "Orders",
+                        function: () {
+                          Navigator.of(context)
+                              .pushNamed(OrderScreen.routeName);
+                        },
                       ),
                     ),
                   ],
@@ -159,12 +195,28 @@ class _AppDrawerState extends State<AppDrawer> {
                   children: [
                     Expanded(
                       child: BuilDraweGridViewItem(
-                        imageUrl: "assets/icons/money-bill-wave-alt.png",
+                        imageUrl: "assets/icons/Star.png",
+                        text: "Best Ads",
+                        function: () {
+                          Navigator.of(context)
+                              .pushNamed(FavoritesScreen.routeName);
+                        },
                       ),
                     ),
                     Expanded(
                       child: BuilDraweGridViewItem(
+                        imageUrl: "assets/icons/money-bill-wave-alt.png",
+                        text: "Ads Payed",
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/other.png",
+                        text: "Blog",
                       ),
                     ),
                   ],
@@ -181,45 +233,53 @@ class _AppDrawerState extends State<AppDrawer> {
 class BuilDraweGridViewItem extends StatelessWidget {
   const BuilDraweGridViewItem({
     this.imageUrl,
+    this.function,
+    this.text,
     Key key,
   }) : super(key: key);
 
   final String imageUrl;
+  final Function function;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      // width: 180,
-      decoration: BoxDecoration(
-        color: AppColors.primaryColor,
-        borderRadius: BorderRadius.all(
-          Radius.circular(5),
+    return GestureDetector(
+      onTap: function,
+      child: Container(
+        height: 100,
+        // width: 180,
+        decoration: BoxDecoration(
+          color: AppColors.primaryColor,
+          borderRadius: BorderRadius.all(
+            Radius.circular(5),
+          ),
         ),
-      ),
-      padding: EdgeInsets.only(top: 5, left: 5, right: 3),
-      margin: EdgeInsets.only(top: 5, left: 5, right: 3),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.only(top: 5),
-              child: Image.asset(
-                imageUrl,
+        padding: EdgeInsets.only(top: 5, left: 5, right: 3),
+        margin: EdgeInsets.only(top: 5, left: 5, right: 3),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.only(top: 5),
+                child: Image.asset(
+                  imageUrl,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Text(
-              "Add Advrtisment",
-              style: TextStyle(
-                color: Colors.white,
+            Expanded(
+              child: Text(
+                text,
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
