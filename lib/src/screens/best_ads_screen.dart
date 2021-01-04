@@ -4,8 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../utils/app_constant.dart';
 import '../widgets/drawer.dart';
 
-class BuildAndContractors extends StatelessWidget {
-  static const routeName = "/build-and-contractor-screen";
+class BestAdsScreen extends StatelessWidget {
+  static const routeName = "/BestAds-screen";
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -22,10 +23,10 @@ class BuildAndContractors extends StatelessWidget {
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         elevation: 0.0,
-        title: Text("Build And Contractors Screen"),
+        title: Text("Best ADs Screen"),
       ),
       body: Center(
-        child: Text("Build And Contractors Screen"),
+        child: Text("Best ADs Screen"),
       ),
     );
   }

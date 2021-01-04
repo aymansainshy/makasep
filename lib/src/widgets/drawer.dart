@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../screens/build_and _ contractor_screen.dart';
 import '../screens/especial_offers_screen.dart';
 import '../screens/add_advertise_screen.dart';
-import '../screens/favorites_screen.dart';
+import '../screens/best_ads_screen.dart';
 import '../screens/today_ads_screen.dart';
 import '../lang/language_provider.dart';
 import '../screens/order_screen.dart';
@@ -124,20 +124,20 @@ class _AppDrawerState extends State<AppDrawer> {
                   children: [
                     Expanded(
                       child: BuilDraweGridViewItem(
-                        imageUrl: "assets/icons/home.png",
-                        text: "Home",
-                        function: () {
-                          Navigator.of(context).pushNamed(HomeScreen.routeName);
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/file-contract.png",
                         text: "Add Advertisement",
                         function: () {
                           Navigator.of(context)
                               .pushNamed(AddAdvertiseScreen.routeName);
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: BuilDraweGridViewItem(
+                        imageUrl: "assets/icons/home.png",
+                        text: "Home",
+                        function: () {
+                          Navigator.of(context).pushNamed(HomeScreen.routeName);
                         },
                       ),
                     ),
@@ -199,7 +199,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         text: "Best Ads",
                         function: () {
                           Navigator.of(context)
-                              .pushNamed(FavoritesScreen.routeName);
+                              .pushNamed(BestAdsScreen.routeName);
                         },
                       ),
                     ),
