@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../screens/build_and _ contractor_screen.dart';
 import '../screens/especial_offers_screen.dart';
-import '../screens/add_advertise_screen.dart';
+import '../screens/add_advertise_role_screen.dart';
 import '../screens/best_ads_screen.dart';
 import '../screens/today_ads_screen.dart';
 import '../lang/language_provider.dart';
@@ -79,15 +79,15 @@ class _AppDrawerState extends State<AppDrawer> {
                                   ],
                                 ),
                                 onTap: () {
-                                  langugeProvider
-                                      .changeLanguage(Locale(lang.code));
+                                  // langugeProvider
+                                  //     .changeLanguage(Locale(lang.code));
                                 },
                               ),
                             )
                             .toList(),
                         onChanged: (value) {
                           setState(() {
-                            appLang = value;
+                            // appLang = value;
                           });
                         },
                         value: appLang,
@@ -128,7 +128,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         text: "اضافة إعلان",
                         function: () {
                           Navigator.of(context)
-                              .pushNamed(AddAdvertiseScreen.routeName);
+                              .pushNamed(AddAdvertiseRoleScreen.routeName);
                         },
                       ),
                     ),
@@ -203,24 +203,24 @@ class _AppDrawerState extends State<AppDrawer> {
                         },
                       ),
                     ),
-                    Expanded(
-                      child: BuilDraweGridViewItem(
-                        imageUrl: "assets/icons/money-bill-wave-alt.png",
-                        text: "رسوم الاعلان",
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: BuilDraweGridViewItem(
+                    //     imageUrl: "assets/icons/money-bill-wave-alt.png",
+                    //     text: "رسوم الاعلان",
+                    //   ),
+                    // ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: BuilDraweGridViewItem(
-                        imageUrl: "assets/icons/other.png",
-                        text: "المدونة",
-                      ),
-                    ),
-                  ],
-                )
+                // Row(
+                //   children: [
+                //     Expanded(
+                //       child: BuilDraweGridViewItem(
+                //         imageUrl: "assets/icons/other.png",
+                //         text: "المدونة",
+                //       ),
+                //     ),
+                //   ],
+                // )
               ],
             ),
           ),

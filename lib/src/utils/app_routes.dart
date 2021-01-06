@@ -1,5 +1,8 @@
 import '../screens/build_and _ contractor_screen.dart';
+import '../screens/add_advertise_location_screen.dart';
 import '../screens/real_estate_detail_screen.dart';
+import '../screens/add_advertise_role_screen.dart';
+import '../screens/add_advertise_photo_screen.dart';
 import '../screens/especial_offers_screen.dart';
 import '../screens/add_advertise_screen.dart';
 import '../screens/real_estates_screen.dart';
@@ -15,11 +18,15 @@ var routs = {
   OrderScreen.routeName: (context) => OrderScreen(),
   LoginScreen.routeName: (context) => LoginScreen(),
   SignUpScreen.routeName: (context) => SignUpScreen(),
-  TodayAdsScreen.routeName: (context) => TodayAdsScreen(),
   BestAdsScreen.routeName: (context) => BestAdsScreen(),
+  TodayAdsScreen.routeName: (context) => TodayAdsScreen(),
   RealEstateScreen.routeName: (context) => RealEstateScreen(),
   AddAdvertiseScreen.routeName: (context) => AddAdvertiseScreen(),
   BuildAndContractors.routeName: (context) => BuildAndContractors(),
   EspecialOffersScreen.routeName: (context) => EspecialOffersScreen(),
   RealEstateDetailScreen.routeName: (context) => RealEstateDetailScreen(),
+  AddAdvertiseRoleScreen.routeName: (context) => AddAdvertiseRoleScreen(),
+  AddAdvertisePhontoScreen.routeName: (context) => AddAdvertisePhontoScreen(),
+  AddAdvertiseLocationScreen.routeName: (context) =>
+      AddAdvertiseLocationScreen(),
 };

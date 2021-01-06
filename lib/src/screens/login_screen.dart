@@ -88,57 +88,57 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: screenUtil.setHeight(80),
               ),
-              Center(
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                    // dropdownColor: AppColors.primaryColor,
-                    items: langugeProvider.languages
-                        .map(
-                          (lang) => DropdownMenuItem(
-                            value: lang.localName,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  lang.localName,
-                                  style: TextStyle(
-                                    fontSize: isLandScape
-                                        ? screenUtil.setSp(20)
-                                        : screenUtil.setSp(35),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                  height: isLandScape
-                                      ? screenUtil.setHeight(55)
-                                      : screenUtil.setHeight(40),
-                                  width: isLandScape
-                                      ? screenUtil.setWidth(55)
-                                      : screenUtil.setWidth(40),
-                                  child: Image.asset(
-                                    lang.flag,
-                                    fit: BoxFit.contain,
-                                  ),
-                                )
-                              ],
-                            ),
-                            onTap: () {
-                              langugeProvider.changeLanguage(Locale(lang.code));
-                            },
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        appLang = value;
-                      });
-                    },
-                    value: appLang,
-                  ),
-                ),
-              ),
+              // Center(
+              //   child: DropdownButtonHideUnderline(
+              //     child: DropdownButton(
+              //       // dropdownColor: AppColors.primaryColor,
+              //       items: langugeProvider.languages
+              //           .map(
+              //             (lang) => DropdownMenuItem(
+              //               value: lang.localName,
+              //               child: Row(
+              //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //                 children: [
+              //                   Text(
+              //                     lang.localName,
+              //                     style: TextStyle(
+              //                       fontSize: isLandScape
+              //                           ? screenUtil.setSp(20)
+              //                           : screenUtil.setSp(35),
+              //                     ),
+              //                   ),
+              //                   SizedBox(
+              //                     height: 5,
+              //                   ),
+              //                   Container(
+              //                     height: isLandScape
+              //                         ? screenUtil.setHeight(55)
+              //                         : screenUtil.setHeight(40),
+              //                     width: isLandScape
+              //                         ? screenUtil.setWidth(55)
+              //                         : screenUtil.setWidth(40),
+              //                     child: Image.asset(
+              //                       lang.flag,
+              //                       fit: BoxFit.contain,
+              //                     ),
+              //                   )
+              //                 ],
+              //               ),
+              //               onTap: () {
+              //                 langugeProvider.changeLanguage(Locale(lang.code));
+              //               },
+              //             ),
+              //           )
+              //           .toList(),
+              //       onChanged: (value) {
+              //         setState(() {
+              //           appLang = value;
+              //         });
+              //       },
+              //       value: appLang,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

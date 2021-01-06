@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
+import '../screens/add_advertise_photo_screen.dart';
+import '../providers/categories_provider.dart';
 import '../utils/app_constant.dart';
-import '../widgets/drawer.dart';
 
 class AddAdvertiseScreen extends StatelessWidget {
   static const routeName = "/add-advertise-screen";
@@ -15,17 +17,88 @@ class AddAdvertiseScreen extends StatelessWidget {
     ScreenUtil screenUtil = ScreenUtil();
     var isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
+    final categoriesProvider =
+        Provider.of<CategoriesProvider>(context, listen: false);
     return Scaffold(
       key: _scaffoldKey,
-      drawer: AppDrawer(),
+      // drawer: AppDrawer(),
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         elevation: 0.0,
-        title: Text("Add Advertise Screen"),
+        title: Text(
+          " اضافة اعلان",
+          style: TextStyle(fontSize: 15),
+        ),
       ),
-      body: Center(
-        child: Text("Add Advertise Screen"),
+      body: Container(
+        padding: EdgeInsets.all(10),
+        child: ListView.builder(
+          itemCount: categoriesProvider.categoryList.length,
+          itemBuilder: (contex, i) => Column(
+            children: [
+              AddAdvertisContent(
+                leading: categoriesProvider.categoryList[i].imageUrl,
+                title: categoriesProvider.categoryList[i].title,
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(AddAdvertisePhontoScreen.routeName);
+                },
+              ),
+              SizedBox(
+                height: screenUtil.setHeight(10),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Divider(
+                  height: 6,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AddAdvertisContent extends StatelessWidget {
+  final String leading;
+  final String title;
+  final Function onTap;
+
+  const AddAdvertisContent({
+    Key key,
+    @required this.leading,
+    @required this.title,
+    @required this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10),
+      child: ListTile(
+        leading: Container(
+          margin: EdgeInsets.all(10),
+          child: Image.asset(
+            leading,
+            fit: BoxFit.fill,
+          ),
+        ),
+        trailing: Icon(
+          Icons.navigate_next,
+          size: 30,
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            fontSize: 17,
+          ),
+        ),
+        onTap: onTap,
       ),
     );
   }
