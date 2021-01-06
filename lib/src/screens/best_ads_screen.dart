@@ -23,10 +23,13 @@ class BestAdsScreen extends StatelessWidget {
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         elevation: 0.0,
-        title: Text("Best ADs Screen"),
+        title: Text(
+          "افضل الاعلانات ",
+          style: TextStyle(fontSize: 15),
+        ),
       ),
       body: Center(
-        child: Text("Best ADs Screen"),
+        child: Text("افضل الاعلانات"),
       ),
     );
   }

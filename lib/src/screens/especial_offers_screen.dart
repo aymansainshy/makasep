@@ -22,10 +22,13 @@ class EspecialOffersScreen extends StatelessWidget {
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         elevation: 0.0,
-        title: Text("EspecialOffersScreen Screen"),
+        title: Text(
+          "عروض مميزة",
+          style: TextStyle(fontSize: 15),
+        ),
       ),
       body: Center(
-        child: Text("EspecialOffersScreen Screen"),
+        child: Text("عروض مميزة"),
       ),
     );
   }

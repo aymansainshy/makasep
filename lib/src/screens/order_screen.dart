@@ -23,10 +23,13 @@ class OrderScreen extends StatelessWidget {
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         elevation: 0.0,
-        title: Text("OrderScreen Screen"),
+        title: Text(
+          "صفحة الطلبات",
+          style: TextStyle(fontSize: 15),
+        ),
       ),
       body: Center(
-        child: Text("OrderScreen Screen"),
+        child: Text("الطلبات"),
       ),
     );
   }

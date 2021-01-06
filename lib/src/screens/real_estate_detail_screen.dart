@@ -179,7 +179,11 @@ class RealEstateDetailScreen extends StatelessWidget {
                   widget: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.room_outlined),
+                      Image.asset(
+                        "assets/icons/bed.png",
+                        color: Colors.grey.shade400,
+                      ),
+                      SizedBox(width: 3),
                       Text(
                         "3",
                         style: TextStyle(
@@ -201,7 +205,11 @@ class RealEstateDetailScreen extends StatelessWidget {
                   widget: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.highlight_alt_outlined),
+                      Image.asset(
+                        "assets/icons/sofa.png",
+                        color: Colors.grey.shade400,
+                      ),
+                      SizedBox(width: 3),
                       Text(
                         "3",
                         style: TextStyle(
@@ -223,7 +231,11 @@ class RealEstateDetailScreen extends StatelessWidget {
                   widget: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.settings_brightness_sharp),
+                      Image.asset(
+                        "assets/icons/desh.png",
+                        color: Colors.grey.shade400,
+                      ),
+                      SizedBox(width: 6),
                       Text(
                         "3",
                         style: TextStyle(
@@ -274,35 +286,35 @@ class RealEstateDetailScreen extends StatelessWidget {
                   screenUtil: screenUtil,
                   color: Colors.grey.shade300,
                   text: "المطبخ",
-                  widget: Icon(Icons.ring_volume_sharp),
+                  widget: Image.asset("assets/icons/correct.png"),
                 ),
                 BuildContainerRowText(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade100,
                   text: "مدخل سيارة",
-                  widget: Icon(Icons.ring_volume_sharp),
+                  widget: Image.asset("assets/icons/correct.png"),
                 ),
                 BuildContainerRowText(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade300,
                   text: "مصعد",
-                  widget: Icon(Icons.ring_volume_sharp),
+                  widget: Image.asset("assets/icons/correct.png"),
                 ),
                 BuildContainerRowText(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade100,
                   text: "مكيفات",
-                  widget: Icon(Icons.ring_volume_sharp),
+                  widget: Image.asset("assets/icons/correct.png"),
                 ),
                 BuildContainerRowText(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade300,
                   text: "المطبخ",
-                  widget: Icon(Icons.ring_volume_sharp),
+                  widget: Image.asset("assets/icons/correct.png"),
                 ),
                 BuildContainerRowText(
                   isLandScape: isLandScape,

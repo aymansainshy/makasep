@@ -22,10 +22,13 @@ class BuildAndContractors extends StatelessWidget {
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         elevation: 0.0,
-        title: Text("Build And Contractors Screen"),
+        title: Text(
+          "البناء والمقاولات",
+          style: TextStyle(fontSize: 15),
+        ),
       ),
       body: Center(
-        child: Text("Build And Contractors Screen"),
+        child: Text("البناء والمقاولات"),
       ),
     );
   }

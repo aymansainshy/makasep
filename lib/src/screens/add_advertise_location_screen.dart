@@ -33,7 +33,12 @@ class AddAdvertiseLocationScreen extends StatelessWidget {
       body: Container(
         color: Colors.blueAccent,
         child: Center(
-          child: Text("اضافة موقع للاعلان من الخريطة "),
+          child: Text(
+            "اضافة موقع للاعلان من الخريطة ",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
         ),
       ),
     );

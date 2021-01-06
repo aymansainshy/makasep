@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:makasep/src/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../utils/app_constant.dart';
-import '../lang/language_provider.dart';
-import '../screens/sign_up_screen.dart';
 import '../widgets/build_form_field.dart';
+import '../screens/sign_up_screen.dart';
+import '../lang/language_provider.dart';
+import '../utils/app_constant.dart';
+import '../screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login-screen';

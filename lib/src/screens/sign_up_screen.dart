@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../utils/app_constant.dart';
-import '../screens/login_screen.dart';
 import '../widgets/build_form_field.dart';
+import '../screens/login_screen.dart';
+import '../screens/home_screen.dart';
+import '../utils/app_constant.dart';
 
 class SignUpScreen extends StatelessWidget {
   static const routeName = '/sign-up-screen';
@@ -436,7 +437,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                   ),
                   onPressed: () {
                     _saveForm();
-                    // Navigator.of(context).pushNamed(TapScreen.routeName);
+                    Navigator.of(context).pushNamed(HomeScreen.routeName);
                   },
                 ),
               ),

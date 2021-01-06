@@ -29,6 +29,12 @@ class LocationOnMap extends StatelessWidget {
             Container(
               height: 150,
               color: Colors.blueGrey,
+              child: Center(
+                child: Text(
+                  "الموقع على الخريطة",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             )
           ],
         ),

@@ -8,6 +8,7 @@ import '../screens/add_advertise_role_screen.dart';
 import '../screens/best_ads_screen.dart';
 import '../screens/today_ads_screen.dart';
 import '../lang/language_provider.dart';
+import '../screens/login_screen.dart';
 import '../screens/order_screen.dart';
 import '../screens/home_screen.dart';
 import '../utils/app_constant.dart';
@@ -195,6 +196,16 @@ class _AppDrawerState extends State<AppDrawer> {
                   children: [
                     Expanded(
                       child: BuilDraweGridViewItem(
+                        imageUrl: "assets/icons/logout.png",
+                        text: "تسجيل خروج",
+                        function: () {
+                          Navigator.of(context)
+                              .pushNamed(LoginScreen.routeName);
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/Star.png",
                         text: "المفضلة",
                         function: () {
@@ -203,12 +214,6 @@ class _AppDrawerState extends State<AppDrawer> {
                         },
                       ),
                     ),
-                    // Expanded(
-                    //   child: BuilDraweGridViewItem(
-                    //     imageUrl: "assets/icons/money-bill-wave-alt.png",
-                    //     text: "رسوم الاعلان",
-                    //   ),
-                    // ),
                   ],
                 ),
                 // Row(

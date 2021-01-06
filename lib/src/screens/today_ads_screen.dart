@@ -22,10 +22,13 @@ class TodayAdsScreen extends StatelessWidget {
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         elevation: 0.0,
-        title: Text("TodayAdsScreen Screen"),
+        title: Text(
+          "إعلانات اليوم",
+          style: TextStyle(fontSize: 15),
+        ),
       ),
       body: Center(
-        child: Text("TodayAdsScreen Screen"),
+        child: Text("أعلانات اليوم"),
       ),
     );
   }
