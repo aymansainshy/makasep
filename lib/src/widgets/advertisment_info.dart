@@ -20,11 +20,12 @@ class AdvertisInfo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Advertiser Info",
+            "معلومات المعلن",
             style: TextStyle(
               color: Colors.grey.shade900,
+              fontWeight: FontWeight.bold,
               fontSize:
-                  isLandScape ? screenUtil.setSp(25) : screenUtil.setSp(50),
+                  isLandScape ? screenUtil.setSp(25) : screenUtil.setSp(45),
               letterSpacing: 1,
             ),
           ),
@@ -65,7 +66,7 @@ class AdvertisInfo extends StatelessWidget {
                             color: AppColors.primaryColor,
                             onPressed: () {},
                             child: Text(
-                              "Send Message",
+                              "محادثة",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: isLandScape

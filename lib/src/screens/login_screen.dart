@@ -69,9 +69,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: screenUtil.setHeight(50),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 25),
+                padding: const EdgeInsets.only(right: 25),
                 child: Text(
-                  "Log in",
+                  "انشاء حساب",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: isLandScape
@@ -186,6 +186,8 @@ class _LogInFormState extends State<LogInForm> {
   // RegExp _isEmailValid = RegExp(
   //     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
+  RegExp _isPhoneValid =
+      RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$');
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -195,63 +197,63 @@ class _LogInFormState extends State<LogInForm> {
         child: Column(
           children: [
             BuilFormField(
-              fieldName: "Phone ",
+              fieldName: "رقم الهاتف ",
               contentPadding: 8.0,
               textInputAction: TextInputAction.done,
               keyboardType: TextInputType.number,
-              prefixIcon: Padding(
-                padding: const EdgeInsets.only(left: 5),
-                child: Container(
-                  width: widget.screenUtil.setWidth(180),
-                  // color: Colors.red,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        // color: Colors.blue,
-                        height: widget.screenUtil.setHeight(40),
-                        width: widget.screenUtil.setWidth(50),
-                        child: Image.asset(
-                          "assets/images/sudan-flag.png",
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      // Spacer(),
-                      FittedBox(
-                        child: Text(
-                          "+249",
-                          style: TextStyle(
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
+              prefixIcon: Icon(Icons.phone),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 5),
+              //   child: Container(
+              //     width: widget.screenUtil.setWidth(180),
+              //     // color: Colors.red,
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         Container(
+              //           // color: Colors.blue,
+              //           height: widget.screenUtil.setHeight(40),
+              //           width: widget.screenUtil.setWidth(50),
+              //           child: Image.asset(
+              //             "assets/images/sudan-flag.png",
+              //             fit: BoxFit.contain,
+              //           ),
+              //         ),
+              //         // Spacer(),
+              //         FittedBox(
+              //           child: Text(
+              //             "+249",
+              //             style: TextStyle(
+              //               fontSize: 10,
+              //             ),
+              //           ),
+              //         ),
 
-                      Container(
-                        height: widget.screenUtil.setHeight(100),
-                        width: 0.55645555,
-                        color: Colors.grey,
-                      ),
-                      SizedBox(width: 5),
-                    ],
-                  ),
-                ),
-              ),
+              //         Container(
+              //           height: widget.screenUtil.setHeight(100),
+              //           width: 0.55645555,
+              //           color: Colors.grey,
+              //         ),
+              //         SizedBox(width: 5),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               focusNode: _phoneFocusNode,
               onFieldSubmitted: (_) {
                 _saveForm();
               },
               validator: (value) {
                 if (value.isEmpty) {
-                  return "Please enter your phone number ";
+                  return "الرجاء ادخال رقم هاتفك ";
                 }
 
                 if (value.toString().length < 8) {
-                  return "Please enter avalid phone number";
+                  return "الرجاء ادخال رقم هاتف صحيح";
                 }
 
-                if (!value.toString().startsWith('+') &&
-                    !value.toString().startsWith('0')) {
-                  return "your phone number don't match the pattren";
+                if (!_isPhoneValid.hasMatch(value)) {
+                  return "الرجاء ادخال رقم هاتف صحيح";
                 }
 
                 return null;
@@ -265,7 +267,7 @@ class _LogInFormState extends State<LogInForm> {
             ),
             BuilFormField(
               contentPadding: 8.0,
-              fieldName: "Password",
+              fieldName: "كلمة السر",
               keyboardType: TextInputType.visiblePassword,
               obscureText: isPasswordHide,
               textInputAction: TextInputAction.done,
@@ -287,10 +289,10 @@ class _LogInFormState extends State<LogInForm> {
               },
               validator: (value) {
                 if (value.isEmpty) {
-                  return "Please enter password";
+                  return "الرجاء اخال كلمة السر";
                 }
-                if (value.toString().length < 6) {
-                  return "Your password must be at last 7 char";
+                if (value.toString().length < 5) {
+                  return "كلمة السر يجب ان لا تقل عن 5 احرف";
                 }
                 return null;
               },
@@ -313,7 +315,7 @@ class _LogInFormState extends State<LogInForm> {
                 color: AppColors.primaryColor,
                 textColor: Colors.white,
                 child: Text(
-                  "Log in",
+                  "تسجيل دخول ",
                   style: TextStyle(
                     fontSize: widget.isLandScape
                         ? widget.screenUtil.setSp(25)
@@ -351,7 +353,7 @@ class _LogInFormState extends State<LogInForm> {
                 color: Colors.white,
                 textColor: AppColors.scondryColor,
                 child: Text(
-                  "Sign Up",
+                  "انشاء حساب",
                   style: TextStyle(
                     fontSize: widget.isLandScape
                         ? widget.screenUtil.setSp(25)

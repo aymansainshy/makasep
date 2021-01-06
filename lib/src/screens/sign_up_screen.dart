@@ -13,6 +13,7 @@ class SignUpScreen extends StatelessWidget {
     Key key,
     this.isLogin = false,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -48,9 +49,9 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 25),
+                padding: const EdgeInsets.only(right: 25),
                 child: Text(
-                  "Sign Up",
+                  "أنشاء حساب",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: isLandScape
@@ -183,6 +184,9 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
   //   );
   // }
 
+  RegExp _isPhoneValid =
+      RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$');
+
   Future<void> _saveForm() async {
     final isValid = _formKey.currentState.validate();
     if (!isValid) {
@@ -218,7 +222,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
             SlideTransition(
               position: _slidAnimation2,
               child: BuilFormField(
-                fieldName: "Full Name",
+                fieldName: "اسمك الكامل ",
                 contentPadding: 8.0,
                 keyboardType: TextInputType.name,
                 textInputAction: TextInputAction.next,
@@ -228,7 +232,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                 },
                 validator: (value) {
                   if (value.isEmpty) {
-                    return "Enter your name please";
+                    return "الرجاء ادخال اسمك الكامل";
                   }
                   return null;
                 },
@@ -243,7 +247,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
             SlideTransition(
               position: _slidAnimation,
               child: BuilFormField(
-                fieldName: "Adrress",
+                fieldName: "العنوان",
                 contentPadding: 8.0,
                 keyboardType: TextInputType.name,
                 textInputAction: TextInputAction.next,
@@ -253,7 +257,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                 },
                 validator: (value) {
                   if (value.isEmpty) {
-                    return "Please enter your full adrress";
+                    return "الرجاء ادخال عنوانك";
                   }
                   return null;
                 },
@@ -268,64 +272,68 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
             SlideTransition(
               position: _slidAnimation2,
               child: BuilFormField(
-                fieldName: "Phone ",
+                fieldName: "رقم الهاتف ",
                 contentPadding: 8.0,
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.number,
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: Container(
-                    width: widget.screenUtil.setWidth(180),
-                    // color: Colors.red,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          // color: Colors.blue,
-                          height: widget.screenUtil.setHeight(40),
-                          width: widget.screenUtil.setWidth(50),
-                          child: Image.asset(
-                            "assets/images/sudan-flag.png",
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        // Spacer(),
-                        FittedBox(
-                          child: Text(
-                            "+249",
-                            style: TextStyle(
-                              fontSize: 10,
-                            ),
-                          ),
-                        ),
+                // prefixIcon: Icon(Icons.phone),
+                // prefixIcon: Padding(
+                //   padding: const EdgeInsets.only(left: 5),
+                //   child: Container(
+                //     width: widget.screenUtil.setWidth(180),
+                //     // color: Colors.red,
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Container(
+                //           // color: Colors.blue,
+                //           height: widget.screenUtil.setHeight(40),
+                //           width: widget.screenUtil.setWidth(50),
+                //           child: Image.asset(
+                //             "assets/images/sudan-flag.png",
+                //             fit: BoxFit.contain,
+                //           ),
+                //         ),
+                //         // Spacer(),
+                //         FittedBox(
+                //           child: Text(
+                //             "+249",
+                //             style: TextStyle(
+                //               fontSize: 10,
+                //             ),
+                //           ),
+                //         ),
 
-                        Container(
-                          height: widget.screenUtil.setHeight(100),
-                          width: 0.55645555,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(width: 5),
-                      ],
-                    ),
-                  ),
-                ),
+                //         Container(
+                //           height: widget.screenUtil.setHeight(100),
+                //           width: 0.55645555,
+                //           color: Colors.grey,
+                //         ),
+                //         SizedBox(width: 5),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 focusNode: _phoneFocusNode,
                 onFieldSubmitted: (_) {
                   _saveForm();
                 },
                 validator: (value) {
                   if (value.isEmpty) {
-                    return "Please enter your phone number ";
+                    return "الرجاء ادخال رقم الهاتف ";
                   }
 
                   if (value.toString().length < 8) {
-                    return "Please enter avalid phone number";
+                    return "الرجاء ادخال رقم هاتف صحيح";
                   }
 
-                  if (!value.toString().startsWith('+') &&
-                      !value.toString().startsWith('0')) {
-                    return "your phone number don't match the pattren";
+                  if (!_isPhoneValid.hasMatch(value)) {
+                    return "الرجاء ادخال رقم هاتف صحيح";
                   }
+                  // if (!value.toString().startsWith('+') &&
+                  //     !value.toString().startsWith('0')) {
+                  //   return "your phone number don't match the pattren";
+                  // }
 
                   return null;
                 },
@@ -340,7 +348,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
             SlideTransition(
               position: _slidAnimation,
               child: BuilFormField(
-                fieldName: "Password",
+                fieldName: "كلمة السر",
                 contentPadding: 8.0,
                 obscureText: isPasswordHide,
                 textInputAction: TextInputAction.next,
@@ -365,10 +373,10 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                 },
                 validator: (value) {
                   if (value.isEmpty) {
-                    return "Please enter your password";
+                    return "الرجاء ادخال كلمة السر";
                   }
-                  if (value.toString().length < 6) {
-                    return "Password must be at last 7 character";
+                  if (value.toString().length < 5) {
+                    return "كلمة السر لا يجب عن تقل عن 5 احرف ";
                   }
                   return null;
                 },
@@ -383,7 +391,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
             SlideTransition(
               position: _slidAnimation2,
               child: BuilFormField(
-                fieldName: "Confirme Password",
+                fieldName: "تأكيد كلمة السر",
                 contentPadding: 8.0,
                 obscureText: isPasswordHide,
                 textInputAction: TextInputAction.next,
@@ -395,7 +403,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                 },
                 validator: (value) {
                   if (value != _passwordController.text) {
-                    return "Password don't match ";
+                    return "كلمة السر لا تتطابق ";
                   }
                   return null;
                 },
@@ -418,7 +426,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                   color: AppColors.primaryColor,
                   textColor: Colors.white,
                   child: Text(
-                    "Sign Up",
+                    "إنشاء حساب",
                     style: TextStyle(
                       fontSize: widget.isLandScape
                           ? widget.screenUtil.setSp(25)
@@ -441,7 +449,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "I Have Account ",
+                    "لدي حساب ",
                     style: TextStyle(
                       fontSize: isLandScape
                           ? screenUtil.setSp(28)
@@ -454,7 +462,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                       Navigator.of(context).pushNamed(LoginScreen.routeName);
                     },
                     child: Text(
-                      "Sign In ",
+                      "تسجيل دخول ",
                       style: TextStyle(
                         color: AppColors.scondryColor,
                         fontSize: isLandScape

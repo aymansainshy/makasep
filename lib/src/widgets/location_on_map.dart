@@ -16,11 +16,12 @@ class LocationOnMap extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Location On Map",
+              "الموقع على الخريطة",
               style: TextStyle(
                 color: Colors.grey.shade900,
+                fontWeight: FontWeight.bold,
                 fontSize:
-                    isLandScape ? screenUtil.setSp(20) : screenUtil.setSp(50),
+                    isLandScape ? screenUtil.setSp(20) : screenUtil.setSp(45),
                 letterSpacing: 1,
               ),
             ),

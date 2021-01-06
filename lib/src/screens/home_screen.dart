@@ -35,7 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         elevation: 0.0,
-        title: Text("Home Screen"),
+        title: Text(
+          "الصفحة الرئيسية",
+          style: TextStyle(fontSize: 15),
+        ),
       ),
       body: Column(
         children: [

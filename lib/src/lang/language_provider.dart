@@ -9,8 +9,8 @@ class LanguageProvider with ChangeNotifier {
 
   /// Fetch LOCAL AND CHANGE LANGUAGE
   /// [START]
-  Locale _appLocale = Locale('en');
-  Locale get appLocal => _appLocale ?? Locale("ar");
+  Locale _appLocale = Locale('ar');
+  Locale get appLocal => _appLocale ?? Locale("en");
 
   Future<void> fetchLocale() async {
     var prefs = await SharedPreferences.getInstance();

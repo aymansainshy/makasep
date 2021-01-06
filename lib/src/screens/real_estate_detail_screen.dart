@@ -35,7 +35,7 @@ class RealEstateDetailScreen extends StatelessWidget {
             child: Icon(
               Icons.star,
               size: 30,
-              color: Colors.yellowAccent,
+              color: Colors.orangeAccent,
             ),
           ),
         ),
@@ -47,12 +47,12 @@ class RealEstateDetailScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            expandedHeight: 250,
+            expandedHeight: 230,
             backgroundColor: AppColors.primaryColor,
             automaticallyImplyLeading: false,
             centerTitle: true,
             title: Text(
-              "Real Estate Detail Screen",
+              "تفاصيل العقار",
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -62,7 +62,7 @@ class RealEstateDetailScreen extends StatelessWidget {
             elevation: 0.0,
             actions: [
               Padding(
-                padding: const EdgeInsets.only(left: 20.0, top: 15.0),
+                padding: const EdgeInsets.only(right: 10.0, top: 15.0),
                 child: InkWell(
                   onTap: () {
                     Navigator.of(context).pop();
@@ -101,7 +101,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
                   child: Text(
-                    "Real Estate for sale",
+                    "شقة للبيع",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: isLandScape
@@ -126,7 +126,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: 'SDG',
+                          text: 'جنيه',
                           style: TextStyle(
                             // fontFamily: "Cairo",
                             color: Colors.red,
@@ -144,7 +144,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                   padding:
                       const EdgeInsets.only(left: 10, right: 10, bottom: 10),
                   child: Text(
-                    "Khartoum,Alriyad , Al mashtal Street",
+                    "الخرطوم الرياض , شارع المشتل",
                     style: TextStyle(
                       // fontFamily: "Cairo",
                       color: Colors.grey.shade700,
@@ -159,9 +159,9 @@ class RealEstateDetailScreen extends StatelessWidget {
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade300,
-                  text: "Type",
+                  text: "النوع",
                   widget: Text(
-                    "Mafrosha",
+                    "مفروشة",
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: isLandScape
@@ -175,7 +175,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade100,
-                  text: "Rooms",
+                  text: "الغرف",
                   widget: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -197,7 +197,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade300,
-                  text: "Halls",
+                  text: "الصالة",
                   widget: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -219,7 +219,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade100,
-                  text: "Bathrooms",
+                  text: "الحمام",
                   widget: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -241,9 +241,9 @@ class RealEstateDetailScreen extends StatelessWidget {
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade300,
-                  text: "Steps",
+                  text: "الدور",
                   widget: Text(
-                    "Under grown",
+                    "الطابق الارضي",
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: isLandScape
@@ -257,9 +257,9 @@ class RealEstateDetailScreen extends StatelessWidget {
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade100,
-                  text: "Real Estate Old",
+                  text: "عمر العقار",
                   widget: Text(
-                    "7 years",
+                    "7 سنوات",
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: isLandScape
@@ -273,42 +273,42 @@ class RealEstateDetailScreen extends StatelessWidget {
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade300,
-                  text: "Ketchen",
+                  text: "المطبخ",
                   widget: Icon(Icons.ring_volume_sharp),
                 ),
                 BuildContainerRowText(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade100,
-                  text: "Parking",
+                  text: "مدخل سيارة",
                   widget: Icon(Icons.ring_volume_sharp),
                 ),
                 BuildContainerRowText(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade300,
-                  text: "Asanser",
+                  text: "مصعد",
                   widget: Icon(Icons.ring_volume_sharp),
                 ),
                 BuildContainerRowText(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade100,
-                  text: "Air Condition",
+                  text: "مكيفات",
                   widget: Icon(Icons.ring_volume_sharp),
                 ),
                 BuildContainerRowText(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade300,
-                  text: "Ketchen",
+                  text: "المطبخ",
                   widget: Icon(Icons.ring_volume_sharp),
                 ),
                 BuildContainerRowText(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade100,
-                  text: "Views",
+                  text: "عدد المشاهدات",
                   widget: Text(
                     "45",
                     style: TextStyle(
@@ -324,9 +324,9 @@ class RealEstateDetailScreen extends StatelessWidget {
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade300,
-                  text: "Adertisment No",
+                  text: "رقم العلان",
                   widget: Text(
-                    "45",
+                    "23",
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: isLandScape
@@ -368,11 +368,12 @@ class RealEstateDetailScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Semiler ADs",
+            "إعلانات مشابهة",
             style: TextStyle(
               color: Colors.grey.shade900,
+              fontWeight: FontWeight.bold,
               fontSize:
-                  isLandScape ? screenUtil.setSp(20) : screenUtil.setSp(50),
+                  isLandScape ? screenUtil.setSp(20) : screenUtil.setSp(45),
               letterSpacing: 1,
             ),
           ),
@@ -410,7 +411,7 @@ class RealEstateDetailScreen extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              "Report",
+              "ابلاغ",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.red,

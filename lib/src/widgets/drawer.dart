@@ -125,7 +125,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     Expanded(
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/file-contract.png",
-                        text: "Add Advertisement",
+                        text: "اضافة إعلان",
                         function: () {
                           Navigator.of(context)
                               .pushNamed(AddAdvertiseScreen.routeName);
@@ -135,7 +135,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     Expanded(
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/home.png",
-                        text: "Home",
+                        text: "الرئيسية",
                         function: () {
                           Navigator.of(context).pushNamed(HomeScreen.routeName);
                         },
@@ -147,21 +147,21 @@ class _AppDrawerState extends State<AppDrawer> {
                   children: [
                     Expanded(
                       child: BuilDraweGridViewItem(
-                        imageUrl: "assets/icons/bestadbertise2.png",
-                        text: "Best Offers",
+                        imageUrl: "assets/icons/buildeing.png",
+                        text: "البناء والمقاولات",
                         function: () {
                           Navigator.of(context)
-                              .pushNamed(EspecialOffersScreen.routeName);
+                              .pushNamed(BuildAndContractors.routeName);
                         },
                       ),
                     ),
                     Expanded(
                       child: BuilDraweGridViewItem(
-                        imageUrl: "assets/icons/buildeing.png",
-                        text: "Buildeing & Contractors",
+                        imageUrl: "assets/icons/bestadbertise2.png",
+                        text: "عروض مميزة",
                         function: () {
                           Navigator.of(context)
-                              .pushNamed(BuildAndContractors.routeName);
+                              .pushNamed(EspecialOffersScreen.routeName);
                         },
                       ),
                     ),
@@ -172,7 +172,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     Expanded(
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/newspaper.png",
-                        text: "Today Ads",
+                        text: "اعلانات اليوم",
                         function: () {
                           Navigator.of(context)
                               .pushNamed(TodayAdsScreen.routeName);
@@ -182,7 +182,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     Expanded(
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/bell.png",
-                        text: "Orders",
+                        text: "الطلبات",
                         function: () {
                           Navigator.of(context)
                               .pushNamed(OrderScreen.routeName);
@@ -196,7 +196,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     Expanded(
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/Star.png",
-                        text: "Best Ads",
+                        text: "المفضلة",
                         function: () {
                           Navigator.of(context)
                               .pushNamed(BestAdsScreen.routeName);
@@ -206,7 +206,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     Expanded(
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/money-bill-wave-alt.png",
-                        text: "Ads Payed",
+                        text: "رسوم الاعلان",
                       ),
                     ),
                   ],
@@ -216,7 +216,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     Expanded(
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/other.png",
-                        text: "Blog",
+                        text: "المدونة",
                       ),
                     ),
                   ],

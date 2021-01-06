@@ -32,7 +32,10 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
-        title: Text("Real Estates"),
+        title: Text(
+          "العقارات",
+          style: TextStyle(fontSize: 15),
+        ),
       ),
       body: CustomScrollView(
         slivers: [
@@ -49,26 +52,26 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      _buildTapSelector(
+                        mediaQuery / 4,
+                        "الاحدث",
+                        0,
+                      ),
+                      _buildTapSelector(
+                        mediaQuery / 4,
+                        "السعر",
+                        1,
+                      ),
+                      _buildTapSelector(
+                        mediaQuery / 4,
+                        "المساحة",
+                        2,
+                      ),
                       Expanded(
                         child: IconButton(
                           icon: Icon(Icons.search),
                           onPressed: () {},
                         ),
-                      ),
-                      _buildTapSelector(
-                        mediaQuery / 4,
-                        "Newest",
-                        0,
-                      ),
-                      _buildTapSelector(
-                        mediaQuery / 4,
-                        "Price",
-                        1,
-                      ),
-                      _buildTapSelector(
-                        mediaQuery / 4,
-                        "Area",
-                        2,
                       ),
                     ],
                   ),
@@ -91,9 +94,9 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
                         DropdownButtonHideUnderline(
                           child: DropdownButton(
                             items: [
-                              DropdownMenuItem(child: Text("Apartment")),
-                              DropdownMenuItem(child: Text("Home")),
-                              DropdownMenuItem(child: Text("Building")),
+                              DropdownMenuItem(child: Text("عمارة")),
+                              DropdownMenuItem(child: Text("شقق")),
+                              DropdownMenuItem(child: Text("منزل")),
                             ],
                             onChanged: (value) {},
                           ),
@@ -144,6 +147,7 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
                     text,
                     style: TextStyle(
                       color: Colors.white,
+                      fontSize: 12,
                     ),
                   ),
                 ),
@@ -163,6 +167,7 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
                     text,
                     style: TextStyle(
                       color: Colors.grey.shade700,
+                      fontSize: 12,
                     ),
                   ),
                 ),
@@ -218,7 +223,7 @@ class Price extends StatelessWidget {
             right: 4,
           ),
           child: Center(
-            child: Text("Price"),
+            child: Text("السعر"),
           ),
         ),
         childCount: 30,

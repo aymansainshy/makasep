@@ -6,47 +6,47 @@ class CategoriesProvider with ChangeNotifier {
   final List<Category> _categoryList = [
     Category(
       id: "1",
-      title: "All",
+      title: "الكل",
       imageUrl: "assets/icons/home.png",
     ),
     Category(
       id: "2",
-      title: "Selling ",
+      title: "عرض - بيع ",
       imageUrl: "assets/icons/selling.png",
     ),
     Category(
       id: "3",
-      title: "Buying",
+      title: "شراء",
       imageUrl: "assets/icons/buying.png",
     ),
     Category(
       id: "4",
-      title: "Business",
+      title: "استثمار",
       imageUrl: "assets/icons/business.png",
     ),
     Category(
       id: "5",
-      title: "Renting",
+      title: "ايجار",
       imageUrl: "assets/icons/balance.png",
     ),
     Category(
       id: "6",
-      title: "Khlo Taraf",
+      title: "تقبيل - خلو طرف",
       imageUrl: "assets/icons/key.png",
     ),
     Category(
       id: "7",
-      title: "Building",
+      title: "البناء والمقاولات",
       imageUrl: "assets/icons/build.png",
     ),
     Category(
       id: "8",
-      title: "Important",
+      title: "مواقع مهمة",
       imageUrl: "assets/icons/important.png",
     ),
     Category(
       id: "9",
-      title: "Others",
+      title: "أخرى",
       imageUrl: "assets/icons/plus.png",
     ),
   ];

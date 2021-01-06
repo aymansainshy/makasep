@@ -60,7 +60,7 @@ class CategoryItem extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.grey.shade600,
                   fontWeight: FontWeight.bold,
-                  fontSize: screenUtil.setSp(40),
+                  fontSize: screenUtil.setSp(35),
                 ),
               ),
             ),
