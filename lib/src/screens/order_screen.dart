@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/app_constant.dart';
-import '../widgets/drawer.dart';
+// import '../widgets/drawer.dart';
 
 class OrderScreen extends StatelessWidget {
   static const routeName = "/order-screen";
@@ -18,7 +18,7 @@ class OrderScreen extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
       key: _scaffoldKey,
-      drawer: AppDrawer(),
+      // drawer: AppDrawer(),
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
@@ -29,7 +29,13 @@ class OrderScreen extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Text("الطلبات"),
+        child: Text(
+          "لا يوجد لديك طلبات سابقة ",
+          style: TextStyle(
+            color: Colors.grey[800],
+            fontSize: 18,
+          ),
+        ),
       ),
     );
   }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/app_constant.dart';
-import '../widgets/drawer.dart';
+import '../widgets/real_estate_item.dart';
+// import '../widgets/drawer.dart';
 
 class EspecialOffersScreen extends StatelessWidget {
   static const routeName = "/especial-offers-screen";
@@ -17,7 +18,7 @@ class EspecialOffersScreen extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
       key: _scaffoldKey,
-      drawer: AppDrawer(),
+      // drawer: AppDrawer(),
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
@@ -27,8 +28,19 @@ class EspecialOffersScreen extends StatelessWidget {
           style: TextStyle(fontSize: 15),
         ),
       ),
-      body: Center(
-        child: Text("عروض مميزة"),
+      body: Container(
+        padding: EdgeInsets.only(
+          top: 10,
+          left: 4,
+          right: 4,
+        ),
+        child: ListView.builder(
+          itemCount: 3,
+          itemBuilder: (context, index) => RealEstateItem(
+            screenUtil: screenUtil,
+            isLandScape: isLandScape,
+          ),
+        ),
       ),
     );
   }

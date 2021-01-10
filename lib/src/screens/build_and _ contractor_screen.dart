@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/app_constant.dart';
-import '../widgets/drawer.dart';
+// import '../widgets/drawer.dart';
 
 class BuildAndContractors extends StatelessWidget {
   static const routeName = "/build-and-contractor-screen";
@@ -17,7 +17,7 @@ class BuildAndContractors extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
       key: _scaffoldKey,
-      drawer: AppDrawer(),
+      // drawer: AppDrawer(),
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
