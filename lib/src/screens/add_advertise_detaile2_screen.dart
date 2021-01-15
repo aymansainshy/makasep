@@ -3,11 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/categories_provider.dart';
-import '../screens/add_advertise_detailes_screen.dart';
 import '../utils/app_constant.dart';
 
-class AddAdvertiseLocationScreen extends StatelessWidget {
-  static const routeName = "/add-advertise-location-screen";
+class AddAdvertiseDetaile2Screen extends StatelessWidget {
+  static const routeName = "/add-advertise-detaile2-screen";
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -21,30 +20,21 @@ class AddAdvertiseLocationScreen extends StatelessWidget {
         Provider.of<CategoriesProvider>(context, listen: false);
     return Scaffold(
       key: _scaffoldKey,
-      // drawer: AppDrawer(),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.primaryColor,
-        onPressed: () {
-          Navigator.of(context).pushNamed(AddAdvertiseDetaileScreen.routeName);
-        },
-        child: Text("استمرار"),
-      ),
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         elevation: 0.0,
         title: Text(
-          "3 اضافة اعلان",
+          " ادخل تفاصيل الاعلان 5",
           style: TextStyle(fontSize: 15),
         ),
       ),
       body: Container(
-        color: Colors.blueAccent,
         child: Center(
           child: Text(
-            "اضافة موقع للاعلان من الخريطة ",
+            "اادخل تفاصيل الاعلان 5",
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
         ),

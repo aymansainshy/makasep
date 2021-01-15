@@ -1,5 +1,7 @@
 import '../screens/build_and _ contractor_screen.dart';
 import '../screens/add_advertise_location_screen.dart';
+import '../screens/add_advertise_detailes_screen.dart';
+import '../screens/add_advertise_detaile2_screen.dart';
 import '../screens/real_estate_detail_screen.dart';
 import '../screens/add_advertise_role_screen.dart';
 import '../screens/add_advertise_photo_screen.dart';
@@ -26,6 +28,9 @@ var routs = {
   EspecialOffersScreen.routeName: (context) => EspecialOffersScreen(),
   RealEstateDetailScreen.routeName: (context) => RealEstateDetailScreen(),
   AddAdvertiseRoleScreen.routeName: (context) => AddAdvertiseRoleScreen(),
+  AddAdvertiseDetaileScreen.routeName: (context) => AddAdvertiseDetaileScreen(),
+  AddAdvertiseDetaile2Screen.routeName: (context) =>
+      AddAdvertiseDetaile2Screen(),
   AddAdvertisePhontoScreen.routeName: (context) => AddAdvertisePhontoScreen(),
   AddAdvertiseLocationScreen.routeName: (context) =>
       AddAdvertiseLocationScreen(),
