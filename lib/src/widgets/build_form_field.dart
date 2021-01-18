@@ -11,9 +11,12 @@ class BuilFormField extends StatefulWidget {
   final TextInputAction textInputAction;
   final FocusNode focusNode;
   final double contentPadding;
+  final String hintText;
+  final TextStyle hintStyle;
   final TextEditingController controller;
   final bool obscureText;
   final String initialValue;
+  final int maxLines;
 
   const BuilFormField({
     Key key,
@@ -21,11 +24,14 @@ class BuilFormField extends StatefulWidget {
     @required this.contentPadding,
     @required this.keyboardType,
     @required this.validator,
-    @required this.fieldName,
+    this.fieldName,
+    this.hintStyle,
+    this.hintText,
     this.prefixIcon,
     this.initialValue,
     this.onFieldSubmitted,
     this.onSaved,
+    this.maxLines,
     this.focusNode,
     this.controller,
     this.obscureText = false,
@@ -43,6 +49,8 @@ class _BuilFormFieldState extends State<BuilFormField> {
       decoration: InputDecoration(
         labelText: widget.fieldName,
         suffixIcon: widget.suffixIcon,
+        hintText: widget.hintText,
+        hintStyle: widget.hintStyle,
         filled: true,
         contentPadding: EdgeInsets.all(widget.contentPadding),
         prefixIcon: widget.prefixIcon,
@@ -85,6 +93,7 @@ class _BuilFormFieldState extends State<BuilFormField> {
       onFieldSubmitted: widget.onFieldSubmitted,
       controller: widget.controller,
       obscureText: widget.obscureText,
+      maxLines: widget.maxLines,
     );
   }
 }

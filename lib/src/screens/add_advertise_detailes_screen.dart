@@ -53,16 +53,7 @@ class _AddAdvertiseDetaileScreenState extends State<AddAdvertiseDetaileScreen> {
         margin: EdgeInsets.all(10),
         width: double.infinity,
         height:
-            isLandScape ? screenUtil.setHeight(200) : screenUtil.setHeight(140),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(5),
-          ),
-          border: Border.all(
-            color: AppColors.scondryColor,
-            width: 1.0,
-          ),
-        ),
+            isLandScape ? screenUtil.setHeight(230) : screenUtil.setHeight(150),
         child: RaisedButton(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
@@ -83,6 +74,7 @@ class _AddAdvertiseDetaileScreenState extends State<AddAdvertiseDetaileScreen> {
           },
         ),
       ),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
