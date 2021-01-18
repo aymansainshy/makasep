@@ -31,7 +31,7 @@ class BuilFormField extends StatefulWidget {
     this.initialValue,
     this.onFieldSubmitted,
     this.onSaved,
-    this.maxLines,
+    this.maxLines = 1,
     this.focusNode,
     this.controller,
     this.obscureText = false,
