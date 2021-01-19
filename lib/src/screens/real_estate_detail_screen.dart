@@ -404,7 +404,7 @@ class RealEstateDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _reportContainer() {
+  Container _reportContainer() {
     return Container(
       padding: EdgeInsets.all(10.0),
       margin: EdgeInsets.all(10.0),

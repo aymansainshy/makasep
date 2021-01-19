@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
+import './src/providers/massages_provider.dart';
 import './src/providers/categories_provider.dart';
 import './src/utils/app_routes.dart';
 import './src/utils/app_constant.dart';
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(
           value: CategoriesProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: MassagesProvider(),
         ),
       ],
       child: Consumer<LanguageProvider>(

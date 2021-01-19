@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/app_constant.dart';
+import '../screens/masseges_screen.dart';
 
 class AdvertisInfo extends StatelessWidget {
   final bool isLandScape;
@@ -64,7 +65,10 @@ class AdvertisInfo extends StatelessWidget {
                           ),
                           RaisedButton(
                             color: AppColors.primaryColor,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(MassagesScreen.routeName);
+                            },
                             child: Text(
                               "محادثة",
                               style: TextStyle(

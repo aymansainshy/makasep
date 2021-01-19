@@ -1,3 +1,5 @@
+import 'package:makasep/src/screens/masseges_screen.dart';
+
 import '../screens/build_and _ contractor_screen.dart';
 import '../screens/add_advertise_location_screen.dart';
 import '../screens/add_advertise_detailes_screen.dart';
@@ -21,6 +23,7 @@ var routs = {
   LoginScreen.routeName: (context) => LoginScreen(),
   SignUpScreen.routeName: (context) => SignUpScreen(),
   BestAdsScreen.routeName: (context) => BestAdsScreen(),
+  MassagesScreen.routeName: (context) => MassagesScreen(),
   TodayAdsScreen.routeName: (context) => TodayAdsScreen(),
   RealEstateScreen.routeName: (context) => RealEstateScreen(),
   AddAdvertiseScreen.routeName: (context) => AddAdvertiseScreen(),
