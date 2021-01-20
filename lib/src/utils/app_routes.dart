@@ -1,6 +1,6 @@
 import 'package:makasep/src/screens/masseges_screen.dart';
 
-import '../screens/build_and _ contractor_screen.dart';
+import '../screens/build_and _contractor_screen.dart';
 import '../screens/add_advertise_location_screen.dart';
 import '../screens/add_advertise_detailes_screen.dart';
 import '../screens/add_advertise_detaile2_screen.dart';
