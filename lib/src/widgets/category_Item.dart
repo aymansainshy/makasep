@@ -18,7 +18,9 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(RealEstateScreen.routeName);
+        Navigator.of(context).pushNamed(RealEstateScreen.routeName, arguments: {
+          "catId": category.id,
+        });
       },
       child: Container(
         height: screenUtil.setHeight(400),

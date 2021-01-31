@@ -1,12 +1,10 @@
 import 'package:flutter/foundation.dart';
 
-import '../models/user_model.dart';
-
-class RealEstate {
+class RealEstate with ChangeNotifier {
   final String id;
   final int type; // 1= apartment , 2= normal house ....
-  final User owner;
-  final String area; // 40 * 45 M**2
+  final String owner;
+  final double area; // 40 * 45 M**2
   final double price;
   final String imageUrl;
   final Address address;
@@ -16,7 +14,7 @@ class RealEstate {
 
   RealEstate({
     @required this.id,
-    @required this.type,
+    this.type = 1,
     @required this.area,
     @required this.owner,
     @required this.price,
@@ -37,7 +35,7 @@ class Address {
   Address({
     @required this.lat,
     @required this.lan,
-    @required this.locationDescription,
+    this.locationDescription,
   });
 }
 

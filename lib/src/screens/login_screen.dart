@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:makasep/src/providers/real_states_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/build_form_field.dart';
@@ -23,6 +24,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  // void initState() {
+  //   super.initState();
+  //   Provider.of<RealStatesProvider>(context, listen: false)
+  //       .fetchRealStates("1", "1");
+  // }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);

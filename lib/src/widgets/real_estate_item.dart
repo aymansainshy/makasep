@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:makasep/src/models/real_estate_model.dart';
+import 'package:provider/provider.dart';
 
 import '../screens/real_estate_detail_screen.dart';
 import '../utils/app_constant.dart';
@@ -21,6 +23,7 @@ class RealEstateItem extends StatefulWidget {
 class _MealItemState extends State<RealEstateItem> {
   @override
   Widget build(BuildContext context) {
+    final realEstat = Provider.of<RealEstate>(context, listen: false);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed(RealEstateDetailScreen.routeName);
@@ -99,7 +102,7 @@ class _MealItemState extends State<RealEstateItem> {
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: '5,000,000',
+                                  text: "${realEstat.price.toString()}",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: widget.isLandScape
@@ -131,7 +134,9 @@ class _MealItemState extends State<RealEstateItem> {
                         Transform.translate(
                           offset: Offset(0, -5),
                           child: Text(
-                            "4 غرف , 1 صالة , 2 حمام",
+                            "${realEstat.details.rooms} غرف - ${realEstat.details.hall} صالة - ${realEstat.details.bathroom} حمام",
+
+                            // "4 غرف , 1 صالة , 2 حمام",
                             style: TextStyle(
                               color: Colors.grey.shade800,
                               fontSize: widget.isLandScape
@@ -143,7 +148,8 @@ class _MealItemState extends State<RealEstateItem> {
                         Transform.translate(
                           offset: Offset(0, -5),
                           child: Text(
-                            "الخرطوم الرياض , شارع المشتل ",
+                            "${realEstat.description}",
+                            // "الخرطوم الرياض , شارع المشتل ",
                             style: TextStyle(
                               color: Colors.grey.shade800,
                               fontSize: widget.isLandScape

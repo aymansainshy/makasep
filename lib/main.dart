@@ -10,6 +10,7 @@ import './src/lang/language_provider.dart';
 import './src/lang/app_locelazation.dart';
 import './src/screens/animated_splash_screen.dart';
 import './src/screens/login_screen.dart';
+import './src/providers/real_states_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(
           value: MassagesProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: RealStatesProvider(),
         ),
       ],
       child: Consumer<LanguageProvider>(
