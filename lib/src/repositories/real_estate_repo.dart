@@ -1,39 +1,54 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../models/real_estate_model.dart';
 
-class RealStatesProvider with ChangeNotifier {
+class RealEstateRepo {
   Dio dio = Dio();
 
-  List<RealEstate> _realStates = [];
+  ///[CatId, FilterUrl, FilterId] ///////.................
+  ///
+  ///
+  Future<List<RealEstate>> fetchRealStates(
+      String catId, String fliterId, int selectedUrl) async {
+    print("Cat id //////////////  " + catId);
+    print("Filter id //////////////  " + fliterId);
+    print("Selected Url id //////////////  " + selectedUrl.toString());
 
-  List<RealEstate> get realStates => [..._realStates];
+    var url = "";
 
-  Future<void> fetchRealStates(String catId, String fliterId) async {
-    final url = "http://162.0.230.58/api/realEstate/secondry/$fliterId";
+    if (selectedUrl == 0) {
+      url = "http://162.0.230.58/api/realEstate/secondry/$fliterId";
+    }
+    if (selectedUrl == 1) {
+      url = "http://162.0.230.58/api/realEstate/secondry/$fliterId/byPrice";
+    }
+    if (selectedUrl == 2) {
+      url = "http://162.0.230.58/api/realEstate/secondry/$fliterId/bySpace";
+    }
 
+    print("Selected Url String //////////////  " + url.toString());
     print("Start Fetching RealStates ..... ");
-    try {
-      final response = await dio.get(
-        url,
-        queryParameters: {
-          'primary_type_id': catId,
-        },
-        options: Options(
-          sendTimeout: 2000,
-          receiveTimeout: 1000,
-          headers: {
-            'content-type': 'application/json',
-            'Accept': 'application/json',
-          },
-        ),
-      );
-      print("Response Body .. " + response.data.toString());
-      final _respostDate = response.data as List<dynamic>;
 
-      List<RealEstate> _loadedRealStates = [];
-      _respostDate.forEach((e) {
+    final response = await dio.get(
+      url,
+      queryParameters: {
+        'primary_type_id': catId,
+      },
+      options: Options(
+        sendTimeout: 2000,
+        receiveTimeout: 1000,
+        headers: {
+          'content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    );
+    print("Response Body .. " + response.data.toString());
+    final _respostDate = response.data as List<dynamic>;
+
+    List<RealEstate> _loadedRealStates = [];
+    _respostDate.forEach(
+      (e) {
         _loadedRealStates.add(
           RealEstate(
             id: e["id"].toString(),
@@ -63,13 +78,9 @@ class RealStatesProvider with ChangeNotifier {
             ),
           ),
         );
-      });
+      },
+    );
 
-      _realStates = _loadedRealStates;
-      notifyListeners();
-      print("RealState List ...... " + _realStates.toString());
-    } catch (e) {
-      print("Error Massage ......." + e.toString());
-    }
+    return _loadedRealStates;
   }
 }

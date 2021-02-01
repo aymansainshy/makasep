@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:makasep/src/bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/real_estate_item.dart';
-import '../providers/real_states_provider.dart';
 import '../utils/app_constant.dart';
 
 class RealEstateScreen extends StatefulWidget {
@@ -19,44 +20,44 @@ class RealEstateScreen extends StatefulWidget {
 
 class _RealEstateScreenState extends State<RealEstateScreen> {
   List<Widget> _pages;
+  var isInit = true;
 
-  // var catId;
+  String catId;
   int filterStateId = 1;
-  var isInite = true;
+  int _selectedItemIndex = 0;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    if (isInit) {
+      final routArg =
+          ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
+      catId = routArg['catId'];
+      _loadedDate();
+      _pages = [
+        Newest(),
+        Price(),
+        Area(),
+      ];
+    }
+    isInit = false;
+    super.didChangeDependencies();
   }
 
-  int _selectedItemIndex = 0;
+  _loadedDate() async {
+    BlocProvider.of<RealEstatsBlocBloc>(context, listen: false).add(
+      FetchRealEstate(
+        catId: catId,
+        filterId: filterStateId.toString(),
+        selectedUrl: _selectedItemIndex,
+      ),
+    );
+  }
 
   selectedFilter(int val) {
     setState(() {
       filterStateId = val;
     });
-  }
-
-  @override
-  void didChangeDependencies() {
-    if (isInite) {
-      final routArg =
-          ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
-      final catId = routArg["catId"];
-      _pages = [
-        Newest(
-          catId: catId,
-          filter: filterStateId,
-          fun: selectedFilter,
-        ),
-        Price(),
-        Area(),
-      ];
-    }
-    setState(() {
-      isInite = false;
-    });
-    super.didChangeDependencies();
+    _loadedDate();
   }
 
   @override
@@ -71,19 +72,7 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
           style: TextStyle(fontSize: 15),
         ),
       ),
-      body:
-
-          //  CustomScrollView(
-          //     slivers: [
-          //       SliverAppBar(
-          //         automaticallyImplyLeading: false,
-          //         pinned: true,
-          //         elevation: 0.0,
-          //         collapsedHeight: 115,
-          //         backgroundColor: Colors.white,
-          //         flexibleSpace: Padding(
-          //           padding: const EdgeInsets.all(8.0),
-          Column(
+      body: Column(
         children: [
           SafeArea(
             child: Column(
@@ -118,18 +107,6 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
                   padding: const EdgeInsets.only(left: 10),
                   child: Row(
                     children: [
-                      // DropdownButtonHideUnderline(
-                      //   child: DropdownButton(
-                      //     items: [
-                      //       DropdownMenuItem(child: Text("Khartoum")),
-                      //       DropdownMenuItem(child: Text("Bahry")),
-                      //       DropdownMenuItem(child: Text("Omdurman")),
-                      //       DropdownMenuItem(child: Text("Alhaj Yousef")),
-                      //     ],
-                      //     onChanged: (value) {},
-                      //   ),
-                      // ),
-                      SizedBox(width: 5),
                       DropdownButtonHideUnderline(
                         child: DropdownButton(
                           items: [
@@ -172,6 +149,7 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
         setState(() {
           _selectedItemIndex = index;
         });
+        _loadedDate();
       },
       child: Container(
         height: 40,
@@ -236,21 +214,39 @@ class Area extends StatelessWidget {
     ScreenUtil screenUtil = ScreenUtil();
     var isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (context, index) => Container(
-          padding: EdgeInsets.only(
-            top: 10,
-            left: 4,
-            right: 4,
-          ),
-          child: RealEstateItem(
-            screenUtil: screenUtil,
-            isLandScape: isLandScape,
-          ),
-        ),
-        childCount: 25,
-      ),
+    return BlocBuilder<RealEstatsBlocBloc, RealEstatsBlocState>(
+      builder: (context, state) {
+        if (state is RealEstatsLoading) {
+          return Center(
+            child: sleekCircularSlider(
+                context, 40, AppColors.primaryColor, AppColors.scondryColor),
+          );
+        }
+        if (state is RealEstatsError) {
+          return Center(
+            child: Text("An error occurred"),
+          );
+        }
+        if (state is RealEstatsLoaded)
+          return ListView.builder(
+            itemBuilder: (context, index) => Container(
+              padding: EdgeInsets.only(
+                top: 10,
+                left: 4,
+                right: 4,
+              ),
+              child: ChangeNotifierProvider.value(
+                value: state.realEstats[index],
+                child: RealEstateItem(
+                  screenUtil: screenUtil,
+                  isLandScape: isLandScape,
+                ),
+              ),
+            ),
+            itemCount: state.realEstats.length,
+          );
+        return Center(child: Text("Done"));
+      },
     );
   }
 }
@@ -262,33 +258,50 @@ class Price extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (context, index) => Container(
-          padding: EdgeInsets.only(
-            top: 10,
-            left: 4,
-            right: 4,
-          ),
-          child: Center(
-            child: Text("السعر"),
-          ),
-        ),
-        childCount: 30,
-      ),
+    ScreenUtil.init(context);
+    ScreenUtil screenUtil = ScreenUtil();
+    var isLandScape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+    return BlocBuilder<RealEstatsBlocBloc, RealEstatsBlocState>(
+      builder: (context, state) {
+        if (state is RealEstatsLoading) {
+          return Center(
+            child: sleekCircularSlider(
+                context, 40, AppColors.primaryColor, AppColors.scondryColor),
+          );
+        }
+        if (state is RealEstatsError) {
+          return Center(
+            child: Text("An error occurred"),
+          );
+        }
+        if (state is RealEstatsLoaded)
+          return ListView.builder(
+            itemBuilder: (context, index) => Container(
+              padding: EdgeInsets.only(
+                top: 10,
+                left: 4,
+                right: 4,
+              ),
+              child: ChangeNotifierProvider.value(
+                value: state.realEstats[index],
+                child: RealEstateItem(
+                  screenUtil: screenUtil,
+                  isLandScape: isLandScape,
+                ),
+              ),
+            ),
+            itemCount: state.realEstats.length,
+          );
+        return Center(child: Text("Done"));
+      },
     );
   }
 }
 
 class Newest extends StatefulWidget {
-  final String catId;
-  final int filter;
-  final Function fun;
   const Newest({
     Key key,
-    this.catId,
-    this.fun,
-    this.filter,
   }) : super(key: key);
 
   @override
@@ -298,33 +311,24 @@ class Newest extends StatefulWidget {
 class _NewestState extends State<Newest> {
   @override
   Widget build(BuildContext context) {
-    print(" ccccccccccccccccccccc" + widget.catId);
-    print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" +
-        widget.filter.toString());
-
     ScreenUtil.init(context);
     ScreenUtil screenUtil = ScreenUtil();
     var isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
-
-    final realEstate = Provider.of<RealStatesProvider>(context, listen: false);
-    return FutureBuilder(
-      future: Provider.of<RealStatesProvider>(context, listen: false)
-          .fetchRealStates(widget.catId, widget.filter.toString()),
-      builder: (context, snapShot) {
-        if (snapShot.connectionState == ConnectionState.waiting) {
+    return BlocBuilder<RealEstatsBlocBloc, RealEstatsBlocState>(
+      builder: (context, state) {
+        if (state is RealEstatsLoading) {
           return Center(
-            child: Container(
-              height: 20,
-              child: sleekCircularSlider(context, screenUtil.setSp(100),
-                  AppColors.primaryColor, AppColors.scondryColor),
-            ),
+            child: sleekCircularSlider(
+                context, 40, AppColors.primaryColor, AppColors.scondryColor),
           );
-        } else if (snapShot.error != null) {
+        }
+        if (state is RealEstatsError) {
           return Center(
-            child: Text(snapShot.error.toString()),
+            child: Text("An error occurred"),
           );
-        } else {
+        }
+        if (state is RealEstatsLoaded)
           return ListView.builder(
             itemBuilder: (context, index) => Container(
               padding: EdgeInsets.only(
@@ -333,16 +337,16 @@ class _NewestState extends State<Newest> {
                 right: 4,
               ),
               child: ChangeNotifierProvider.value(
-                value: realEstate.realStates[index],
+                value: state.realEstats[index],
                 child: RealEstateItem(
                   screenUtil: screenUtil,
                   isLandScape: isLandScape,
                 ),
               ),
             ),
-            itemCount: realEstate.realStates.length,
+            itemCount: state.realEstats.length,
           );
-        }
+        return Center(child: Text("Done"));
       },
     );
   }

@@ -38,6 +38,9 @@ dependencies:
   url_launcher: ^5.7.10
   dio: ^3.0.10
   sleek_circular_slider: ^1.2.0
+  flutter_bloc: ^6.1.1
+  equatable: ^1.2.3
+
 
 dev_dependencies:
   flutter_test:
