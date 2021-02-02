@@ -80,21 +80,9 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildTapSelector(
-                      mediaQuery / 4,
-                      "الاحدث",
-                      0,
-                    ),
-                    _buildTapSelector(
-                      mediaQuery / 4,
-                      "السعر",
-                      1,
-                    ),
-                    _buildTapSelector(
-                      mediaQuery / 4,
-                      "المساحة",
-                      2,
-                    ),
+                    _buildTapSelector(mediaQuery / 4, "الاحدث", 0),
+                    _buildTapSelector(mediaQuery / 4, "السعر", 1),
+                    _buildTapSelector(mediaQuery / 4, "المساحة", 2),
                     Expanded(
                       child: IconButton(
                         icon: Icon(Icons.search),
@@ -139,11 +127,7 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
     );
   }
 
-  Widget _buildTapSelector(
-    Size mediaQuery,
-    String text,
-    int index,
-  ) {
+  Widget _buildTapSelector(Size mediaQuery, String text, int index) {
     return GestureDetector(
       onTap: () {
         setState(() {
