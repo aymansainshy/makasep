@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:makasep/src/bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
-import 'package:provider/provider.dart';
 
+import '../bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
 import '../widgets/real_estate_item.dart';
 import '../utils/app_constant.dart';
 
@@ -221,13 +221,11 @@ class Area extends StatelessWidget {
             child: sleekCircularSlider(
                 context, 40, AppColors.primaryColor, AppColors.scondryColor),
           );
-        }
-        if (state is RealEstatsError) {
+        } else if (state is RealEstatsError) {
           return Center(
             child: Text("An error occurred"),
           );
-        }
-        if (state is RealEstatsLoaded)
+        } else if (state is RealEstatsLoaded) {
           return ListView.builder(
             itemBuilder: (context, index) => Container(
               padding: EdgeInsets.only(
@@ -245,7 +243,9 @@ class Area extends StatelessWidget {
             ),
             itemCount: state.realEstats.length,
           );
-        return Center(child: Text("Done"));
+        } else {
+          return Center(child: Text("Done"));
+        }
       },
     );
   }
@@ -269,13 +269,11 @@ class Price extends StatelessWidget {
             child: sleekCircularSlider(
                 context, 40, AppColors.primaryColor, AppColors.scondryColor),
           );
-        }
-        if (state is RealEstatsError) {
+        } else if (state is RealEstatsError) {
           return Center(
             child: Text("An error occurred"),
           );
-        }
-        if (state is RealEstatsLoaded)
+        } else if (state is RealEstatsLoaded) {
           return ListView.builder(
             itemBuilder: (context, index) => Container(
               padding: EdgeInsets.only(
@@ -293,7 +291,9 @@ class Price extends StatelessWidget {
             ),
             itemCount: state.realEstats.length,
           );
-        return Center(child: Text("Done"));
+        } else {
+          return Center(child: Text("Done"));
+        }
       },
     );
   }
@@ -322,13 +322,11 @@ class _NewestState extends State<Newest> {
             child: sleekCircularSlider(
                 context, 40, AppColors.primaryColor, AppColors.scondryColor),
           );
-        }
-        if (state is RealEstatsError) {
+        } else if (state is RealEstatsError) {
           return Center(
             child: Text("An error occurred"),
           );
-        }
-        if (state is RealEstatsLoaded)
+        } else if (state is RealEstatsLoaded) {
           return ListView.builder(
             itemBuilder: (context, index) => Container(
               padding: EdgeInsets.only(
@@ -346,7 +344,9 @@ class _NewestState extends State<Newest> {
             ),
             itemCount: state.realEstats.length,
           );
-        return Center(child: Text("Done"));
+        } else {
+          return Center(child: Text("Done"));
+        }
       },
     );
   }

@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
-import 'package:makasep/src/bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
-import 'package:makasep/src/repositories/real_estate_repo.dart';
+import './src/bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
+import './src/repositories/real_estate_repo.dart';
 import './src/providers/massages_provider.dart';
 import './src/providers/categories_provider.dart';
 import './src/utils/app_routes.dart';
@@ -13,7 +13,6 @@ import './src/lang/language_provider.dart';
 import './src/lang/app_locelazation.dart';
 import './src/screens/animated_splash_screen.dart';
 import './src/screens/login_screen.dart';
-import './src/providers/real_states_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,9 +31,6 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(
           value: MassagesProvider(),
-        ),
-        ChangeNotifierProvider.value(
-          value: RealStatesProvider(),
         ),
       ],
       child: BlocProvider(

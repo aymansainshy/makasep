@@ -19,10 +19,14 @@ class RealEstatsBlocBloc
   Stream<RealEstatsBlocState> mapEventToState(
       RealEstatsBlocEvent event) async* {
     if (event is FetchRealEstate) {
-      yield RealEstatsLoading();
-      final List<RealEstate> realEstats = await realEstateRepo.fetchRealStates(
-          event.catId, event.filterId, event.selectedUrl);
-      yield RealEstatsLoaded(realEstats: realEstats);
+      yield* _mapFetchRealEstate(event);
     }
+  }
+
+  Stream<RealEstatsBlocState> _mapFetchRealEstate(event) async* {
+    yield RealEstatsLoading();
+    final List<RealEstate> realEstats = await realEstateRepo.fetchRealStates(
+        event.catId, event.filterId, event.selectedUrl);
+    yield RealEstatsLoaded(realEstats: realEstats);
   }
 }
