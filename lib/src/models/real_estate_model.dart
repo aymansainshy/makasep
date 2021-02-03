@@ -13,16 +13,16 @@ class RealEstate with ChangeNotifier {
   RealEstateDetails details;
 
   RealEstate({
-    this.id,
+    @required this.id,
     this.type = 1,
-    this.area,
-    this.owner,
-    this.price,
-    this.address,
-    this.details,
-    this.imageUrl,
-    this.description,
-    this.categoryType,
+    @required this.area,
+    @required this.owner,
+    @required this.price,
+    @required this.address,
+    @required this.details,
+    @required this.imageUrl,
+    @required this.description,
+    @required this.categoryType,
   });
 }
 
@@ -33,8 +33,8 @@ class Address {
   String locationDescription; // Bahry Shambat block 50
 
   Address({
-    this.lat,
-    this.lan,
+    @required this.lat,
+    @required this.lan,
     this.locationDescription,
   });
 }
@@ -54,16 +54,16 @@ class RealEstateDetails {
   int views;
 
   RealEstateDetails({
-    this.rooms,
-    this.hall,
-    this.bathroom,
-    this.steps,
-    this.old,
-    this.mafrosha,
-    this.ketchen,
-    this.parking,
-    this.elevator,
-    this.airConditioner,
-    this.views,
+    @required this.rooms,
+    @required this.hall,
+    @required this.bathroom,
+    @required this.steps,
+    @required this.old,
+    @required this.mafrosha,
+    @required this.ketchen,
+    @required this.parking,
+    @required this.elevator,
+    @required this.airConditioner,
+    @required this.views,
   });
 }
