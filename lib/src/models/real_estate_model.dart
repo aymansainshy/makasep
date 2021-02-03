@@ -1,69 +1,69 @@
 import 'package:flutter/foundation.dart';
 
 class RealEstate with ChangeNotifier {
-  final String id;
-  final int type; // 1= apartment , 2= normal house ....
-  final String owner;
-  final double area; // 40 * 45 M**2
-  final double price;
-  final String imageUrl;
-  final Address address;
-  final String description;
-  final String categoryType; //1 - all, 2 - Selling .....
-  final RealEstateDetails details;
+  String id;
+  int type; // 1= apartment , 2= normal house ....
+  String owner;
+  double area; // 40 * 45 M**2
+  double price;
+  String imageUrl;
+  Address address;
+  String description;
+  String categoryType; //1 - all, 2 - Selling .....
+  RealEstateDetails details;
 
   RealEstate({
-    @required this.id,
+    this.id,
     this.type = 1,
-    @required this.area,
-    @required this.owner,
-    @required this.price,
-    @required this.address,
-    @required this.details,
-    @required this.imageUrl,
-    @required this.description,
-    @required this.categoryType,
+    this.area,
+    this.owner,
+    this.price,
+    this.address,
+    this.details,
+    this.imageUrl,
+    this.description,
+    this.categoryType,
   });
 }
 
 /// [ Real State Address ] ............................
 class Address {
-  final double lat;
-  final double lan;
-  final String locationDescription; // Bahry Shambat block 50
+  double lat;
+  double lan;
+  String locationDescription; // Bahry Shambat block 50
 
   Address({
-    @required this.lat,
-    @required this.lan,
+    this.lat,
+    this.lan,
     this.locationDescription,
   });
 }
 
 /// [ Real State Details ] ............................
 class RealEstateDetails {
-  final int rooms;
-  final int hall;
-  final int bathroom;
-  final int steps;
-  final String old;
-  final bool mafrosha; //mafroshaa
-  final bool ketchen;
-  final bool parking;
-  final bool elevator; //misaad - asanser
-  final bool airConditioner;
-  final int views;
+  int rooms;
+  int hall = 1;
+  int bathroom;
+  int steps;
+  String old;
+  bool mafrosha; //mafroshaa
+  bool ketchen;
+  bool parking;
+  bool elevator; //misaad - asanser
+  bool airConditioner;
+  int views;
 
   RealEstateDetails({
-    @required this.rooms,
-    @required this.hall,
-    @required this.bathroom,
-    @required this.steps,
-    @required this.old,
-    @required this.mafrosha,
-    @required this.ketchen,
-    @required this.parking,
-    @required this.elevator,
-    @required this.airConditioner,
-    @required this.views,
+    this.rooms,
+    this.hall,
+    this.bathroom,
+    this.steps,
+    this.old,
+    this.mafrosha,
+    this.ketchen,
+    this.parking,
+    this.elevator,
+    this.airConditioner,
+    this.views,
   });
 }

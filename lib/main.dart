@@ -4,6 +4,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import './src/bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
+import './src/bloc/post_real_estate_bloc/post_real_estate_bloc.dart';
+import './src/providers/modifid_real_estate_provider.dart';
 import './src/repositories/real_estate_repo.dart';
 import './src/providers/massages_provider.dart';
 import './src/providers/categories_provider.dart';
@@ -32,10 +34,21 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: MassagesProvider(),
         ),
+        ChangeNotifierProvider.value(
+          value: ModifiedRealEstat(),
+        ),
       ],
-      child: BlocProvider(
-        create: (context) =>
-            RealEstatsBlocBloc(realEstateRepo: RealEstateRepo()),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<RealEstatsBlocBloc>(
+            create: (context) => RealEstatsBlocBloc(
+              realEstateRepo: RealEstateRepo(),
+            ),
+          ),
+          BlocProvider<PostRealEstateBloc>(
+            create: (context) => PostRealEstateBloc(),
+          ),
+        ],
         child: Consumer<LanguageProvider>(
           builder: (context, languageProvider, _) => FutureBuilder(
             future: languageProvider.fetchLocale(),

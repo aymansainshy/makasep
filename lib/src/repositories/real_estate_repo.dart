@@ -83,4 +83,42 @@ class RealEstateRepo {
 
     return _loadedRealStates;
   }
+
+  RealEstate _realEstate = RealEstate(
+    id: "",
+    area: 0.0,
+    categoryType: "",
+    description: "",
+    imageUrl: "",
+    owner: "",
+    price: 0.0,
+    type: 1,
+    address: Address(
+      lan: 0.0,
+      lat: 0.0,
+      locationDescription: "",
+    ),
+    details: RealEstateDetails(
+      bathroom: 1,
+      hall: 2,
+      old: "",
+      rooms: 1,
+      steps: 1,
+      views: 0,
+      elevator: false,
+      ketchen: false,
+      mafrosha: false,
+      parking: false,
+      airConditioner: false,
+    ),
+  );
+
+  RealEstate get realEstate => _realEstate;
+
+  void setRealEstateHall(int hallCount) {
+    _realEstate.details.hall = hallCount;
+
+    print(" <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< " +
+        _realEstate.details.hall.toString());
+  }
 }

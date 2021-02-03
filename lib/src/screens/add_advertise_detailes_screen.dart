@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/categories_provider.dart';
+import '../providers/modifid_real_estate_provider.dart';
 import '../screens/add_advertise_detaile2_screen.dart';
 import '../utils/app_constant.dart';
 
@@ -17,17 +18,6 @@ class AddAdvertiseDetaileScreen extends StatefulWidget {
 class _AddAdvertiseDetaileScreenState extends State<AddAdvertiseDetaileScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  double hallCount = 1;
-  double bathRoomCount = 1;
-  double roomCount = 1;
-  double stepsCount = 1;
-  double realStateOldCount = 1;
-  bool mafrosha = false; //mafroshaa
-  bool ketchen = false;
-  bool parking = false;
-  bool elevator = false; //misaad - asanser
-  bool airConditioner = false;
-
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
@@ -37,6 +27,7 @@ class _AddAdvertiseDetaileScreenState extends State<AddAdvertiseDetaileScreen> {
         MediaQuery.of(context).orientation == Orientation.landscape;
     final categoriesProvider =
         Provider.of<CategoriesProvider>(context, listen: false);
+
     return Scaffold(
       key: _scaffoldKey,
       // drawer: AppDrawer(),
@@ -78,70 +69,86 @@ class _AddAdvertiseDetaileScreenState extends State<AddAdvertiseDetaileScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DrawSlider(
-                text: "الصالات",
-                isLandScape: isLandScape,
-                screenUtil: screenUtil,
-                counter: hallCount,
-              ),
-              DrawSlider(
-                text: "عدد دورات المياه",
-                isLandScape: isLandScape,
-                screenUtil: screenUtil,
-                counter: bathRoomCount,
-              ),
-              DrawSlider(
-                text: "الغرف",
-                isLandScape: isLandScape,
-                screenUtil: screenUtil,
-                counter: roomCount,
-              ),
-              DrawSlider(
-                text: "الدور",
-                isLandScape: isLandScape,
-                screenUtil: screenUtil,
-                counter: stepsCount,
-              ),
-              DrawSlider(
-                text: "عمر العقار اقل من ",
-                isLandScape: isLandScape,
-                screenUtil: screenUtil,
-                counter: realStateOldCount,
-              ),
-              DrawSwitcher(
-                text: "مفروشة",
-                isLandScape: isLandScape,
-                screenUtil: screenUtil,
-                boolStatus: mafrosha,
-              ),
-              DrawSwitcher(
-                text: "مطبخ",
-                isLandScape: isLandScape,
-                screenUtil: screenUtil,
-                boolStatus: ketchen,
-              ),
-              DrawSwitcher(
-                  text: "مدخل سيارة",
-                  isLandScape: isLandScape,
-                  screenUtil: screenUtil,
-                  boolStatus: parking),
-              DrawSwitcher(
-                text: "مكيفات هواء",
-                isLandScape: isLandScape,
-                screenUtil: screenUtil,
-                boolStatus: airConditioner,
-              ),
-              DrawSwitcher(
-                text: "مصعد + ${elevator.toString()}",
-                isLandScape: isLandScape,
-                screenUtil: screenUtil,
-                boolStatus: elevator,
-              ),
-              SizedBox(height: 5),
-            ],
+          child: Consumer<ModifiedRealEstat>(
+            builder: (context, realEstateProvider, child) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DrawSlider(
+                    text: "الصالات",
+                    isLandScape: isLandScape,
+                    screenUtil: screenUtil,
+                    counter:
+                        realEstateProvider.reatEstate.details.hall.toDouble(),
+                    func: (double value) {
+                      realEstateProvider.changHalls(value.toInt());
+                    },
+                  ),
+                  // DrawSlider(
+                  //   text: "عدد دورات المياه",
+                  //   isLandScape: isLandScape,
+                  //   screenUtil: screenUtil,
+                  //   counter: bathRoomCount,
+                  // ),
+                  DrawSlider(
+                    text: "الغرف",
+                    isLandScape: isLandScape,
+                    screenUtil: screenUtil,
+                    counter:
+                        realEstateProvider.reatEstate.details.rooms.toDouble(),
+                    func: (double value) {
+                      realEstateProvider.changRooms(value.toInt());
+                    },
+                  ),
+                  // DrawSlider(
+                  //   text: "الدور",
+                  //   isLandScape: isLandScape,
+                  //   screenUtil: screenUtil,
+                  //   counter: stepsCount,
+                  // ),
+                  // DrawSlider(
+                  //   text: "عمر العقار اقل من ",
+                  //   isLandScape: isLandScape,
+                  //   screenUtil: screenUtil,
+                  //   counter: realStateOldCount,
+                  // ),
+                  // DrawSwitcher(
+                  //   text: "مفروشة",
+                  //   isLandScape: isLandScape,
+                  //   screenUtil: screenUtil,
+                  //   boolStatus: mafrosha,
+                  // ),
+                  // DrawSwitcher(
+                  //   text: "مطبخ",
+                  //   isLandScape: isLandScape,
+                  //   screenUtil: screenUtil,
+                  //   boolStatus: ketchen,
+                  // ),
+                  // DrawSwitcher(
+                  //     text: "مدخل سيارة",
+                  //     isLandScape: isLandScape,
+                  //     screenUtil: screenUtil,
+                  //     boolStatus: parking),
+                  // DrawSwitcher(
+                  //   text: "مكيفات هواء",
+                  //   isLandScape: isLandScape,
+                  //   screenUtil: screenUtil,
+                  //   boolStatus: airConditioner,
+                  // ),
+                  DrawSwitcher(
+                    text:
+                        "مصعد + ${realEstateProvider.reatEstate.details.elevator}",
+                    isLandScape: isLandScape,
+                    screenUtil: screenUtil,
+                    boolStatus: realEstateProvider.reatEstate.details.elevator,
+                    func: (bool value) {
+                      realEstateProvider.isElevator(value);
+                    },
+                  ),
+                  SizedBox(height: 5),
+                ],
+              );
+            },
           ),
         ),
       ),
@@ -150,25 +157,22 @@ class _AddAdvertiseDetaileScreenState extends State<AddAdvertiseDetaileScreen> {
 }
 
 // ignore: must_be_immutable
-class DrawSwitcher extends StatefulWidget {
+class DrawSwitcher extends StatelessWidget {
   DrawSwitcher({
     Key key,
     @required this.isLandScape,
     @required this.screenUtil,
     @required this.boolStatus,
     @required this.text,
+    @required this.func,
   }) : super(key: key);
 
   final ScreenUtil screenUtil;
   final bool isLandScape;
   bool boolStatus;
   final String text;
+  final func;
 
-  @override
-  _DrawSwitcherState createState() => _DrawSwitcherState();
-}
-
-class _DrawSwitcherState extends State<DrawSwitcher> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -177,11 +181,10 @@ class _DrawSwitcherState extends State<DrawSwitcher> {
         Transform.translate(
           offset: Offset(-15, 0),
           child: Text(
-            widget.text,
+            text,
             style: TextStyle(
-              fontSize: widget.isLandScape
-                  ? widget.screenUtil.setSp(20)
-                  : widget.screenUtil.setSp(40),
+              fontSize:
+                  isLandScape ? screenUtil.setSp(20) : screenUtil.setSp(40),
               fontWeight: FontWeight.bold,
               color: Colors.grey.shade800,
             ),
@@ -190,12 +193,8 @@ class _DrawSwitcherState extends State<DrawSwitcher> {
         Transform.translate(
           offset: Offset(10, 0),
           child: Switch.adaptive(
-            value: widget.boolStatus,
-            onChanged: (value) {
-              setState(() {
-                widget.boolStatus = value;
-              });
-            },
+            value: boolStatus,
+            onChanged: func,
           ),
         )
       ],
@@ -204,25 +203,22 @@ class _DrawSwitcherState extends State<DrawSwitcher> {
 }
 
 // ignore: must_be_immutable
-class DrawSlider extends StatefulWidget {
+class DrawSlider extends StatelessWidget {
   DrawSlider({
     Key key,
     @required this.isLandScape,
     @required this.screenUtil,
     @required this.counter,
     @required this.text,
+    @required this.func,
   }) : super(key: key);
 
   final bool isLandScape;
   final ScreenUtil screenUtil;
   double counter;
   final String text;
+  final Function func;
 
-  @override
-  _DrawSliderState createState() => _DrawSliderState();
-}
-
-class _DrawSliderState extends State<DrawSlider> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -232,22 +228,20 @@ class _DrawSliderState extends State<DrawSlider> {
           child: Row(
             children: [
               Text(
-                widget.text,
+                text,
                 style: TextStyle(
-                  fontSize: widget.isLandScape
-                      ? widget.screenUtil.setSp(20)
-                      : widget.screenUtil.setSp(40),
+                  fontSize:
+                      isLandScape ? screenUtil.setSp(20) : screenUtil.setSp(40),
                   fontWeight: FontWeight.bold,
                   color: Colors.grey.shade800,
                 ),
               ),
               SizedBox(width: 10),
               Text(
-                "${widget.counter.toInt()}",
+                "${counter.toInt()}",
                 style: TextStyle(
-                  fontSize: widget.isLandScape
-                      ? widget.screenUtil.setSp(20)
-                      : widget.screenUtil.setSp(40),
+                  fontSize:
+                      isLandScape ? screenUtil.setSp(20) : screenUtil.setSp(40),
                   fontWeight: FontWeight.bold,
                   color: Colors.grey.shade800,
                 ),
@@ -268,16 +262,12 @@ class _DrawSliderState extends State<DrawSlider> {
             ),
           ),
           child: Slider.adaptive(
-            label: widget.counter.toInt().toString(),
-            value: widget.counter,
+            label: counter.toInt().toString(),
+            value: counter,
             min: 1,
             max: 10,
             divisions: 10,
-            onChanged: (value) {
-              setState(() {
-                widget.counter = value;
-              });
-            },
+            onChanged: func,
           ),
         ),
       ],
