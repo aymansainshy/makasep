@@ -22,6 +22,8 @@ class RealEstatsBlocBloc
       yield* _mapFetchRealEstate(event);
     } else if (event is FetchSamilerRealEstate) {
       yield* _mapFetchSemilerRealEstate(event);
+    } else if (event is FetchSpecialRealEstate) {
+      yield* _mapFetchEspecialRealEstate(event);
     }
   }
 
@@ -38,6 +40,14 @@ class RealEstatsBlocBloc
     yield RealEstatsLoading();
     final List<RealEstate> realEstats =
         await realEstateRepo.fetchSemilerRealStates(event.realEstateId);
+    yield RealEstatsLoaded(realEstats: realEstats);
+  }
+
+  Stream<RealEstatsBlocState> _mapFetchEspecialRealEstate(
+      FetchSpecialRealEstate event) async* {
+    yield RealEstatsLoading();
+    final List<RealEstate> realEstats =
+        await realEstateRepo.fetchEspecialRealStates();
     yield RealEstatsLoaded(realEstats: realEstats);
   }
 }

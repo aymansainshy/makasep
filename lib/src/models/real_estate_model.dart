@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class RealEstate with ChangeNotifier {
+class RealEstate {
   String id;
   int type; // 1= apartment , 2= normal house ....
   String owner;
