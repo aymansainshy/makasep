@@ -57,7 +57,7 @@ class EspecialOffersScreen extends StatelessWidget {
             } else if (state is RealEstatsLoaded) {
               if (state.realEstats.isEmpty) {
                 return Center(
-                  child: Text("عفوا لا يوجد بيانات لهذا النوع"),
+                  child: Text("عفوا لا يوجد عروض مميزة"),
                 );
               }
               return ListView.builder(

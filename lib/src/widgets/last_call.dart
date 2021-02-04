@@ -42,7 +42,7 @@ class LastCall extends StatelessWidget {
           } else if (state is RealEstatsLoaded) {
             if (state.realEstats.isEmpty) {
               return Center(
-                child: Text("عفوا لايوجد اعلانات مفضلة لهذا اليوم"),
+                child: Text("عفوا لايوجد اعلانات  لهذا اليوم"),
               );
             }
             return ListView.builder(

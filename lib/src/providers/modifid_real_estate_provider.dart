@@ -33,8 +33,37 @@ class ModifiedRealEstat with ChangeNotifier {
 
   RealEstate get reatEstate => _realEstate;
 
+  void setArea(double area) {
+    _realEstate.area = area;
+    notifyListeners();
+  }
+
+  void setDescription(String description) {
+    _realEstate.description = description;
+    notifyListeners();
+  }
+
+  void setPrice(double price) {
+    _realEstate.price = price;
+    notifyListeners();
+  }
+
+  void setType(int typeId) {
+    _realEstate.type = typeId;
+    notifyListeners();
+  }
+
+  void setAdress() {
+    notifyListeners();
+  }
+
   void changHalls(int hall) {
     _realEstate.details.hall = hall;
+    notifyListeners();
+  }
+
+  void setBathRooms(int bathroom) {
+    _realEstate.details.bathroom = bathroom;
     notifyListeners();
   }
 
@@ -43,8 +72,38 @@ class ModifiedRealEstat with ChangeNotifier {
     notifyListeners();
   }
 
+  void setOld(String old) {
+    _realEstate.details.old = old;
+    notifyListeners();
+  }
+
+  void setSteps(int steps) {
+    _realEstate.details.steps = steps;
+    notifyListeners();
+  }
+
   void isElevator(bool isElevator) {
     _realEstate.details.elevator = isElevator;
+    notifyListeners();
+  }
+
+  void isKetchen(bool isKetchen) {
+    _realEstate.details.ketchen = isKetchen;
+    notifyListeners();
+  }
+
+  void isMafroshe(bool isMafroshe) {
+    _realEstate.details.mafrosha = isMafroshe;
+    notifyListeners();
+  }
+
+  void isParking(bool isParking) {
+    _realEstate.details.parking = isParking;
+    notifyListeners();
+  }
+
+  void isAirConditions(bool isconditions) {
+    _realEstate.details.airConditioner = isconditions;
     notifyListeners();
   }
 }
