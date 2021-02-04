@@ -222,6 +222,12 @@ class Area extends StatelessWidget {
             child: Text("An error occurred"),
           );
         } else if (state is RealEstatsLoaded) {
+          if (state.realEstats.isEmpty) {
+            return Center(
+              child: Text("عفوا لا يوجد بيانات لهذا النوع"),
+            );
+          }
+
           return ListView.builder(
             itemBuilder: (context, index) => Container(
               padding: EdgeInsets.only(
@@ -268,6 +274,11 @@ class Price extends StatelessWidget {
             child: Text("An error occurred"),
           );
         } else if (state is RealEstatsLoaded) {
+          if (state.realEstats.isEmpty) {
+            return Center(
+              child: Text("عفوا لا يوجد بيانات لهذا النوع"),
+            );
+          }
           return ListView.builder(
             itemBuilder: (context, index) => Container(
               padding: EdgeInsets.only(
@@ -319,6 +330,11 @@ class _NewestState extends State<Newest> {
             child: Text("An error occurred"),
           );
         } else if (state is RealEstatsLoaded) {
+          if (state.realEstats.isEmpty) {
+            return Center(
+              child: Text("عفوا لا يوجد بيانات لهذا النوع"),
+            );
+          }
           return ListView.builder(
             itemBuilder: (context, index) => Container(
               padding: EdgeInsets.only(

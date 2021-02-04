@@ -50,6 +50,10 @@ class EspecialOffersScreen extends StatelessWidget {
                 child: sleekCircularSlider(context, 40, AppColors.primaryColor,
                     AppColors.scondryColor),
               );
+            } else if (state is RealEstatsError) {
+              return Center(
+                child: Text("An error occurred"),
+              );
             } else if (state is RealEstatsLoaded) {
               if (state.realEstats.isEmpty) {
                 return Center(
