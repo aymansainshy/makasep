@@ -84,12 +84,16 @@ class _AddAdvertiseDetaileScreenState extends State<AddAdvertiseDetaileScreen> {
                       realEstateProvider.changHalls(value.toInt());
                     },
                   ),
-                  // DrawSlider(
-                  //   text: "عدد دورات المياه",
-                  //   isLandScape: isLandScape,
-                  //   screenUtil: screenUtil,
-                  //   counter: bathRoomCount,
-                  // ),
+                  DrawSlider(
+                    text: "عدد دورات المياه",
+                    isLandScape: isLandScape,
+                    screenUtil: screenUtil,
+                    counter: realEstateProvider.reatEstate.details.bathroom
+                        .toDouble(),
+                    func: (double value) {
+                      realEstateProvider.setBathRooms(value.toInt());
+                    },
+                  ),
                   DrawSlider(
                     text: "الغرف",
                     isLandScape: isLandScape,
@@ -100,41 +104,63 @@ class _AddAdvertiseDetaileScreenState extends State<AddAdvertiseDetaileScreen> {
                       realEstateProvider.changRooms(value.toInt());
                     },
                   ),
-                  // DrawSlider(
-                  //   text: "الدور",
-                  //   isLandScape: isLandScape,
-                  //   screenUtil: screenUtil,
-                  //   counter: stepsCount,
-                  // ),
-                  // DrawSlider(
-                  //   text: "عمر العقار اقل من ",
-                  //   isLandScape: isLandScape,
-                  //   screenUtil: screenUtil,
-                  //   counter: realStateOldCount,
-                  // ),
-                  // DrawSwitcher(
-                  //   text: "مفروشة",
-                  //   isLandScape: isLandScape,
-                  //   screenUtil: screenUtil,
-                  //   boolStatus: mafrosha,
-                  // ),
-                  // DrawSwitcher(
-                  //   text: "مطبخ",
-                  //   isLandScape: isLandScape,
-                  //   screenUtil: screenUtil,
-                  //   boolStatus: ketchen,
-                  // ),
-                  // DrawSwitcher(
-                  //     text: "مدخل سيارة",
-                  //     isLandScape: isLandScape,
-                  //     screenUtil: screenUtil,
-                  //     boolStatus: parking),
-                  // DrawSwitcher(
-                  //   text: "مكيفات هواء",
-                  //   isLandScape: isLandScape,
-                  //   screenUtil: screenUtil,
-                  //   boolStatus: airConditioner,
-                  // ),
+                  DrawSlider(
+                    text: "الدور",
+                    isLandScape: isLandScape,
+                    screenUtil: screenUtil,
+                    counter:
+                        realEstateProvider.reatEstate.details.steps.toDouble(),
+                    func: (double value) {
+                      realEstateProvider.setSteps(value.toInt());
+                    },
+                  ),
+                  DrawSlider(
+                    text: "عمر العقار اقل من ",
+                    isLandScape: isLandScape,
+                    screenUtil: screenUtil,
+                    counter:
+                        double.parse(realEstateProvider.reatEstate.details.old),
+                    func: (double value) {
+                      realEstateProvider.setOld(value.toString());
+                    },
+                  ),
+                  DrawSwitcher(
+                    text: "مفروشة",
+                    isLandScape: isLandScape,
+                    screenUtil: screenUtil,
+                    boolStatus: realEstateProvider.reatEstate.details.mafrosha,
+                    func: (bool value) {
+                      realEstateProvider.isMafroshe(value);
+                    },
+                  ),
+                  DrawSwitcher(
+                    text: "مطبخ",
+                    isLandScape: isLandScape,
+                    screenUtil: screenUtil,
+                    boolStatus: realEstateProvider.reatEstate.details.ketchen,
+                    func: (bool value) {
+                      realEstateProvider.isKetchen(value);
+                    },
+                  ),
+                  DrawSwitcher(
+                    text: "مدخل سيارة",
+                    isLandScape: isLandScape,
+                    screenUtil: screenUtil,
+                    boolStatus: realEstateProvider.reatEstate.details.parking,
+                    func: (bool value) {
+                      realEstateProvider.isParking(value);
+                    },
+                  ),
+                  DrawSwitcher(
+                    text: "مكيفات هواء",
+                    isLandScape: isLandScape,
+                    screenUtil: screenUtil,
+                    boolStatus:
+                        realEstateProvider.reatEstate.details.airConditioner,
+                    func: (bool value) {
+                      realEstateProvider.isAirConditions(value);
+                    },
+                  ),
                   DrawSwitcher(
                     text:
                         "مصعد + ${realEstateProvider.reatEstate.details.elevator}",

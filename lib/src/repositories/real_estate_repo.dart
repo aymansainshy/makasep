@@ -88,7 +88,7 @@ class RealEstateRepo {
   Future<List<RealEstate>> fetchSemilerRealStates(String realEstateId) async {
     final url = 'http://162.0.230.58/api/realestate/$realEstateId';
 
-    print("Start Fetching Semilar RealStates ..... ");
+    print("Start Fetching SemilarRealStates ..... ");
 
     final _response = await dio.get(
       url,
