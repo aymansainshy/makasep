@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widgets/advertisment_info.dart';
+import '../bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
+import '../models/real_estate_model.dart';
 import '../widgets/discreption_text.dart';
 import '../widgets/location_on_map.dart';
 import '../widgets/real_estate_item.dart';
@@ -9,6 +12,10 @@ import '../utils/app_constant.dart';
 
 class RealEstateDetailScreen extends StatelessWidget {
   static const routeName = '/real-estate-detail-screen';
+
+  final RealEstate realEstat;
+
+  const RealEstateDetailScreen({Key key, this.realEstat}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -361,44 +368,14 @@ class RealEstateDetailScreen extends StatelessWidget {
                   screenUtil: screenUtil,
                 ),
                 _reportContainer(),
-                _semilerAds(isLandScape, screenUtil),
+                SemilerAds(
+                  screenUtil: screenUtil,
+                  isLandScape: isLandScape,
+                  realEstateId: realEstat.id,
+                ),
               ],
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _semilerAds(bool isLandScape, ScreenUtil screenUtil) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 10,
-        right: 10,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "إعلانات مشابهة",
-            style: TextStyle(
-              color: Colors.grey.shade900,
-              fontWeight: FontWeight.bold,
-              fontSize:
-                  isLandScape ? screenUtil.setSp(20) : screenUtil.setSp(45),
-              letterSpacing: 1,
-            ),
-          ),
-          Container(
-            height: 350,
-            child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) => RealEstateItem(
-                screenUtil: screenUtil,
-                isLandScape: isLandScape,
-              ),
-            ),
-          )
         ],
       ),
     );
@@ -436,6 +413,85 @@ class RealEstateDetailScreen extends StatelessWidget {
               color: Colors.red,
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class SemilerAds extends StatefulWidget {
+  final ScreenUtil screenUtil;
+  final bool isLandScape;
+  final String realEstateId;
+
+  const SemilerAds({
+    Key key,
+    this.screenUtil,
+    this.isLandScape,
+    this.realEstateId,
+  }) : super(key: key);
+
+  @override
+  _SemilerAdsState createState() => _SemilerAdsState();
+}
+
+class _SemilerAdsState extends State<SemilerAds> {
+  @override
+  void initState() {
+    super.initState();
+    _loadedDate();
+  }
+
+  _loadedDate() async {
+    BlocProvider.of<RealEstatsBlocBloc>(context, listen: false).add(
+      FetchSamilerRealEstate(realEstateId: widget.realEstateId),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 10,
+        right: 10,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "إعلانات مشابهة",
+            style: TextStyle(
+              color: Colors.grey.shade900,
+              fontWeight: FontWeight.bold,
+              fontSize: widget.isLandScape
+                  ? widget.screenUtil.setSp(20)
+                  : widget.screenUtil.setSp(45),
+              letterSpacing: 1,
+            ),
+          ),
+          Container(
+            height: 350,
+            child: BlocBuilder<RealEstatsBlocBloc, RealEstatsBlocState>(
+              builder: (context, state) {
+                if (state is RealEstatsLoading) {
+                  return Center(
+                    child: sleekCircularSlider(context, 40,
+                        AppColors.primaryColor, AppColors.scondryColor),
+                  );
+                } else if (state is RealEstatsLoaded) {
+                  return ListView.builder(
+                    itemCount: 5,
+                    itemBuilder: (context, index) => RealEstateItem(
+                      realEstat: state.realEstats[index],
+                      screenUtil: widget.screenUtil,
+                      isLandScape: widget.isLandScape,
+                    ),
+                  );
+                }
+                return Text("Done");
+              },
+            ),
+          )
         ],
       ),
     );

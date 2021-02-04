@@ -15,10 +15,10 @@ class FetchRealEstate extends RealEstatsBlocEvent {
   FetchRealEstate({this.catId, this.filterId, this.selectedUrl});
 }
 
-class FetchSameRealEstate extends RealEstatsBlocEvent {
+class FetchSamilerRealEstate extends RealEstatsBlocEvent {
   final String realEstateId;
 
-  FetchSameRealEstate({this.realEstateId});
+  FetchSamilerRealEstate({this.realEstateId});
 }
 
 class FetchLastCallRealEstate extends RealEstatsBlocEvent {
@@ -35,8 +35,8 @@ class FetchSpecialRealEstate extends RealEstatsBlocEvent {
   FetchSpecialRealEstate();
 }
 
-class AddRealEstate extends RealEstatsBlocEvent {
+class PostRealEstate extends RealEstatsBlocEvent {
   final RealEstate realEstats;
 
-  AddRealEstate({this.realEstats});
+  PostRealEstate({this.realEstats});
 }

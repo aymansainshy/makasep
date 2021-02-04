@@ -22,3 +22,5 @@ class RealEstatsError extends RealEstatsBlocState {
 
   RealEstatsError({this.errorMassage});
 }
+
+class RealEstatsPosted extends RealEstatsBlocState {}

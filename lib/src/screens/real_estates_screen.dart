@@ -277,12 +277,10 @@ class Price extends StatelessWidget {
                 left: 4,
                 right: 4,
               ),
-              child: ChangeNotifierProvider.value(
-                value: state.realEstats[index],
-                child: RealEstateItem(
-                  screenUtil: screenUtil,
-                  isLandScape: isLandScape,
-                ),
+              child: RealEstateItem(
+                realEstat: state.realEstats[index],
+                screenUtil: screenUtil,
+                isLandScape: isLandScape,
               ),
             ),
             itemCount: state.realEstats.length,
@@ -330,12 +328,10 @@ class _NewestState extends State<Newest> {
                 left: 4,
                 right: 4,
               ),
-              child: ChangeNotifierProvider.value(
-                value: state.realEstats[index],
-                child: RealEstateItem(
-                  screenUtil: screenUtil,
-                  isLandScape: isLandScape,
-                ),
+              child: RealEstateItem(
+                realEstat: state.realEstats[index],
+                screenUtil: screenUtil,
+                isLandScape: isLandScape,
               ),
             ),
             itemCount: state.realEstats.length,
