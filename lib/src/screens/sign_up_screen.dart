@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/build_form_field.dart';
+import '../providers/auth_provider.dart';
+import '../models/http_exception.dart';
 import '../screens/login_screen.dart';
 import '../screens/home_screen.dart';
 import '../utils/app_constant.dart';
@@ -111,7 +114,6 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
   var signUpData = {
     'name': '',
     'address': '',
-    'email': '',
     'password': '',
     'phoneNumber': '',
   };
@@ -168,22 +170,22 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  // void _showArrorDialog(String message) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (ctx) => AlertDialog(
-  //       title: Text("an error accured"),
-  //       content: Text(message),
-  //       actions: [
-  //         FlatButton(
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //             child: Text("Ok"))
-  //       ],
-  //     ),
-  //   );
-  // }
+  void _showArrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text("an error accured"),
+        content: Text(message),
+        actions: [
+          FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Ok"))
+        ],
+      ),
+    );
+  }
 
   RegExp _isPhoneValid =
       RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$');
@@ -197,8 +199,44 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
     print('user name : ' + signUpData['name']);
     print('user address : ' + signUpData['address']);
     print('user phoneNumber : ' + signUpData['phoneNumber']);
-    print('user email : ' + signUpData['email']);
     print('user password : ' + signUpData['password']);
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      await Provider.of<AuthProvider>(context, listen: false).register(
+        name: signUpData['name'],
+        address: signUpData['address'],
+        phone: signUpData['phoneNumber'],
+        password: signUpData['password'],
+      );
+      setState(() {
+        isLoading = false;
+      });
+      // if (widget.isLogin) {
+      //   Navigator.of(context).pushReplacementNamed('/');
+      // } else {
+      // Navigator.of(context).pop();
+      //   Navigator.of(context).pop();
+      Navigator.of(context).pushReplacementNamed('/');
+      // }
+    } on HttpException catch (e) {
+      var errorMessage = translate("anErrorPleaseTryLater", context);
+      if (e.toString() == '2') {
+        errorMessage = translate("thisPhoneForAnthorUser", context);
+      } else if (e.toString() == '5') {
+        errorMessage = translate("thisEmailForAnthorUser", context);
+      }
+      _showArrorDialog(errorMessage);
+    } catch (e) {
+      var errorMessage = translate("anErrorPleaseTryLater", context);
+      _showArrorDialog(errorMessage);
+    }
+    setState(() {
+      isLoading = false;
+    });
 
     // _formKey.currentState.reset();
   }
@@ -426,18 +464,26 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                   ),
                   color: AppColors.primaryColor,
                   textColor: Colors.white,
-                  child: Text(
-                    "إنشاء حساب",
-                    style: TextStyle(
-                      fontSize: widget.isLandScape
-                          ? widget.screenUtil.setSp(25)
-                          : widget.screenUtil.setSp(45),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  child: isLoading
+                      ? Center(
+                          child: sleekCircularSlider(
+                              context,
+                              widget.screenUtil.setSp(80),
+                              AppColors.primaryColor,
+                              AppColors.scondryColor),
+                        )
+                      : Text(
+                          "إنشاء حساب",
+                          style: TextStyle(
+                            fontSize: widget.isLandScape
+                                ? widget.screenUtil.setSp(25)
+                                : widget.screenUtil.setSp(45),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                   onPressed: () {
                     _saveForm();
-                    Navigator.of(context).pushNamed(HomeScreen.routeName);
+                    // Navigator.of(context).pushNamed(HomeScreen.routeName);
                   },
                 ),
               ),
