@@ -106,7 +106,7 @@ class AuthProvider with ChangeNotifier {
     return _authenticat(url, data);
   }
 
-  Future<void> login({String email, String phone}) async {
+  Future<void> login({String phone, String password}) async {
     final url = 'http://162.0.230.58/api/Customer/login';
     var data = {
       "phone_number": phone,

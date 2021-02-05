@@ -220,7 +220,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
       // } else {
       // Navigator.of(context).pop();
       //   Navigator.of(context).pop();
-      Navigator.of(context).pushReplacementNamed('/');
+      // Navigator.of(context).pushReplacementNamed('/');
       // }
     } on HttpException catch (e) {
       setState(() {

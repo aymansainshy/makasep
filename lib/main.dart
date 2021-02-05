@@ -7,6 +7,7 @@ import './src/bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
 import './src/providers/modifid_real_estate_provider.dart';
 import './src/repositories/real_estate_repo.dart';
 import './src/providers/massages_provider.dart';
+import './src/providers/auth_provider.dart';
 import './src/providers/categories_provider.dart';
 import './src/utils/app_routes.dart';
 import './src/utils/app_constant.dart';
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider.value(
+          value: AuthProvider(),
+        ),
         ChangeNotifierProvider.value(
           value: LanguageProvider(),
         ),

@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/build_form_field.dart';
+import '../providers/auth_provider.dart';
+import '../models/http_exception.dart';
 import '../screens/sign_up_screen.dart';
 import '../lang/language_provider.dart';
 import '../utils/app_constant.dart';
@@ -174,11 +176,29 @@ class _LogInFormState extends State<LogInForm> {
   final _phoneFocusNode = FocusNode();
   var isVisible = false;
   var isPasswordHide = true;
+  var isLoading = false;
 
   var logInData = {
     'phoneNumber': '',
     'password': '',
   };
+
+  void _showArrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text("An error accured "),
+        content: Text(message),
+        actions: [
+          FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Ok"))
+        ],
+      ),
+    );
+  }
 
   void _saveForm() async {
     final isValid = _formKey.currentState.validate();
@@ -186,8 +206,48 @@ class _LogInFormState extends State<LogInForm> {
       return;
     }
     _formKey.currentState.save();
-    print(logInData['email']);
+    print(logInData['phoneNumber']);
     print(logInData['password']);
+
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      await Provider.of<AuthProvider>(context, listen: false).login(
+        phone: logInData['phoneNumber'],
+        password: logInData['password'],
+      );
+      setState(() {
+        isLoading = false;
+      });
+      if (widget.isSignUp) {
+        Navigator.of(context).pushReplacementNamed('/');
+      }
+      //  else {
+      //   Navigator.of(context).pop();
+      //   Navigator.of(context).pop();
+      //   Navigator.of(context).pushReplacementNamed('/');
+      // }
+    } on HttpException catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      var errorMessage = translate("anErrorPleaseTryLater", context);
+      if (e.toString() == '0') {
+        errorMessage = translate("thisPasswordInCorrect", context);
+      } else if (e.toString() == '1') {
+        errorMessage = translate("thisEmailInCorrect", context);
+      }
+      _showArrorDialog(errorMessage);
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      final errorMessage = translate("anErrorPleaseTryLater", context);
+      _showArrorDialog(errorMessage);
+    }
+
+    // _formKey.currentState.reset();
   }
 
   // RegExp _isEmailValid = RegExp(
@@ -209,43 +269,6 @@ class _LogInFormState extends State<LogInForm> {
               textInputAction: TextInputAction.done,
               keyboardType: TextInputType.number,
               prefixIcon: Icon(Icons.phone),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 5),
-              //   child: Container(
-              //     width: widget.screenUtil.setWidth(180),
-              //     // color: Colors.red,
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //       children: [
-              //         Container(
-              //           // color: Colors.blue,
-              //           height: widget.screenUtil.setHeight(40),
-              //           width: widget.screenUtil.setWidth(50),
-              //           child: Image.asset(
-              //             "assets/images/sudan-flag.png",
-              //             fit: BoxFit.contain,
-              //           ),
-              //         ),
-              //         // Spacer(),
-              //         FittedBox(
-              //           child: Text(
-              //             "+249",
-              //             style: TextStyle(
-              //               fontSize: 10,
-              //             ),
-              //           ),
-              //         ),
-
-              //         Container(
-              //           height: widget.screenUtil.setHeight(100),
-              //           width: 0.55645555,
-              //           color: Colors.grey,
-              //         ),
-              //         SizedBox(width: 5),
-              //       ],
-              //     ),
-              //   ),
-              // ),
               focusNode: _phoneFocusNode,
               onFieldSubmitted: (_) {
                 _saveForm();
@@ -321,18 +344,26 @@ class _LogInFormState extends State<LogInForm> {
                 ),
                 color: AppColors.primaryColor,
                 textColor: Colors.white,
-                child: Text(
-                  "تسجيل دخول ",
-                  style: TextStyle(
-                    fontSize: widget.isLandScape
-                        ? widget.screenUtil.setSp(25)
-                        : widget.screenUtil.setSp(45),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: isLoading
+                    ? Center(
+                        child: sleekCircularSlider(
+                            context,
+                            widget.screenUtil.setSp(80),
+                            AppColors.primaryColor,
+                            AppColors.scondryColor),
+                      )
+                    : Text(
+                        "تسجيل دخول ",
+                        style: TextStyle(
+                          fontSize: widget.isLandScape
+                              ? widget.screenUtil.setSp(25)
+                              : widget.screenUtil.setSp(45),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                 onPressed: () {
-                  // _saveForm();
-                  Navigator.of(context).pushNamed(HomeScreen.routeName);
+                  _saveForm();
+                  // Navigator.of(context).pushNamed(HomeScreen.routeName);
                 },
               ),
             ),
@@ -369,7 +400,6 @@ class _LogInFormState extends State<LogInForm> {
                   ),
                 ),
                 onPressed: () {
-                  // _saveForm();
                   Navigator.of(context).pushNamed(SignUpScreen.routeName);
                 },
               ),
