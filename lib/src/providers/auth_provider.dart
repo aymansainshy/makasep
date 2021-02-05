@@ -33,6 +33,8 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> _authenticat(String urls, Map<String, dynamic> data) async {
+    print('Authenticating ............');
+
     final url = urls;
     try {
       final response = await _dio.post(

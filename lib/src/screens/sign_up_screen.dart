@@ -223,6 +223,9 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
       Navigator.of(context).pushReplacementNamed('/');
       // }
     } on HttpException catch (e) {
+      setState(() {
+        isLoading = false;
+      });
       var errorMessage = translate("anErrorPleaseTryLater", context);
       if (e.toString() == '2') {
         errorMessage = translate("thisPhoneForAnthorUser", context);
@@ -231,12 +234,12 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
       }
       _showArrorDialog(errorMessage);
     } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
       var errorMessage = translate("anErrorPleaseTryLater", context);
       _showArrorDialog(errorMessage);
     }
-    setState(() {
-      isLoading = false;
-    });
 
     // _formKey.currentState.reset();
   }
@@ -315,44 +318,6 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                 contentPadding: 8.0,
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.number,
-                // prefixIcon: Icon(Icons.phone),
-                // prefixIcon: Padding(
-                //   padding: const EdgeInsets.only(left: 5),
-                //   child: Container(
-                //     width: widget.screenUtil.setWidth(180),
-                //     // color: Colors.red,
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       children: [
-                //         Container(
-                //           // color: Colors.blue,
-                //           height: widget.screenUtil.setHeight(40),
-                //           width: widget.screenUtil.setWidth(50),
-                //           child: Image.asset(
-                //             "assets/images/sudan-flag.png",
-                //             fit: BoxFit.contain,
-                //           ),
-                //         ),
-                //         // Spacer(),
-                //         FittedBox(
-                //           child: Text(
-                //             "+249",
-                //             style: TextStyle(
-                //               fontSize: 10,
-                //             ),
-                //           ),
-                //         ),
-
-                //         Container(
-                //           height: widget.screenUtil.setHeight(100),
-                //           width: 0.55645555,
-                //           color: Colors.grey,
-                //         ),
-                //         SizedBox(width: 5),
-                //       ],
-                //     ),
-                //   ),
-                // ),
                 focusNode: _phoneFocusNode,
                 onFieldSubmitted: (_) {
                   _saveForm();
