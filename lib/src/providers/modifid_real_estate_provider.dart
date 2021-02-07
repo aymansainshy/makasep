@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
 import '../models/real_estate_model.dart';
 
 class ModifiedRealEstat with ChangeNotifier {
@@ -32,6 +36,25 @@ class ModifiedRealEstat with ChangeNotifier {
   );
 
   RealEstate get reatEstate => _realEstate;
+
+  File _storedImage;
+
+  final _picker = ImagePicker();
+
+  Future picImage() async {
+    final pickedFile = await _picker.getImage(source: ImageSource.camera);
+
+    if (pickedFile != null) {
+      _storedImage = File(pickedFile.path);
+      notifyListeners();
+    } else {
+      print('No image selected.');
+    }
+  }
+
+  File get storedImage {
+    return _storedImage;
+  }
 
   void setArea(double area) {
     _realEstate.area = area;

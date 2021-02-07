@@ -1,43 +1,21 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/add_advertise_location_screen.dart';
+import '../providers/modifid_real_estate_provider.dart';
 import '../providers/categories_provider.dart';
 import '../utils/app_constant.dart';
 
-class AddAdvertisePhontoScreen extends StatefulWidget {
+class AddAdvertisePhontoScreen extends StatelessWidget {
   static const routeName = "/add-advertisePhoto-screen";
 
-  @override
-  _AddAdvertisePhontoScreenState createState() =>
-      _AddAdvertisePhontoScreenState();
-}
-
-class _AddAdvertisePhontoScreenState extends State<AddAdvertisePhontoScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  File _storedImage;
-
-  final _picker = ImagePicker();
-
-  Future _picImage() async {
-    final pickedFile = await _picker.getImage(source: ImageSource.camera);
-
-    setState(() {
-      if (pickedFile != null) {
-        _storedImage = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final modifiedRealEstateProvider =
+        Provider.of<ModifiedRealEstat>(context, listen: false);
     var mediaQuery = MediaQuery.of(context).size;
     ScreenUtil.init(context);
     ScreenUtil screenUtil = ScreenUtil();
@@ -88,33 +66,38 @@ class _AddAdvertisePhontoScreenState extends State<AddAdvertisePhontoScreen> {
               thickness: 1,
             ),
             SizedBox(height: 10),
-            Container(
-              height: isLandScape
-                  ? screenUtil.setHeight(600)
-                  : screenUtil.setHeight(400),
-              width: isLandScape
-                  ? screenUtil.setWidth(250)
-                  : screenUtil.setWidth(400),
-              decoration: BoxDecoration(
-                color: AppColors.scondryColor,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: _storedImage == null
-                    ? Container(
-                        color: AppColors.primaryColor,
-                        child: Center(
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.white,
+            Consumer<ModifiedRealEstat>(
+              builder: (context, imageProvider, _) => Container(
+                height: isLandScape
+                    ? screenUtil.setHeight(600)
+                    : screenUtil.setHeight(400),
+                width: isLandScape
+                    ? screenUtil.setWidth(250)
+                    : screenUtil.setWidth(400),
+                decoration: BoxDecoration(
+                  color: AppColors.scondryColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: imageProvider.storedImage == null
+                      ? Container(
+                          color: AppColors.primaryColor,
+                          child: Center(
+                            child: IconButton(
+                              icon: Icon(Icons.add),
+                              color: Colors.white,
+                              onPressed: () {
+                                modifiedRealEstateProvider.picImage();
+                              },
+                            ),
                           ),
+                        )
+                      : Image.file(
+                          imageProvider.storedImage,
+                          fit: BoxFit.cover,
                         ),
-                      )
-                    : Image.file(
-                        _storedImage,
-                        fit: BoxFit.cover,
-                      ),
+                ),
               ),
             ),
             SizedBox(height: 20),
@@ -158,7 +141,7 @@ class _AddAdvertisePhontoScreenState extends State<AddAdvertisePhontoScreen> {
                   ],
                 ),
                 onPressed: () {
-                  _picImage();
+                  modifiedRealEstateProvider.picImage();
                 },
               ),
             ),
