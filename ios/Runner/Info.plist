@@ -14,6 +14,10 @@
 	<string>makasep</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>we need to take a picture</string>
+	<key>NSCameraUsageDescription</key>
+    <string>we need to take a picture</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>

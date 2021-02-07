@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
@@ -26,7 +27,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   var isPasswordHide = true;
   var isLoading = false;
   AuthProvider _userData;
-  // String _userImage;
+  String _userImage;
 
   void _showArrorDialog(String message) {
     showDialog(
@@ -60,7 +61,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _editedData['address'] = _userData.userAddress;
     _editedData['password'] = _userData.password;
     _editedData['phoneNumber'] = _userData.userPhone;
-    // _userImage = _userData.imageUrl;
+    _userImage = _userData.imageUrl;
 
     super.initState();
   }
@@ -86,14 +87,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         userPassword: _editedData['password'],
         userAddress: _editedData['address'],
         userPhone: _editedData['phoneNumber'],
-        // image: _storedImage,
       );
-      // if (_storedImage != null) {
-      //   await Provider.of<AuthProvider>(context, listen: false).uploadImage(
-      //     _storedImage,
-      //     _userData.userId,
-      //   );
-      // }
+      if (_storedImage != null) {
+        await Provider.of<AuthProvider>(context, listen: false).uploadImage(
+          image: _storedImage,
+          userId: _userData.userId,
+        );
+      }
       setState(() {
         isLoading = false;
       });
@@ -119,19 +119,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     // _formKey.currentState.reset();
   }
 
-  // File _storedImage;
-  // final _picker = ImagePicker();
-  // Future _picImage() async {
-  //   final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+  File _storedImage;
+  final _picker = ImagePicker();
+  Future _picImage() async {
+    final pickedFile = await _picker.getImage(source: ImageSource.camera);
 
-  //   setState(() {
-  //     if (pickedFile != null) {
-  //       _storedImage = File(pickedFile.path);
-  //     } else {
-  //       print('No image selected.');
-  //     }
-  //   });
-  // }
+    setState(() {
+      if (pickedFile != null) {
+        _storedImage = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,121 +188,178 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: Container(
           child: Padding(
             padding: const EdgeInsets.only(left: 15, right: 15, top: 80),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
+            child: Column(
+              children: [
+                Container(
+                  child: Stack(
+                    overflow: Overflow.visible,
                     children: [
-                      TextFormField(
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(4),
-                          labelText: translate('userName', context),
+                      Container(
+                        height: isLandScape
+                            ? screenUtil.setHeight(600)
+                            : screenUtil.setHeight(400),
+                        width: isLandScape
+                            ? screenUtil.setWidth(250)
+                            : screenUtil.setWidth(400),
+                        decoration: BoxDecoration(
+                          color: AppColors.scondryColor,
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        cursorColor: Colors.grey.shade300,
-                        initialValue: _userData.userName,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return translate("enterYourFullName", context);
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          _editedData['name'] = value;
-                        },
+                        child: _storedImage != null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(30),
+                                child: Image.file(
+                                  _storedImage,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(30),
+                                child: _userImage == null
+                                    ? Container()
+                                    : Image.network(
+                                        _userImage,
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
                       ),
-                      SizedBox(height: 5),
-                      TextFormField(
-                        keyboardType: TextInputType.streetAddress,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(4),
-                          labelText: translate('address', context),
-                        ),
-                        cursorColor: Colors.grey.shade300,
-                        initialValue: _userData.userAddress,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return translate("enterYourFullAddress", context);
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          _editedData['address'] = value;
-                        },
-                      ),
-                      SizedBox(height: 5),
-                      TextFormField(
-                        obscureText: isPasswordHide,
-                        keyboardType: TextInputType.visiblePassword,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(4),
-                          labelText: translate('password', context),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              isVisible
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                isVisible = !isVisible;
-                                isPasswordHide = !isPasswordHide;
-                              });
-                            },
+                      Positioned(
+                        bottom: 0,
+                        right: -15,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.add_a_photo,
+                            size: isLandScape
+                                ? screenUtil.setWidth(40)
+                                : screenUtil.setSp(80),
+                            color: AppColors.primaryColor,
                           ),
+                          onPressed: _picImage,
                         ),
-                        cursorColor: Colors.grey.shade300,
-                        initialValue: _userData.password,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return translate("enterPassword", context);
-                          }
-                          if (value.toString().length < 5) {
-                            return translate("enterValidPassword", context);
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          _editedData['password'] = value;
-                        },
-                      ),
-                      SizedBox(height: 5),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(4),
-                          labelText: translate('phone', context),
-                        ),
-                        keyboardType: TextInputType.phone,
-                        cursorColor: Colors.grey.shade300,
-                        initialValue: _userData.userPhone,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return translate("enterYourPhoneNumber", context);
-                          }
-
-                          if (value.toString().length < 8) {
-                            return translate("PhoneNumberValid", context);
-                          }
-
-                          if (!value.toString().startsWith('+') &&
-                              !value.toString().startsWith('0')) {
-                            return translate("validPhone", context);
-                          }
-
-                          return null;
-                        },
-                        onSaved: (value) {
-                          _editedData['phoneNumber'] = value;
-                        },
                       ),
                     ],
                   ),
                 ),
-              ),
+                SizedBox(height: 5),
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(4),
+                              labelText: translate('userName', context),
+                            ),
+                            cursorColor: Colors.grey.shade300,
+                            initialValue: _userData.userName,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return translate("enterYourFullName", context);
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _editedData['name'] = value;
+                            },
+                          ),
+                          SizedBox(height: 5),
+                          TextFormField(
+                            keyboardType: TextInputType.streetAddress,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(4),
+                              labelText: translate('address', context),
+                            ),
+                            cursorColor: Colors.grey.shade300,
+                            initialValue: _userData.userAddress,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return translate(
+                                    "enterYourFullAddress", context);
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _editedData['address'] = value;
+                            },
+                          ),
+                          SizedBox(height: 5),
+                          TextFormField(
+                            obscureText: isPasswordHide,
+                            keyboardType: TextInputType.visiblePassword,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(4),
+                              labelText: translate('password', context),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  isVisible
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    isVisible = !isVisible;
+                                    isPasswordHide = !isPasswordHide;
+                                  });
+                                },
+                              ),
+                            ),
+                            cursorColor: Colors.grey.shade300,
+                            initialValue: _userData.password,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return translate("enterPassword", context);
+                              }
+                              if (value.toString().length < 5) {
+                                return translate("enterValidPassword", context);
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _editedData['password'] = value;
+                            },
+                          ),
+                          SizedBox(height: 5),
+                          TextFormField(
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(4),
+                              labelText: translate('phone', context),
+                            ),
+                            keyboardType: TextInputType.phone,
+                            cursorColor: Colors.grey.shade300,
+                            initialValue: _userData.userPhone,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return translate(
+                                    "enterYourPhoneNumber", context);
+                              }
+
+                              if (value.toString().length < 8) {
+                                return translate("PhoneNumberValid", context);
+                              }
+
+                              if (!value.toString().startsWith('+') &&
+                                  !value.toString().startsWith('0')) {
+                                return translate("validPhone", context);
+                              }
+
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _editedData['phoneNumber'] = value;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

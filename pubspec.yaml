@@ -40,6 +40,7 @@ dependencies:
   sleek_circular_slider: ^1.2.0
   flutter_bloc: ^6.1.1
   equatable: ^1.2.3
+  image_picker: ^0.6.7+11
 
 
 dev_dependencies:
