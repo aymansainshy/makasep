@@ -149,36 +149,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         toolbarHeight: 68,
         textTheme: Theme.of(context).textTheme,
         actionsIconTheme: Theme.of(context).accentIconTheme,
-        iconTheme: Theme.of(context).iconTheme,
+        // iconTheme: Theme.of(context).iconTheme,
         // backgroundColor: Color.fromARGB(0, 0, 0, 1),
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         elevation: 0.0,
-        leading: Builder(
-          builder: (context) => Transform.translate(
-            offset: Offset(6, 0),
-            child: IconButton(
-              padding: const EdgeInsets.all(0.0),
-              onPressed: () => Navigator.of(context).pop(),
-              icon: Container(
-                // color: Colors.teal,
-                height: 30,
-                width: 50,
-                child: language == "ar"
-                    ? Image.asset(
-                        "assets/icons/arrow_back2.png",
-                        fit: BoxFit.contain,
-                        color: Colors.white,
-                      )
-                    : Image.asset(
-                        "assets/icons/arrow_back.png",
-                        fit: BoxFit.contain,
-                        color: Colors.white,
-                      ),
-              ),
-            ),
-          ),
-        ),
         title: Text(
           translate("editProfile", context),
           style: TextStyle(
