@@ -37,37 +37,49 @@ class AddAdvertisePhontoScreen extends StatelessWidget {
       ),
       body: Container(
         padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "نوع العقار",
-              style: TextStyle(
-                fontSize:
-                    isLandScape ? screenUtil.setSp(25) : screenUtil.setSp(50),
-                fontWeight: FontWeight.bold,
-                color: Colors.grey.shade800,
+        child: Consumer<ModifiedRealEstat>(
+          builder: (context, modifiedRealEstateProvider, _) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "نوع العقار",
+                style: TextStyle(
+                  fontSize:
+                      isLandScape ? screenUtil.setSp(25) : screenUtil.setSp(50),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade800,
+                ),
               ),
-            ),
-            SizedBox(height: 10),
-            DropdownButtonHideUnderline(
-              child: DropdownButton(
-                isExpanded: true,
-                iconSize: 30,
-                items: [
-                  DropdownMenuItem(child: Text("عمارة")),
-                  DropdownMenuItem(child: Text("شقق")),
-                  DropdownMenuItem(child: Text("منزل")),
-                ],
-                onChanged: (value) {},
+              SizedBox(height: 10),
+              DropdownButtonHideUnderline(
+                child: DropdownButton(
+                  isExpanded: true,
+                  iconSize: 30,
+                  items: [
+                    DropdownMenuItem(
+                      child: Text("عمارة"),
+                      value: 1,
+                    ),
+                    DropdownMenuItem(
+                      child: Text("شقة"),
+                      value: 2,
+                    ),
+                    DropdownMenuItem(
+                      child: Text("منزل"),
+                      value: 3,
+                    ),
+                  ],
+                  value: modifiedRealEstateProvider.reatEstate.type,
+                  onChanged: (value) {
+                    modifiedRealEstateProvider.setType(value);
+                  },
+                ),
               ),
-            ),
-            Divider(
-              thickness: 1,
-            ),
-            SizedBox(height: 10),
-            Consumer<ModifiedRealEstat>(
-              builder: (context, imageProvider, _) => Container(
+              Divider(
+                thickness: 1,
+              ),
+              SizedBox(height: 10),
+              Container(
                 height: isLandScape
                     ? screenUtil.setHeight(600)
                     : screenUtil.setHeight(400),
@@ -80,7 +92,7 @@ class AddAdvertisePhontoScreen extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: imageProvider.storedImage == null
+                  child: modifiedRealEstateProvider.storedImage == null
                       ? Container(
                           color: AppColors.primaryColor,
                           child: Center(
@@ -94,85 +106,85 @@ class AddAdvertisePhontoScreen extends StatelessWidget {
                           ),
                         )
                       : Image.file(
-                          imageProvider.storedImage,
+                          modifiedRealEstateProvider.storedImage,
                           fit: BoxFit.cover,
                         ),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              width: double.infinity,
-              height: isLandScape
-                  ? screenUtil.setHeight(230)
-                  : screenUtil.setHeight(150),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: AppColors.primaryColor,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: RaisedButton(
-                shape: RoundedRectangleBorder(
+              SizedBox(height: 20),
+              Container(
+                width: double.infinity,
+                height: isLandScape
+                    ? screenUtil.setHeight(230)
+                    : screenUtil.setHeight(150),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: AppColors.primaryColor,
+                    width: 1,
+                  ),
                   borderRadius: BorderRadius.circular(5),
                 ),
-                color: Colors.white,
-                textColor: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.camera_alt,
-                      size: 20,
-                      color: AppColors.primaryColor,
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "اضافة صورة",
-                      style: TextStyle(
-                        fontSize: isLandScape
-                            ? screenUtil.setSp(25)
-                            : screenUtil.setSp(35),
-                        letterSpacing: 1.5,
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  color: Colors.white,
+                  textColor: Colors.white,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.camera_alt,
+                        size: 20,
                         color: AppColors.primaryColor,
                       ),
-                    ),
-                  ],
-                ),
-                onPressed: () {
-                  modifiedRealEstateProvider.picImage();
-                },
-              ),
-            ),
-            SizedBox(height: 10),
-            Container(
-              width: double.infinity,
-              height: isLandScape
-                  ? screenUtil.setHeight(230)
-                  : screenUtil.setHeight(150),
-              child: RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                color: AppColors.primaryColor,
-                textColor: Colors.white,
-                child: Text(
-                  "استمرار",
-                  style: TextStyle(
-                    fontSize: isLandScape
-                        ? screenUtil.setSp(25)
-                        : screenUtil.setSp(40),
-                    fontWeight: FontWeight.bold,
+                      SizedBox(width: 5),
+                      Text(
+                        "اضافة صورة",
+                        style: TextStyle(
+                          fontSize: isLandScape
+                              ? screenUtil.setSp(25)
+                              : screenUtil.setSp(35),
+                          letterSpacing: 1.5,
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                    ],
                   ),
+                  onPressed: () {
+                    modifiedRealEstateProvider.picImage();
+                  },
                 ),
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed(AddAdvertiseLocationScreen.routeName);
-                },
               ),
-            ),
-          ],
+              SizedBox(height: 10),
+              Container(
+                width: double.infinity,
+                height: isLandScape
+                    ? screenUtil.setHeight(230)
+                    : screenUtil.setHeight(150),
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  color: AppColors.primaryColor,
+                  textColor: Colors.white,
+                  child: Text(
+                    "استمرار",
+                    style: TextStyle(
+                      fontSize: isLandScape
+                          ? screenUtil.setSp(25)
+                          : screenUtil.setSp(40),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(AddAdvertiseLocationScreen.routeName);
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
