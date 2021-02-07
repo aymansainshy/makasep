@@ -70,6 +70,9 @@ class AuthProvider with ChangeNotifier {
 
       /// [*] Storing data after logIn.... for [Auto log in] .......
       final prefs = await SharedPreferences.getInstance();
+      if (prefs.containsKey("userData")) {
+        prefs.remove("userData");
+      }
       final userData = json.encode({
         "userId": responseData["id"].toString(),
         "userName": responseData["user_name"],

@@ -12,6 +12,7 @@ import './src/providers/categories_provider.dart';
 import './src/utils/app_routes.dart';
 import './src/utils/app_constant.dart';
 import './src/lang/language_provider.dart';
+import './src/screens/home_screen.dart';
 import './src/lang/app_locelazation.dart';
 import './src/screens/animated_splash_screen.dart';
 import './src/screens/login_screen.dart';
@@ -52,26 +53,41 @@ class MyApp extends StatelessWidget {
         child: Consumer<LanguageProvider>(
           builder: (context, languageProvider, _) => FutureBuilder(
             future: languageProvider.fetchLocale(),
-            builder: (context, snapShot) => MaterialApp(
-              title: 'Makasep App',
-              debugShowCheckedModeBanner: false,
-              locale: languageProvider.appLocal,
-              supportedLocales: [
-                Locale('en', 'US'),
-                Locale('ar', 'SA'),
-              ],
-              localizationsDelegates: [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              theme: appTheme,
-              routes: routs,
-              home: AnimatedSplashScreen(
-                home: LoginScreen(),
-                duration: 2500,
-                type: AnimatedSplashType.StaticDuration,
-                imagePath: 'assets/images/makasep_logo.png',
+            builder: (context, snapShot) => Consumer<AuthProvider>(
+              builder: (context, auth, _) => MaterialApp(
+                title: 'Makasep App',
+                debugShowCheckedModeBanner: false,
+                locale: languageProvider.appLocal,
+                supportedLocales: [
+                  Locale('en', 'US'),
+                  Locale('ar', 'SA'),
+                ],
+                localizationsDelegates: [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                theme: appTheme,
+                routes: routs,
+                home: AnimatedSplashScreen(
+                  home: auth.isAuth
+                      ? HomeScreen()
+                      : FutureBuilder(
+                          future: auth.tryAutoLogin(),
+                          builder: (context, authResult) =>
+                              authResult.connectionState ==
+                                      ConnectionState.waiting
+                                  ? Scaffold(
+                                      body: Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    )
+                                  : LoginScreen(),
+                        ),
+                  duration: 2500,
+                  type: AnimatedSplashType.StaticDuration,
+                  imagePath: 'assets/images/makasep_logo.png',
+                ),
               ),
             ),
           ),

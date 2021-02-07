@@ -6,7 +6,6 @@ import '../widgets/build_form_field.dart';
 import '../providers/auth_provider.dart';
 import '../models/http_exception.dart';
 import '../screens/login_screen.dart';
-import '../screens/home_screen.dart';
 import '../utils/app_constant.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -220,7 +219,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
       // } else {
       // Navigator.of(context).pop();
       //   Navigator.of(context).pop();
-      // Navigator.of(context).pushReplacementNamed('/');
+      Navigator.of(context).pushReplacementNamed('/');
       // }
     } on HttpException catch (e) {
       setState(() {
@@ -471,7 +470,13 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.of(context).pushNamed(LoginScreen.routeName);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(
+                            isSingUp: true,
+                          ),
+                        ),
+                      );
                     },
                     child: Text(
                       "تسجيل دخول ",

@@ -8,7 +8,7 @@ import '../screens/add_advertise_role_screen.dart';
 import '../screens/best_ads_screen.dart';
 import '../screens/today_ads_screen.dart';
 import '../lang/language_provider.dart';
-import '../screens/login_screen.dart';
+import '../providers/auth_provider.dart';
 import '../screens/order_screen.dart';
 import '../screens/home_screen.dart';
 import '../utils/app_constant.dart';
@@ -29,6 +29,8 @@ class _AppDrawerState extends State<AppDrawer> {
     final langugeProvider = Provider.of<LanguageProvider>(context);
     String appLang =
         langugeProvider.appLocal.toString() == "ar" ? "العربية" : "English";
+
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     return Drawer(
       child: Scaffold(
@@ -110,7 +112,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   ),
                 ),
                 Text(
-                  "Ayman Sainshy",
+                  "${authProvider.userName}",
                   style: TextStyle(
                     color: AppColors.primaryColor,
                     fontSize: 16,
@@ -199,8 +201,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         imageUrl: "assets/icons/logout.png",
                         text: "تسجيل خروج",
                         function: () {
-                          Navigator.of(context)
-                              .pushNamed(LoginScreen.routeName);
+                          authProvider.logOut();
                         },
                       ),
                     ),

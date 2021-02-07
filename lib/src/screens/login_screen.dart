@@ -172,8 +172,8 @@ class LogInForm extends StatefulWidget {
 
 class _LogInFormState extends State<LogInForm> {
   final _formKey = GlobalKey<FormState>();
-  final _passwordFocusNode = FocusNode();
   final _phoneFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
   var isVisible = false;
   var isPasswordHide = true;
   var isLoading = false;
@@ -271,7 +271,7 @@ class _LogInFormState extends State<LogInForm> {
               prefixIcon: Icon(Icons.phone),
               focusNode: _phoneFocusNode,
               onFieldSubmitted: (_) {
-                _saveForm();
+                FocusScope.of(context).requestFocus(_passwordFocusNode);
               },
               validator: (value) {
                 if (value.isEmpty) {
