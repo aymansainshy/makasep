@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../screens/build_and _contractor_screen.dart';
 import '../screens/especial_offers_screen.dart';
 import '../screens/add_advertise_role_screen.dart';
+import '../screens/edit_profile_screen.dart';
 import '../screens/best_ads_screen.dart';
 import '../screens/today_ads_screen.dart';
 import '../lang/language_provider.dart';
@@ -101,14 +102,46 @@ class _AppDrawerState extends State<AppDrawer> {
                 CircleAvatar(
                   radius: 55,
                   backgroundColor: AppColors.primaryColor,
-                  child: CircleAvatar(
-                    radius: 53,
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.person,
-                      size: 100,
-                      color: AppColors.primaryColor,
-                    ),
+                  child: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      authProvider.imageUrl == null
+                          ? CircleAvatar(
+                              radius: 53,
+                              backgroundColor: Colors.white,
+                              child: Icon(
+                                Icons.person,
+                                size: 100,
+                                color: AppColors.primaryColor,
+                              ),
+                            )
+                          : Container(
+                              height: screenUtil.setHeight(500),
+                              width: screenUtil.setWidth(500),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                              child: Image.network(
+                                authProvider.imageUrl,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                      Positioned(
+                        child: CircleAvatar(
+                          backgroundColor: AppColors.primaryColor,
+                          child: IconButton(
+                            color: Colors.white,
+                            icon: Icon(
+                              Icons.edit,
+                            ),
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(EditProfileScreen.routeName);
+                            },
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 Text(

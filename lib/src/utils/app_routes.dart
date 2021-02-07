@@ -9,6 +9,7 @@ import '../screens/add_advertise_role_screen.dart';
 import '../screens/add_advertise_photo_screen.dart';
 import '../screens/especial_offers_screen.dart';
 import '../screens/add_advertise_screen.dart';
+import '../screens/edit_profile_screen.dart';
 import '../screens/real_estates_screen.dart';
 import '../screens/today_ads_screen.dart';
 import '../screens/best_ads_screen.dart';
@@ -30,6 +31,7 @@ var routs = {
   BuildAndContractors.routeName: (context) => BuildAndContractors(),
   EspecialOffersScreen.routeName: (context) => EspecialOffersScreen(),
   RealEstateDetailScreen.routeName: (context) => RealEstateDetailScreen(),
+  EditProfileScreen.routeName: (context) => EditProfileScreen(),
   AddAdvertiseRoleScreen.routeName: (context) => AddAdvertiseRoleScreen(),
   AddAdvertiseDetaileScreen.routeName: (context) => AddAdvertiseDetaileScreen(),
   AddAdvertiseDetaile2Screen.routeName: (context) =>
