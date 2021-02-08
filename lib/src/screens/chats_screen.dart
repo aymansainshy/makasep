@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../screens/masseges_screen.dart';
 import '../utils/app_constant.dart';
 
 class ChatsScreen extends StatelessWidget {
@@ -17,10 +18,17 @@ class ChatsScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: 20,
         itemBuilder: (context, index) {
-          return Container(
-            color: AppColors.primaryColor,
-            height: 100,
-            width: double.infinity,
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(MassagesScreen.routeName);
+            },
+            child: Container(
+              margin: EdgeInsets.all(5),
+              padding: EdgeInsets.all(5),
+              color: AppColors.primaryColor,
+              height: 100,
+              width: double.infinity,
+            ),
           );
         },
       ),

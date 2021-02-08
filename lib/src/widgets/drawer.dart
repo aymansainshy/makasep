@@ -3,13 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../screens/build_and _contractor_screen.dart';
-import '../screens/especial_offers_screen.dart';
 import '../screens/add_advertise_role_screen.dart';
+import '../screens/especial_offers_screen.dart';
 import '../screens/edit_profile_screen.dart';
-import '../screens/best_ads_screen.dart';
 import '../screens/today_ads_screen.dart';
-import '../lang/language_provider.dart';
 import '../providers/auth_provider.dart';
+import '../screens/best_ads_screen.dart';
+import '../lang/language_provider.dart';
+import '../screens/chats_screen.dart';
 import '../screens/order_screen.dart';
 import '../screens/home_screen.dart';
 import '../utils/app_constant.dart';
@@ -233,7 +234,10 @@ class _AppDrawerState extends State<AppDrawer> {
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/other.png",
                         text: "المحادثات",
-                        function: () {},
+                        function: () {
+                          Navigator.of(context)
+                              .pushNamed(ChatsScreen.routeName);
+                        },
                       ),
                     ),
                     Expanded(
