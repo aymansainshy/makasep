@@ -3,19 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
+import './src/bloc/build_and_contractor_bloc/build_and_contract_bloc.dart';
 import './src/bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
 import './src/providers/modifid_real_estate_provider.dart';
+import './src/screens/animated_splash_screen.dart';
+import './src/providers/categories_provider.dart';
 import './src/repositories/real_estate_repo.dart';
 import './src/providers/massages_provider.dart';
 import './src/providers/auth_provider.dart';
-import './src/providers/categories_provider.dart';
-import './src/utils/app_routes.dart';
-import './src/utils/app_constant.dart';
 import './src/lang/language_provider.dart';
-import './src/screens/home_screen.dart';
 import './src/lang/app_locelazation.dart';
-import './src/screens/animated_splash_screen.dart';
 import './src/screens/login_screen.dart';
+import './src/screens/home_screen.dart';
+import './src/utils/app_constant.dart';
+import './src/utils/app_routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,6 +47,11 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider<RealEstatsBlocBloc>(
             create: (context) => RealEstatsBlocBloc(
+              realEstateRepo: RealEstateRepo(),
+            ),
+          ),
+          BlocProvider<BuildAndContractBloc>(
+            create: (context) => BuildAndContractBloc(
               realEstateRepo: RealEstateRepo(),
             ),
           ),

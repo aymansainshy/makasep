@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-
+import 'dart:convert';
 import '../models/real_estate_model.dart';
 
 class RealEstateRepo {
@@ -324,5 +324,45 @@ class RealEstateRepo {
     );
 
     return _loadedRealStates;
+  }
+
+///////////////////////////////////////////[ Post Building And Contractor ]//////////////////////////////////////////////////
+
+  Future<void> postBuildingAndContract({
+    String usetId,
+    String phoneNumber,
+    String city,
+    String description,
+    String buildingTypeId,
+  }) async {
+    final url = 'http://162.0.230.58/api/Building';
+
+    Map<String, dynamic> data = {
+      "user_id": usetId,
+      "phone_number": phoneNumber,
+      "city": city,
+      "desceribsion": description,
+      "buliding_type_id": buildingTypeId,
+    };
+    try {
+      final response = await dio.post(
+        url,
+        data: jsonEncode(data),
+        options: Options(
+          sendTimeout: 2000,
+          receiveTimeout: 1000,
+          headers: {
+            'content-type': 'application/json',
+            'Accept': 'application/json',
+          },
+        ),
+      );
+
+      print("Response Data .........." + response.data.toString());
+      print("Response Stause Code .........." + response.statusCode.toString());
+      print("Response Message .......... " + response.statusMessage.toString());
+    } catch (e) {
+      print("Catch E " + e.toString());
+    }
   }
 }
