@@ -231,11 +231,9 @@ class _AppDrawerState extends State<AppDrawer> {
                   children: [
                     Expanded(
                       child: BuilDraweGridViewItem(
-                        imageUrl: "assets/icons/logout.png",
-                        text: "تسجيل خروج",
-                        function: () {
-                          authProvider.logOut();
-                        },
+                        imageUrl: "assets/icons/other.png",
+                        text: "المحادثات",
+                        function: () {},
                       ),
                     ),
                     Expanded(
@@ -250,16 +248,19 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                   ],
                 ),
-                // Row(
-                //   children: [
-                //     Expanded(
-                //       child: BuilDraweGridViewItem(
-                //         imageUrl: "assets/icons/other.png",
-                //         text: "المدونة",
-                //       ),
-                //     ),
-                //   ],
-                // )
+                Row(
+                  children: [
+                    Expanded(
+                      child: BuilDraweGridViewItem(
+                        imageUrl: "assets/icons/logout.png",
+                        text: "تسجيل خروج",
+                        function: () {
+                          authProvider.logOut();
+                        },
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
