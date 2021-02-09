@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../utils/app_constant.dart';
+import '../bloc/build_and_contractor_bloc/build_and_contract_bloc.dart';
 import '../widgets/build_form_field.dart';
 // import '../widgets/drawer.dart';
 
@@ -30,8 +32,20 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
       return;
     }
     _formKey.currentState.save();
-    print(inputDate['email']);
-    print(inputDate['password']);
+    print(_selectedItemIndex.toString());
+    print(inputDate['city']);
+    print(inputDate['phoneNumber']);
+    print(inputDate['description']);
+
+    BlocProvider.of<BuildAndContractBloc>(context, listen: false).add(
+      PostBuildAndContract(
+        buildingTypeId: _selectedItemIndex.toString(),
+        city: inputDate['city'],
+        phoneNumber: inputDate['phoneNumber'],
+        description: inputDate['description'],
+        userId: "6",
+      ),
+    );
   }
 
   @override
@@ -64,12 +78,12 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
                   _buildTapSelector(
                     mediaQuery / 2.2,
                     "المخططات الهندسية",
-                    0,
+                    1,
                   ),
                   _buildTapSelector(
                     mediaQuery / 2.2,
                     "البناء",
-                    1,
+                    2,
                   ),
                 ],
               ),
@@ -79,19 +93,19 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
                   _buildTapSelector(
                     mediaQuery / 2.2,
                     "استشارات الشراء",
-                    2,
+                    3,
                   ),
                   _buildTapSelector(
                     mediaQuery / 2.2,
                     "الاشراف",
-                    3,
+                    4,
                   ),
                 ],
               ),
               _buildTapSelector(
                 mediaQuery,
                 "التصميم الداخلى",
-                4,
+                5,
               ),
               SizedBox(height: 5),
               Form(
@@ -115,7 +129,7 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
                           }
                         },
                         onSaved: (value) {
-                          inputDate["area"] = value;
+                          inputDate["phoneNumber"] = value;
                         },
                       ),
                       SizedBox(height: 10),
@@ -134,7 +148,7 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
                           }
                         },
                         onSaved: (value) {
-                          inputDate["price"] = value;
+                          inputDate["city"] = value;
                         },
                       ),
                       SizedBox(height: 10),
@@ -163,30 +177,87 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
                         },
                       ),
                       SizedBox(height: 10),
-                      Container(
-                        width: double.infinity,
-                        height: isLandScape
-                            ? screenUtil.setHeight(230)
-                            : screenUtil.setHeight(150),
-                        child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          color: AppColors.primaryColor,
-                          textColor: Colors.white,
-                          child: Text(
-                            "ارسال",
-                            style: TextStyle(
-                              fontSize: isLandScape
-                                  ? screenUtil.setSp(25)
-                                  : screenUtil.setSp(45),
-                              fontWeight: FontWeight.bold,
+                      BlocConsumer<BuildAndContractBloc, BuildAndContractState>(
+                        listener: (context, state) {
+                          if (state is BuildAndContractInProgress) {
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => Center(
+                                child: sleekCircularSlider(
+                                  context,
+                                  40,
+                                  AppColors.primaryColor,
+                                  AppColors.scondryColor,
+                                ),
+                              ),
+                            );
+                          }
+                          if (state is BuildAndContractDone) {
+                            Navigator.of(context).pop();
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                title: Text("Your requeste is done"),
+                                content: Text(
+                                    "The adminstrator will be in contact with you!"),
+                                actions: [
+                                  FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text("Ok"),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+
+                          if (state is BuildAndContractError) {
+                            Navigator.of(context).pop();
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                title: Text("An error occurred"),
+                                content: Text(state.errorMassage),
+                                actions: [
+                                  FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text("Ok"),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        },
+                        builder: (context, state) {
+                          return Container(
+                            width: double.infinity,
+                            height: isLandScape
+                                ? screenUtil.setHeight(230)
+                                : screenUtil.setHeight(150),
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              color: AppColors.primaryColor,
+                              textColor: Colors.white,
+                              child: Text(
+                                "ارسال",
+                                style: TextStyle(
+                                  fontSize: isLandScape
+                                      ? screenUtil.setSp(25)
+                                      : screenUtil.setSp(45),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              onPressed: () {
+                                _saveForm();
+                              },
                             ),
-                          ),
-                          onPressed: () {
-                            _saveForm();
-                          },
-                        ),
+                          );
+                        },
                       ),
                     ],
                   ),

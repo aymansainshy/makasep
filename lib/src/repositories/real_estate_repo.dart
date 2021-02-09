@@ -344,25 +344,26 @@ class RealEstateRepo {
       "desceribsion": description,
       "buliding_type_id": buildingTypeId,
     };
-    try {
-      final response = await dio.post(
-        url,
-        data: jsonEncode(data),
-        options: Options(
-          sendTimeout: 2000,
-          receiveTimeout: 1000,
-          headers: {
-            'content-type': 'application/json',
-            'Accept': 'application/json',
-          },
-        ),
-      );
+    // try {
+    final response = await dio.post(
+      url,
+      data: jsonEncode(data),
+      options: Options(
+        sendTimeout: 2000,
+        receiveTimeout: 1000,
+        headers: {
+          'content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    );
 
-      print("Response Data .........." + response.data.toString());
-      print("Response Stause Code .........." + response.statusCode.toString());
-      print("Response Message .......... " + response.statusMessage.toString());
-    } catch (e) {
-      print("Catch E " + e.toString());
-    }
+    print("Response Data .........." + response.data.toString());
+    print("Response Stause Code .........." + response.statusCode.toString());
+    print("Response Message .......... " + response.statusMessage.toString());
+    // } catch (e) {
+    //   print("Catch E " + e.toString());
+    //   throw e.toString();
+    // }
   }
 }

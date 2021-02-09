@@ -13,4 +13,8 @@ class BuildAndContractInProgress extends BuildAndContractState {}
 
 class BuildAndContractDone extends BuildAndContractState {}
 
-class BuildAndContractError extends BuildAndContractState {}
+class BuildAndContractError extends BuildAndContractState {
+  final String errorMassage;
+
+  BuildAndContractError({this.errorMassage});
+}

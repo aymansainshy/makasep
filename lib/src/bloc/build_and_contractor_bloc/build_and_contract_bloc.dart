@@ -25,14 +25,20 @@ class BuildAndContractBloc
   ///[All RealEstate ... ]............
   Stream<BuildAndContractState> _mapPostBuildingAndContract(
       PostBuildAndContract event) async* {
-    yield BuildAndContractInProgress();
-    final response = realEstateRepo.postBuildingAndContract(
-      buildingTypeId: event.buildingTypeId,
-      city: event.city,
-      description: event.description,
-      phoneNumber: event.phoneNumber,
-      usetId: event.userId,
-    );
-    yield BuildAndContractDone();
+    try {
+      yield BuildAndContractInProgress();
+      await realEstateRepo.postBuildingAndContract(
+        buildingTypeId: event.buildingTypeId,
+        city: event.city,
+        description: event.description,
+        phoneNumber: event.phoneNumber,
+        usetId: event.userId,
+      );
+      yield BuildAndContractDone();
+    } catch (e) {
+      yield BuildAndContractError(
+        errorMassage: e.toString(),
+      );
+    }
   }
 }
