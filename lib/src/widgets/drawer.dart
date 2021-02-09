@@ -187,8 +187,15 @@ class _AppDrawerState extends State<AppDrawer> {
                         imageUrl: "assets/icons/buildeing.png",
                         text: "البناء والمقاولات",
                         function: () {
-                          Navigator.of(context)
-                              .pushNamed(BuildAndContractors.routeName);
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => BuildAndContractors(
+                                userId: authProvider.userId,
+                              ),
+                            ),
+                          );
+                          // Navigator.of(context)
+                          //     .pushNamed(BuildAndContractors.routeName);
                         },
                       ),
                     ),

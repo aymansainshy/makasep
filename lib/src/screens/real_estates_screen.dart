@@ -219,7 +219,7 @@ class Area extends StatelessWidget {
           );
         } else if (state is RealEstatsError) {
           return Center(
-            child: Text("An error occurred"),
+            child: Text(state.errorMassage),
           );
         } else if (state is RealEstatsLoaded) {
           if (state.realEstats.isEmpty) {

@@ -43,10 +43,14 @@ class RealEstatsBlocBloc
   ///[Semilar RealEstate ... ]............
   Stream<RealEstatsBlocState> _mapFetchSemilerRealEstate(
       FetchSamilerRealEstate event) async* {
-    yield RealEstatsLoading();
-    final List<RealEstate> realEstats =
-        await realEstateRepo.fetchSemilerRealStates(event.realEstateId);
-    yield RealEstatsLoaded(realEstats: realEstats);
+    try {
+      yield RealEstatsLoading();
+      final List<RealEstate> realEstats =
+          await realEstateRepo.fetchSemilerRealStates(event.realEstateId);
+      yield RealEstatsLoaded(realEstats: realEstats);
+    } catch (e) {
+      RealEstatsError(errorMassage: e.toString());
+    }
   }
 
   ///[Last Call RealEstate ... ]............

@@ -9,6 +9,9 @@ import '../widgets/build_form_field.dart';
 
 class BuildAndContractors extends StatefulWidget {
   static const routeName = "/build-and-contractor-screen";
+  final String userId;
+
+  const BuildAndContractors({Key key, this.userId}) : super(key: key);
 
   @override
   _BuildAndContractorsState createState() => _BuildAndContractorsState();
@@ -51,7 +54,7 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
         city: inputDate['city'],
         phoneNumber: inputDate['phoneNumber'],
         description: inputDate['description'],
-        userId: "6",
+        userId: widget.userId,
       ),
     );
   }
