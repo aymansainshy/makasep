@@ -201,12 +201,16 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
                           if (state is BuildAndContractInProgress) {
                             showDialog(
                               context: context,
-                              builder: (ctx) => Center(
-                                child: sleekCircularSlider(
-                                  context,
-                                  40,
-                                  AppColors.primaryColor,
-                                  AppColors.scondryColor,
+                              builder: (ctx) => GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onTap: () {},
+                                child: Center(
+                                  child: sleekCircularSlider(
+                                    context,
+                                    40,
+                                    AppColors.primaryColor,
+                                    AppColors.scondryColor,
+                                  ),
                                 ),
                               ),
                             );
@@ -216,18 +220,22 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
                             _formKey.currentState.reset();
                             showDialog(
                               context: context,
-                              builder: (ctx) => AlertDialog(
-                                title: Text("Your requeste is done"),
-                                content: Text(
-                                    "The adminstrator will be in contact with you!"),
-                                actions: [
-                                  FlatButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text("Ok"),
-                                  ),
-                                ],
+                              builder: (ctx) => GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onTap: () {},
+                                child: AlertDialog(
+                                  title: Text("Your requeste is done"),
+                                  content: Text(
+                                      "The adminstrator will be in contact with you!"),
+                                  actions: [
+                                    FlatButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text("Ok"),
+                                    ),
+                                  ],
+                                ),
                               ),
                             );
                           }
@@ -290,11 +298,7 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
     );
   }
 
-  Widget _buildTapSelector(
-    Size mediaQuery,
-    String text,
-    int index,
-  ) {
+  Widget _buildTapSelector(Size mediaQuery, String text, int index) {
     return GestureDetector(
       onTap: () {
         setState(() {
