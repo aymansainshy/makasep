@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/advertisment_info.dart';
 import '../bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
+import '../bloc/post_favorites/post_favorites_bloc.dart';
+import '../providers/auth_provider.dart';
 import '../models/real_estate_model.dart';
 import '../widgets/discreption_text.dart';
 import '../widgets/location_on_map.dart';
 import '../widgets/real_estate_item.dart';
 import '../utils/app_constant.dart';
 
-class RealEstateDetailScreen extends StatelessWidget {
+class RealEstateDetailScreen extends StatefulWidget {
   static const routeName = '/real-estate-detail-screen';
 
   final RealEstate realEstat;
@@ -18,7 +21,21 @@ class RealEstateDetailScreen extends StatelessWidget {
   const RealEstateDetailScreen({Key key, this.realEstat}) : super(key: key);
 
   @override
+  _RealEstateDetailScreenState createState() => _RealEstateDetailScreenState();
+}
+
+class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
+  var _isFavorite = false;
+
+  void _taggleFavorit() {
+    setState(() {
+      _isFavorite = !_isFavorite;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final userDate = Provider.of<AuthProvider>(context, listen: false);
     ScreenUtil.init(context);
     var isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
@@ -36,13 +53,42 @@ class RealEstateDetailScreen extends StatelessWidget {
             ),
           ],
         ),
-        child: Container(
-          color: Colors.white,
-          child: Center(
-            child: Icon(
-              Icons.star,
-              size: 30,
-              color: Colors.orangeAccent,
+        child: BlocListener<PostFavoritesBloc, PostFavoritesState>(
+          listener: (context, state) {
+            if (state is PostFavoritesDone) {
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("Done"),
+                ),
+              );
+            }
+            if (state is PostFavoritesError) {
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.errorMassege),
+                ),
+              );
+            }
+          },
+          child: Container(
+            color: Colors.white,
+            child: Center(
+              child: GestureDetector(
+                onTap: () {
+                  _taggleFavorit();
+                  BlocProvider.of<PostFavoritesBloc>(context).add(
+                    PostFavoriteRealEstate(
+                      realEstatsId: widget.realEstat.id,
+                      userId: userDate.userId,
+                    ),
+                  );
+                },
+                child: Icon(
+                  _isFavorite ? Icons.star : Icons.star_border,
+                  size: 30,
+                  color: Colors.orangeAccent,
+                ),
+              ),
             ),
           ),
         ),
@@ -123,7 +169,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: '${realEstat.price}',
+                          text: '${widget.realEstat.price}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: isLandScape
@@ -193,7 +239,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                       ),
                       SizedBox(width: 3),
                       Text(
-                        "${realEstat.details.rooms}",
+                        "${widget.realEstat.details.rooms}",
                         style: TextStyle(
                           color: Colors.grey.shade700,
                           fontSize: isLandScape
@@ -219,7 +265,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                       ),
                       SizedBox(width: 3),
                       Text(
-                        "${realEstat.details.hall}",
+                        "${widget.realEstat.details.hall}",
                         style: TextStyle(
                           color: Colors.grey.shade700,
                           fontSize: isLandScape
@@ -245,7 +291,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                       ),
                       SizedBox(width: 6),
                       Text(
-                        "${realEstat.details.bathroom}",
+                        "${widget.realEstat.details.bathroom}",
                         style: TextStyle(
                           color: Colors.grey.shade700,
                           fontSize: isLandScape
@@ -279,7 +325,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                   color: Colors.grey.shade100,
                   text: "عمر العقار",
                   widget: Text(
-                    "${realEstat.details.old} سنوات",
+                    "${widget.realEstat.details.old} سنوات",
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: isLandScape
@@ -294,7 +340,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                   screenUtil: screenUtil,
                   color: Colors.grey.shade300,
                   text: "مفروشة",
-                  widget: realEstat.details.mafrosha
+                  widget: widget.realEstat.details.mafrosha
                       ? Image.asset("assets/icons/correct.png")
                       : Icon(Icons.close, color: Colors.red),
                   //  Icons.cancel_sharp,
@@ -304,7 +350,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                   screenUtil: screenUtil,
                   color: Colors.grey.shade100,
                   text: "مدخل سيارة",
-                  widget: realEstat.details.parking
+                  widget: widget.realEstat.details.parking
                       ? Image.asset("assets/icons/correct.png")
                       : Icon(Icons.close, color: Colors.red),
                 ),
@@ -313,7 +359,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                   screenUtil: screenUtil,
                   color: Colors.grey.shade300,
                   text: "مصعد",
-                  widget: realEstat.details.elevator
+                  widget: widget.realEstat.details.elevator
                       ? Image.asset("assets/icons/correct.png")
                       : Icon(Icons.close, color: Colors.red),
                 ),
@@ -322,7 +368,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                   screenUtil: screenUtil,
                   color: Colors.grey.shade100,
                   text: "مكيفات",
-                  widget: realEstat.details.airConditioner
+                  widget: widget.realEstat.details.airConditioner
                       ? Image.asset("assets/icons/correct.png")
                       : Icon(Icons.close, color: Colors.red),
                 ),
@@ -331,7 +377,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                   screenUtil: screenUtil,
                   color: Colors.grey.shade300,
                   text: "المطبخ",
-                  widget: realEstat.details.ketchen
+                  widget: widget.realEstat.details.ketchen
                       ? Image.asset("assets/icons/correct.png")
                       : Icon(Icons.close, color: Colors.red),
                 ),
@@ -370,8 +416,8 @@ class RealEstateDetailScreen extends StatelessWidget {
                 DescriptionText(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
-                  description: realEstat.description,
-                  roomCount: realEstat.details.rooms.toString(),
+                  description: widget.realEstat.description,
+                  roomCount: widget.realEstat.details.rooms.toString(),
                 ),
                 AdvertisInfo(
                   isLandScape: isLandScape,
@@ -385,7 +431,7 @@ class RealEstateDetailScreen extends StatelessWidget {
                 SemilerAds(
                   screenUtil: screenUtil,
                   isLandScape: isLandScape,
-                  realEstateId: realEstat.id,
+                  realEstateId: widget.realEstat.id,
                 ),
               ],
             ),

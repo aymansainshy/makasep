@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import './src/bloc/build_and_contractor_bloc/build_and_contract_bloc.dart';
 import './src/bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
+import './src/bloc/post_favorites/post_favorites_bloc.dart';
 import './src/providers/modifid_real_estate_provider.dart';
 import './src/screens/animated_splash_screen.dart';
 import './src/providers/categories_provider.dart';
@@ -52,6 +53,11 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<BuildAndContractBloc>(
             create: (context) => BuildAndContractBloc(
+              realEstateRepo: RealEstateRepo(),
+            ),
+          ),
+          BlocProvider<PostFavoritesBloc>(
+            create: (context) => PostFavoritesBloc(
               realEstateRepo: RealEstateRepo(),
             ),
           ),
