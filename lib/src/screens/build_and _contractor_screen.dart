@@ -19,6 +19,7 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
 
   final _formKey = GlobalKey<FormState>();
   int _selectedItemIndex;
+  var notSelecte = false;
 
   var inputDate = {
     'phoneNumber': '',
@@ -27,10 +28,17 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
   };
 
   void _saveForm() async {
+    if (_selectedItemIndex == null) {
+      setState(() {
+        notSelecte = true;
+      });
+      return;
+    }
     final isValid = _formKey.currentState.validate();
     if (!isValid) {
       return;
     }
+
     _formKey.currentState.save();
     print(_selectedItemIndex.toString());
     print(inputDate['city']);
@@ -107,6 +115,14 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
                 "التصميم الداخلى",
                 5,
               ),
+              if (notSelecte)
+                Text(
+                  "Please Select one of this category",
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 15,
+                  ),
+                ),
               SizedBox(height: 5),
               Form(
                 key: _formKey,
@@ -194,6 +210,7 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
                           }
                           if (state is BuildAndContractDone) {
                             Navigator.of(context).pop();
+                            _formKey.currentState.reset();
                             showDialog(
                               context: context,
                               builder: (ctx) => AlertDialog(
@@ -279,6 +296,7 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
       onTap: () {
         setState(() {
           _selectedItemIndex = index;
+          notSelecte = false;
         });
       },
       child: Container(
