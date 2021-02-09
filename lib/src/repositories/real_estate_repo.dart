@@ -58,7 +58,8 @@ class RealEstateRepo {
             area: double.parse(e["space"].toString()),
             description: e["describstion"],
             imageUrl: e["image"],
-            type: int.parse(e["primary_type_id"].toString()),
+            type: int.parse(e["primary_type_id"]
+                .toString()), /////////////[TYPE OF REAESTATE]//////////////
             address: Address(
               lat: e["lat"],
               lan: e["long"],
@@ -70,11 +71,12 @@ class RealEstateRepo {
               old: e["bulding_age"].toString(),
               steps: int.parse(e["floor_num"].toString()),
               bathroom: 2, //api null
-              airConditioner: e["Conditioners"] == "0" ? false : true,
-              elevator: e["elevator"] == "0" ? false : true,
-              ketchen: e["kitchen"] == "0" ? false : true,
-              parking: e["car_door"] == "0" ? false : true,
-              mafrosha: e["Furnished"] == "0" ? false : true,
+              airConditioner:
+                  e["Conditioners"].toString() == "0" ? false : true,
+              elevator: e["elevator"].toString() == "0" ? false : true,
+              ketchen: e["kitchen"].toString() == "0" ? false : true,
+              parking: e["car_door"].toString() == "0" ? false : true,
+              mafrosha: e["Furnished"].toString() == "0" ? false : true,
             ),
           ),
         );
@@ -131,11 +133,12 @@ class RealEstateRepo {
               old: e["bulding_age"].toString(),
               steps: int.parse(e["floor_num"].toString()),
               bathroom: 2, //api null
-              airConditioner: e["Conditioners"] == "0" ? false : true,
-              elevator: e["elevator"] == "0" ? false : true,
-              ketchen: e["kitchen"] == "0" ? false : true,
-              parking: e["car_door"] == "0" ? false : true,
-              mafrosha: e["Furnished"] == "0" ? false : true,
+              airConditioner:
+                  e["Conditioners"].toString() == "0" ? false : true,
+              elevator: e["elevator"].toString() == "0" ? false : true,
+              ketchen: e["kitchen"].toString() == "0" ? false : true,
+              parking: e["car_door"].toString() == "0" ? false : true,
+              mafrosha: e["Furnished"].toString() == "0" ? false : true,
             ),
           ),
         );
@@ -191,12 +194,18 @@ class RealEstateRepo {
               old: e["real_estate"]["bulding_age"].toString(),
               steps: int.parse(e["real_estate"]["floor_num"].toString()),
               bathroom: 2, //api null
-              airConditioner:
-                  e["real_estate"]["Conditioners"] == "0" ? false : true,
-              elevator: e["real_estate"]["elevator"] == "0" ? false : true,
-              ketchen: e["real_estate"]["kitchen"] == "0" ? false : true,
-              parking: e["real_estate"]["car_door"] == "0" ? false : true,
-              mafrosha: e["real_estate"]["Furnished"] == "0" ? false : true,
+              airConditioner: e["real_estate"]["Conditioners"].toString() == "0"
+                  ? false
+                  : true,
+              elevator:
+                  e["real_estate"]["elevator"].toString() == "0" ? false : true,
+              ketchen:
+                  e["real_estate"]["kitchen"].toString() == "0" ? false : true,
+              parking:
+                  e["real_estate"]["car_door"].toString() == "0" ? false : true,
+              mafrosha: e["real_estate"]["Furnished"].toString() == "0"
+                  ? false
+                  : true,
             ),
           ),
         );
@@ -252,11 +261,12 @@ class RealEstateRepo {
               old: e["bulding_age"].toString(),
               steps: int.parse(e["floor_num"].toString()),
               bathroom: 2, //api null
-              airConditioner: e["Conditioners"] == "0" ? false : true,
-              elevator: e["elevator"] == "0" ? false : true,
-              ketchen: e["kitchen"] == "0" ? false : true,
-              parking: e["car_door"] == "0" ? false : true,
-              mafrosha: e["Furnished"] == "0" ? false : true,
+              airConditioner:
+                  e["Conditioners"].toString() == "0" ? false : true,
+              elevator: e["elevator"].toString() == "0" ? false : true,
+              ketchen: e["kitchen"].toString() == "0" ? false : true,
+              parking: e["car_door"].toString() == "0" ? false : true,
+              mafrosha: e["Furnished"].toString() == "0" ? false : true,
             ),
           ),
         );
@@ -312,11 +322,12 @@ class RealEstateRepo {
               old: e["bulding_age"].toString(),
               steps: int.parse(e["floor_num"].toString()),
               bathroom: 2, //api null
-              airConditioner: e["Conditioners"] == "0" ? false : true,
-              elevator: e["elevator"] == "0" ? false : true,
-              ketchen: e["kitchen"] == "0" ? false : true,
-              parking: e["car_door"] == "0" ? false : true,
-              mafrosha: e["Furnished"] == "0" ? false : true,
+              airConditioner:
+                  e["Conditioners"].toString() == "0" ? false : true,
+              elevator: e["elevator"].toString() == "0" ? false : true,
+              ketchen: e["kitchen"].toString() == "0" ? false : true,
+              parking: e["car_door"].toString() == "0" ? false : true,
+              mafrosha: e["Furnished"].toString() == "0" ? false : true,
             ),
           ),
         );

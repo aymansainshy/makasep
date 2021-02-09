@@ -4,12 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class DescriptionText extends StatelessWidget {
   final bool isLandScape;
   final ScreenUtil screenUtil;
+  final String roomCount;
+  final String description;
 
-  const DescriptionText({
-    Key key,
-    @required this.isLandScape,
-    @required this.screenUtil,
-  }) : super(key: key);
+  const DescriptionText(
+      {Key key,
+      @required this.isLandScape,
+      @required this.screenUtil,
+      @required this.roomCount,
+      @required this.description})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,7 +32,7 @@ class DescriptionText extends StatelessWidget {
             ),
           ),
           Text(
-            "غرف نوم 3 , و 3 مطبخ وصالة , و4 حمامات , مكيفات هواء 5",
+            "غرف نوم ${roomCount.toString()}  +  ${description.toString()} ",
             style: TextStyle(
               color: Colors.grey.shade700,
               fontSize:
