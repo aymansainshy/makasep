@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/add_advertise_photo_screen.dart';
+import '../providers/modifid_real_estate_provider.dart';
 import '../providers/categories_provider.dart';
 import '../utils/app_constant.dart';
 
@@ -41,6 +42,8 @@ class AddAdvertiseScreen extends StatelessWidget {
                 leading: categoriesProvider.categoryList[i].imageUrl,
                 title: categoriesProvider.categoryList[i].title,
                 onTap: () {
+                  Provider.of<ModifiedRealEstat>(context, listen: false)
+                      .setCatType(categoriesProvider.categoryList[i].id);
                   Navigator.of(context)
                       .pushNamed(AddAdvertisePhontoScreen.routeName);
                 },

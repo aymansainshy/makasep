@@ -56,6 +56,19 @@ class ModifiedRealEstat with ChangeNotifier {
     return _storedImage;
   }
 
+  void setAdderess(Map<String, dynamic> address) {
+    _realEstate.address = Address(
+      lan: address["lan"],
+      lat: address["lat"],
+    );
+    notifyListeners();
+  }
+
+  void setCatType(String catId) {
+    _realEstate.categoryType = catId;
+    notifyListeners();
+  }
+
   void setArea(double area) {
     _realEstate.area = area;
     notifyListeners();

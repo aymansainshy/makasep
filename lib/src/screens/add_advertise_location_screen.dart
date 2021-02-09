@@ -3,12 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/categories_provider.dart';
+import '../providers/modifid_real_estate_provider.dart';
 import '../screens/add_advertise_detailes_screen.dart';
 import '../utils/app_constant.dart';
 
 class AddAdvertiseLocationScreen extends StatelessWidget {
   static const routeName = "/add-advertise-location-screen";
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  Map<String, dynamic> address = {
+    "lan": 4442432.334,
+    "lat": 223.3341414,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +31,8 @@ class AddAdvertiseLocationScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryColor,
         onPressed: () {
+          Provider.of<ModifiedRealEstat>(context, listen: false)
+              .setAdderess(address);
           Navigator.of(context).pushNamed(AddAdvertiseDetaileScreen.routeName);
         },
         child: Text("استمرار"),
