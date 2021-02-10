@@ -45,7 +45,7 @@ class BestAds extends StatelessWidget {
               );
             }
             return ListView.builder(
-              itemCount: 3,
+              itemCount: state.realEstats.length,
               itemBuilder: (context, index) => RealEstateItem(
                 realEstat: state.realEstats[index],
                 screenUtil: screenUtil,
