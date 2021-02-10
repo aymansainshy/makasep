@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -27,14 +31,37 @@ class RealEstateDetailScreen extends StatefulWidget {
 class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
   var _isFavorite = false;
 
-  void _taggleFavorit() {
+  @override
+  void initState() {
+    super.initState();
+    _setIsFav();
+  }
+
+  _setIsFav() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey(widget.realEstat.id)) {
+      return false;
+    }
+    setState(() {
+      _isFavorite = prefs.getBool(widget.realEstat.id);
+    });
+  }
+
+  void _taggleFavorit() async {
     setState(() {
       _isFavorite = !_isFavorite;
     });
+
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey(widget.realEstat.id)) {
+      prefs.remove(widget.realEstat.id);
+    }
+    prefs.setBool(widget.realEstat.id, _isFavorite);
   }
 
   @override
   Widget build(BuildContext context) {
+    print(_isFavorite);
     final userDate = Provider.of<AuthProvider>(context, listen: false);
     ScreenUtil.init(context);
     var isLandScape =
@@ -154,7 +181,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
                   child: Text(
-                    "شقة للبيع",
+                    '${realEstateType(widget.realEstat.type)} ${realEstatePrimaryType(widget.realEstat.categoryType)}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: isLandScape
@@ -544,7 +571,7 @@ class _SemilerAdsState extends State<SemilerAds> {
                   );
                 } else if (state is RealEstatsLoaded) {
                   return ListView.builder(
-                    itemCount: 5,
+                    itemCount: state.realEstats.length,
                     itemBuilder: (context, index) => RealEstateItem(
                       realEstat: state.realEstats[index],
                       screenUtil: widget.screenUtil,
