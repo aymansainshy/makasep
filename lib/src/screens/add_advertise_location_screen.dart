@@ -11,7 +11,7 @@ class AddAdvertiseLocationScreen extends StatelessWidget {
   static const routeName = "/add-advertise-location-screen";
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  Map<String, dynamic> address = {
+  final Map<String, dynamic> address = {
     "lan": 4442432.334,
     "lat": 223.3341414,
   };

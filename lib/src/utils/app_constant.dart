@@ -33,6 +33,56 @@ String translate(String text, BuildContext context) {
   return AppLocalizations.of(context).translate(text);
 }
 
+String realEstateType(int reatEstateTypeId) {
+  switch (reatEstateTypeId) {
+    case 1:
+      return "عمارة";
+      break;
+    case 2:
+      return "شقة";
+      break;
+    case 3:
+      return "منزل";
+      break;
+    default:
+      return "منزل";
+  }
+}
+
+String realEstatePrimaryType(String reatEstatePrimaryId) {
+  switch (reatEstatePrimaryId) {
+    case "1":
+      return "للبيع";
+      break;
+    case "2":
+      return "للبيع";
+      break;
+    case "3":
+      return "للبيع";
+      break;
+    case "4":
+      return "للاستثمار";
+      break;
+    case "5":
+      return "للايجار";
+      break;
+    case "6":
+      return "تقبيل خلو طرف";
+      break;
+    case "7":
+      return "البناء ومقاولات";
+      break;
+    case "8":
+      return " مواقع مهمة";
+      break;
+    case "7":
+      return " للبيع";
+      break;
+    default:
+      return "للبيع";
+  }
+}
+
 Widget sleekCircularSlider(
     BuildContext context, double size, Color color1, Color color2) {
   return SleekCircularSlider(

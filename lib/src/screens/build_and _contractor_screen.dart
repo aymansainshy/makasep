@@ -59,6 +59,9 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
     );
   }
 
+  RegExp _isPhoneValid =
+      RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$');
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -120,7 +123,7 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
               ),
               if (notSelecte)
                 Text(
-                  "Please Select one of this category",
+                  "الرجاء اختيار نوع الاستشارة",
                   style: TextStyle(
                     color: Colors.red,
                     fontSize: 15,
@@ -145,6 +148,9 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
                         validator: (value) {
                           if (value.toString().isEmpty) {
                             return "الرجاء ادخال رقم الجوال  ";
+                          }
+                          if (!_isPhoneValid.hasMatch(value)) {
+                            return "الرجاء ادخال رقم هاتف صحيح";
                           }
                         },
                         onSaved: (value) {
@@ -224,15 +230,30 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
                                 behavior: HitTestBehavior.opaque,
                                 onTap: () {},
                                 child: AlertDialog(
-                                  title: Text("Your requeste is done"),
+                                  title: Text(
+                                    "طلبك تم بنجاح",
+                                    style: TextStyle(
+                                      color: AppColors.primaryColor,
+                                      fontSize: 15,
+                                    ),
+                                  ),
                                   content: Text(
-                                      "The adminstrator will be in contact with you!"),
+                                    "ستتم مراسلتك من قبل الادارة لاحقا",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                    ),
+                                  ),
                                   actions: [
                                     FlatButton(
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
-                                      child: Text("Ok"),
+                                      child: Text(
+                                        "Ok",
+                                        style: TextStyle(
+                                          color: AppColors.primaryColor,
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),

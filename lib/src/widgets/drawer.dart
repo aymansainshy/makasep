@@ -226,34 +226,12 @@ class _AppDrawerState extends State<AppDrawer> {
                     Expanded(
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/bell.png",
-                        text: "الطلبات",
-                        function: () {
-                          Navigator.of(context)
-                              .pushNamed(OrderScreen.routeName);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: BuilDraweGridViewItem(
-                        imageUrl: "assets/icons/other.png",
                         text: "المحادثات",
                         function: () {
                           Navigator.of(context)
                               .pushNamed(ChatsScreen.routeName);
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: BuilDraweGridViewItem(
-                        imageUrl: "assets/icons/Star.png",
-                        text: "المفضلة",
-                        function: () {
-                          Navigator.of(context)
-                              .pushNamed(BestAdsScreen.routeName);
+                          // Navigator.of(context)
+                          //     .pushNamed(OrderScreen.routeName);
                         },
                       ),
                     ),
@@ -270,8 +248,31 @@ class _AppDrawerState extends State<AppDrawer> {
                         },
                       ),
                     ),
+                    Expanded(
+                      child: BuilDraweGridViewItem(
+                        imageUrl: "assets/icons/Star.png",
+                        text: "المفضلة",
+                        function: () {
+                          Navigator.of(context)
+                              .pushNamed(BestAdsScreen.routeName);
+                        },
+                      ),
+                    ),
                   ],
-                )
+                ),
+                // Row(
+                //   children: [
+                //     Expanded(
+                //       child: BuilDraweGridViewItem(
+                //         imageUrl: "assets/icons/logout.png",
+                //         text: "تسجيل خروج",
+                //         function: () {
+                //           authProvider.logOut();
+                //         },
+                //       ),
+                //     ),
+                //   ],
+                // )
               ],
             ),
           ),

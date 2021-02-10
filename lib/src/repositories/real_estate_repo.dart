@@ -58,7 +58,7 @@ class RealEstateRepo {
             area: double.parse(e["space"].toString()),
             description: e["describstion"],
             imageUrl: e["image"],
-            type: int.parse(e["primary_type_id"]
+            type: int.parse(e["secondry_type_id"]
                 .toString()), /////////////[TYPE OF REAESTATE]//////////////
             address: Address(
               lat: e["lat"],
@@ -121,7 +121,7 @@ class RealEstateRepo {
             area: double.parse(e["space"].toString()),
             description: e["describstion"],
             imageUrl: e["image"],
-            type: int.parse(e["primary_type_id"].toString()),
+            type: int.parse(e["secondry_type_id"].toString()),
             address: Address(
               lat: e["lat"],
               lan: e["long"],
@@ -182,7 +182,7 @@ class RealEstateRepo {
             area: double.parse(e["real_estate"]["space"].toString()),
             description: e["real_estate"]["describstion"],
             imageUrl: e["real_estate"]["image"],
-            type: int.parse(e["real_estate"]["primary_type_id"].toString()),
+            type: int.parse(e["real_estate"]["secondry_type_id"].toString()),
             address: Address(
               lat: e["real_estate"]["lat"],
               lan: e["real_estate"]["long"],
@@ -249,7 +249,7 @@ class RealEstateRepo {
             area: double.parse(e["space"].toString()),
             description: e["describstion"],
             imageUrl: e["image"],
-            type: int.parse(e["primary_type_id"].toString()),
+            type: int.parse(e["secondry_type_id"].toString()),
             address: Address(
               lat: e["lat"],
               lan: e["long"],
@@ -310,7 +310,7 @@ class RealEstateRepo {
             area: double.parse(e["space"].toString()),
             description: e["describstion"],
             imageUrl: e["image"],
-            type: int.parse(e["primary_type_id"].toString()),
+            type: int.parse(e["secondry_type_id"].toString()),
             address: Address(
               lat: e["lat"],
               lan: e["long"],
