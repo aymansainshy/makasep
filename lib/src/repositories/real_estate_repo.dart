@@ -456,33 +456,33 @@ class RealEstateRepo {
       "Furnished": realEstate.details.mafrosha ? 1 : 0,
       "Conditioners": realEstate.details.airConditioner ? 1 : 0,
     });
-    try {
-      final response = await dio.post(
-        url,
-        data: data,
-        options: Options(
-          sendTimeout: 5000,
-          receiveTimeout: 5000,
-          headers: {
-            // 'content-type': 'application/json',
-            // 'Accept': 'application/json',
-            'Accept': '*/*',
-            'content-type': 'multipart/form-data',
-          },
-        ),
-      );
+    // try {
+    final response = await dio.post(
+      url,
+      data: data,
+      options: Options(
+        sendTimeout: 5000,
+        receiveTimeout: 5000,
+        headers: {
+          // 'content-type': 'application/json',
+          // 'Accept': 'application/json',
+          'Accept': '*/*',
+          'content-type': 'multipart/form-data',
+        },
+      ),
+    );
 
-      print("Response Data .........." + response.data.toString());
-      print("Response Stause Code .........." + response.statusCode.toString());
-      print("Response Message .......... " + response.statusMessage.toString());
+    print("Response Data .........." + response.data.toString());
+    print("Response Stause Code .........." + response.statusCode.toString());
+    print("Response Message .......... " + response.statusMessage.toString());
 
-      print("Requested Data ........................" +
-          response.request.data.toString());
-    } on DioError catch (e) {
-      print("Catch E " + e.toString());
-      throw e.message;
-    } catch (e) {
-      throw e.toString();
-    }
+    print("Requested Data ........................" +
+        response.request.data.toString());
+    // } on DioError catch (e) {
+    //   print("Catch E " + e.toString());
+    //   throw e.message;
+    // } catch (e) {
+    //   throw e.toString();
+    // }
   }
 }

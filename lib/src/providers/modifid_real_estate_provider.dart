@@ -42,7 +42,7 @@ class ModifiedRealEstat with ChangeNotifier {
   final _picker = ImagePicker();
 
   Future picImage() async {
-    final pickedFile = await _picker.getImage(source: ImageSource.camera);
+    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       _storedImage = File(pickedFile.path);
