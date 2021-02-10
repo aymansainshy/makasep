@@ -8,7 +8,6 @@ import '../providers/categories_provider.dart';
 import '../bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
 import '../providers/modifid_real_estate_provider.dart';
 import '../providers/auth_provider.dart';
-import '../models/real_estate_model.dart';
 import '../utils/app_constant.dart';
 
 class AddAdvertiseDetaile2Screen extends StatefulWidget {
