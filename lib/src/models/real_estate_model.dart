@@ -4,7 +4,7 @@ class RealEstate {
   String id;
   int type; // 1= apartment , 2= normal house ....
   String owner;
-  double area; // 40 * 45 M**2
+  String area; // 40 * 45 M**2
   double price;
   String imageUrl;
   Address address;

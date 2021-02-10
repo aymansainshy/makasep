@@ -8,7 +8,7 @@ import '../models/real_estate_model.dart';
 class ModifiedRealEstat with ChangeNotifier {
   RealEstate _realEstate = RealEstate(
     id: "",
-    area: 0.0,
+    area: "0.0",
     categoryType: "",
     description: "",
     imageUrl: "",
@@ -69,7 +69,7 @@ class ModifiedRealEstat with ChangeNotifier {
     notifyListeners();
   }
 
-  void setArea(double area) {
+  void setArea(String area) {
     _realEstate.area = area;
     notifyListeners();
   }

@@ -4,6 +4,8 @@ import 'package:makasep/src/widgets/build_form_field.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/categories_provider.dart';
+import '../providers/modifid_real_estate_provider.dart';
+import '../models/real_estate_model.dart';
 import '../utils/app_constant.dart';
 
 class AddAdvertiseDetaile2Screen extends StatefulWidget {
@@ -20,21 +22,35 @@ class _AddAdvertiseDetaile2ScreenState
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   var isCheck = false;
+  ModifiedRealEstat _realEstate;
+  var isInit = true;
 
-  var inputDate = {
-    'area': '',
-    'price': '',
-    'description': '',
-  };
+  // var inputDate = {
+  //   'area': '',
+  //   'price': '',
+  //   'description': '',
+  // };
+
+  @override
+  void didChangeDependencies() {
+    if (isInit) {
+      _realEstate = Provider.of<ModifiedRealEstat>(context, listen: false);
+    }
+    isInit = false;
+    super.didChangeDependencies();
+  }
 
   void _saveForm() async {
     final isValid = _formKey.currentState.validate();
     if (!isValid) {
       return;
     }
+    if (!isCheck) {
+      return;
+    }
     _formKey.currentState.save();
-    print(inputDate['email']);
-    print(inputDate['password']);
+
+    print(_realEstate.reatEstate.description + " EEEEEEEEEEEEEEEEEEEEEEEeeeee");
   }
 
   @override
@@ -81,7 +97,7 @@ class _AddAdvertiseDetaile2ScreenState
                     }
                   },
                   onSaved: (value) {
-                    inputDate["area"] = value;
+                    _realEstate.setArea(value);
                   },
                 ),
                 SizedBox(height: 10),
@@ -98,9 +114,15 @@ class _AddAdvertiseDetaile2ScreenState
                     if (value.toString().isEmpty) {
                       return "الرجاء ادخال السعر الفعلى للعقار";
                     }
+                    if (double.tryParse(value).isNegative) {
+                      return "الرجاء ادخال ارقام صحيحة";
+                    }
+                    if (double.parse(value) <= 0) {
+                      return "سعر العقار لا يجب عن يقل عن 100 جنيه";
+                    }
                   },
                   onSaved: (value) {
-                    inputDate["price"] = value;
+                    _realEstate.setPrice(double.parse(value));
                   },
                 ),
                 SizedBox(height: 10),
@@ -121,11 +143,11 @@ class _AddAdvertiseDetaile2ScreenState
                   maxLines: 3,
                   validator: (value) {
                     if (value.toString().isEmpty) {
-                      return "الرجاء ادخال المساحة الفعلية للعقار";
+                      return "الرجاء كتابة وصف العقار";
                     }
                   },
                   onSaved: (value) {
-                    inputDate["description"] = value;
+                    _realEstate.setDescription(value);
                   },
                 ),
                 Padding(
@@ -154,6 +176,13 @@ class _AddAdvertiseDetaile2ScreenState
                     ],
                   ),
                 ),
+                if (!isCheck)
+                  Text(
+                    "الرجاء الموافقة بشروط الخدمة",
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
                 SizedBox(height: 10),
                 Container(
                   width: double.infinity,
