@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -28,6 +29,8 @@ class RealEstatsBlocBloc
       yield* _mapFetchTodayRealEstate(event);
     } else if (event is FetchSpecialRealEstate) {
       yield* _mapFetchEspecialRealEstate(event);
+    } else if (event is PostRealEstate) {
+      yield* _mapPostRealEstate(event);
     }
   }
 
@@ -78,5 +81,20 @@ class RealEstatsBlocBloc
     final List<RealEstate> realEstats =
         await realEstateRepo.fetchEspecialRealStates();
     yield RealEstatsLoaded(realEstats: realEstats);
+  }
+
+  ///[Post RealEstate ... ]............
+  Stream<RealEstatsBlocState> _mapPostRealEstate(PostRealEstate event) async* {
+    try {
+      yield RealEstatsLoading();
+      await realEstateRepo.postRealEstate(
+        realEstate: event.realEstats,
+        image: event.image,
+        userId: event.userId,
+      );
+      yield RealEstatsPosted();
+    } catch (e) {
+      yield RealEstatsError(errorMassage: e.toString());
+    }
   }
 }

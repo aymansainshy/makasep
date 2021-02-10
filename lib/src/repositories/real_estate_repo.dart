@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'dart:convert';
+
 import '../models/real_estate_model.dart';
 
 class RealEstateRepo {
@@ -401,6 +404,70 @@ class RealEstateRepo {
         headers: {
           'content-type': 'application/json',
           'Accept': 'application/json',
+        },
+      ),
+    );
+
+    print("Response Data .........." + response.data.toString());
+    print("Response Stause Code .........." + response.statusCode.toString());
+    print("Response Message .......... " + response.statusMessage.toString());
+    // } catch (e) {
+    //   print("Catch E " + e.toString());
+    //   throw e.toString();
+    // }
+  }
+
+///////////////////////////////////////////[ Post RealEsate ]//////////////////////////////////////////////////
+  ///
+  Future<void> postRealEstate(
+      {String userId, RealEstate realEstate, File image}) async {
+    final url = 'http://162.0.230.58/api/realEstate';
+
+    String fileName = image.path.split('/').last;
+    // FormData formData = FormData.fromMap({
+    //   "image": await MultipartFile.fromFile(
+    //     image.path,
+    //     filename: fileName,
+    //   ),
+    // });
+
+    print("Start Posting RealEstate  ..........");
+
+    FormData data = FormData.fromMap({
+      "primary_type_id": realEstate.categoryType,
+      "secondry_type_id": realEstate.type,
+      "price": realEstate.price,
+      "user_id": userId,
+      "space": realEstate.area,
+      "lat": realEstate.address.lat,
+      "long": realEstate.address.lan,
+      "describstion": realEstate.description,
+      "image": await MultipartFile.fromFile(
+        image.path,
+        filename: fileName,
+      ),
+      "room_num": realEstate.details.rooms,
+      "halls_num": realEstate.details.hall,
+      "floor_num": realEstate.details.steps,
+      "bulding_age": realEstate.details.old,
+      "kitchen": realEstate.details.ketchen ? 1 : 0,
+      "car_door": realEstate.details.parking ? 1 : 0,
+      "elevator": realEstate.details.elevator ? 1 : 0,
+      "Furnished": realEstate.details.mafrosha ? 1 : 0,
+      "Conditioners": realEstate.details.airConditioner ? 1 : 0,
+    });
+    // try {
+    final response = await dio.post(
+      url,
+      data: data,
+      options: Options(
+        sendTimeout: 2000,
+        receiveTimeout: 1000,
+        headers: {
+          // 'content-type': 'application/json',
+          // 'Accept': 'application/json',
+          'Accept': '*/*',
+          'content-type': 'multipart/form-data',
         },
       ),
     );

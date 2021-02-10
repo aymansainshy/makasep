@@ -37,6 +37,8 @@ class FetchSpecialRealEstate extends RealEstatsBlocEvent {
 
 class PostRealEstate extends RealEstatsBlocEvent {
   final RealEstate realEstats;
+  final String userId;
+  final File image;
 
-  PostRealEstate({this.realEstats});
+  PostRealEstate({this.realEstats, this.image, this.userId});
 }
