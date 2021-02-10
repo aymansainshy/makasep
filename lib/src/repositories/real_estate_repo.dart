@@ -461,8 +461,8 @@ class RealEstateRepo {
       url,
       data: data,
       options: Options(
-        sendTimeout: 2000,
-        receiveTimeout: 1000,
+        sendTimeout: 5000,
+        receiveTimeout: 5000,
         headers: {
           // 'content-type': 'application/json',
           // 'Accept': 'application/json',
@@ -475,6 +475,10 @@ class RealEstateRepo {
     print("Response Data .........." + response.data.toString());
     print("Response Stause Code .........." + response.statusCode.toString());
     print("Response Message .......... " + response.statusMessage.toString());
+
+    print("Requested Data ........................" +
+        response.request.data.toString());
+
     // } catch (e) {
     //   print("Catch E " + e.toString());
     //   throw e.toString();

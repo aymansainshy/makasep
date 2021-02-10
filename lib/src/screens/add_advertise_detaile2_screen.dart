@@ -183,6 +183,7 @@ class _AddAdvertiseDetaile2ScreenState
                     contentPadding: 8.0,
                     keyboardType: TextInputType.text,
                     // fieldName: "المساحة",
+                    initialValue: _realEstate.reatEstate.area,
                     validator: (value) {
                       if (value.toString().isEmpty) {
                         return "الرجاء ادخال المساحة الفعلية للعقار";
@@ -202,6 +203,7 @@ class _AddAdvertiseDetaile2ScreenState
                     contentPadding: 8.0,
                     keyboardType: TextInputType.number,
                     // fieldName: "السعر الاجمالى",
+                    initialValue: _realEstate.reatEstate.price.toString(),
                     validator: (value) {
                       if (value.toString().isEmpty) {
                         return "الرجاء ادخال السعر الفعلى للعقار";
@@ -233,6 +235,7 @@ class _AddAdvertiseDetaile2ScreenState
                       wordSpacing: 2,
                     ),
                     maxLines: 3,
+                    initialValue: _realEstate.reatEstate.description,
                     validator: (value) {
                       if (value.toString().isEmpty) {
                         return "الرجاء كتابة وصف العقار";
