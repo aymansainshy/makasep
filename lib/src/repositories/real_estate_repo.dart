@@ -117,19 +117,19 @@ class RealEstateRepo {
     final _respostUserData =
         _response.data['real_state']['user'] as Map<dynamic, dynamic>;
 
-    User userData = User(
-      userId: _respostUserData["user"]["id"].toString(),
-      imageUrl: _respostUserData["user"]["image"] == null
+    final User userData = User(
+      userId: _respostUserData["id"].toString(),
+      imageUrl: _respostUserData["image"] == null
           ? null
-          : 'http://162.0.230.58' + _respostUserData["user"]["image"],
-      phoneNumber: _respostUserData["user"]["phone_number"].toString(),
-      showContct: _respostUserData["user"]["show_contact"].toString(),
-      rating: double.parse(_respostUserData["user"]["rating"].toString()),
-      userName: _respostUserData["user"]["user_name"],
-      userType: _respostUserData["user"]["user_type_id"],
+          : 'http://162.0.230.58' + _respostUserData["image"],
+      phoneNumber: _respostUserData["phone_number"].toString(),
+      showContct: _respostUserData["show_contact"].toString(),
+      rating: double.parse(_respostUserData["rating"].toString()),
+      userName: _respostUserData["user_name"],
+      userType: _respostUserData["user_type_id"],
     );
 
-    List<RealEstate> loadedRealStates = [];
+    final List<RealEstate> loadedRealStates = [];
 
     _respostDate.forEach(
       (e) {

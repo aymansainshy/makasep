@@ -63,7 +63,7 @@ class _MealItemState extends State<RealEstateItem> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: widget.isLandScape
-                                      ? widget.screenUtil.setSp(30)
+                                      ? widget.screenUtil.setSp(20)
                                       : widget.screenUtil.setSp(40),
                                   wordSpacing: 1.0,
                                 ),
@@ -112,7 +112,7 @@ class _MealItemState extends State<RealEstateItem> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: widget.isLandScape
-                                        ? widget.screenUtil.setSp(30)
+                                        ? widget.screenUtil.setSp(25)
                                         : widget.screenUtil.setSp(40),
                                     color: AppColors.scondryColor,
                                   ),
@@ -146,7 +146,7 @@ class _MealItemState extends State<RealEstateItem> {
                             style: TextStyle(
                               color: Colors.grey.shade800,
                               fontSize: widget.isLandScape
-                                  ? widget.screenUtil.setSp(25)
+                                  ? widget.screenUtil.setSp(20)
                                   : widget.screenUtil.setSp(35),
                             ),
                           ),
@@ -159,7 +159,7 @@ class _MealItemState extends State<RealEstateItem> {
                             style: TextStyle(
                               color: Colors.grey.shade800,
                               fontSize: widget.isLandScape
-                                  ? widget.screenUtil.setSp(25)
+                                  ? widget.screenUtil.setSp(20)
                                   : widget.screenUtil.setSp(35),
                             ),
                           ),
@@ -169,7 +169,7 @@ class _MealItemState extends State<RealEstateItem> {
                   ),
                 ),
                 Container(
-                  width: 150,
+                  width: widget.isLandScape ? 250 : 150,
                   child: ClipRRect(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(5),
@@ -185,7 +185,7 @@ class _MealItemState extends State<RealEstateItem> {
                         fit: BoxFit.fill,
                       ),
                       height: widget.isLandScape
-                          ? widget.screenUtil.setHeight(660)
+                          ? widget.screenUtil.setHeight(720)
                           : widget.screenUtil.setHeight(330),
                       width: widget.screenUtil.setWidth(400),
                     ),
