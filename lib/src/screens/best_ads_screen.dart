@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
+import '../bloc/post_favorites/post_favorites_bloc.dart';
+import '../providers/auth_provider.dart';
+import '../widgets/real_estate_item.dart';
 import '../utils/app_constant.dart';
-// import '../widgets/drawer.dart';
 
 class BestAdsScreen extends StatelessWidget {
   static const routeName = "/BestAds-screen";
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  _loadedDate(String userId, BuildContext context) async {
+    BlocProvider.of<PostFavoritesBloc>(context, listen: false).add(
+      FetchFavoritesRealEstate(
+        userId: userId,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +28,9 @@ class BestAdsScreen extends StatelessWidget {
     var isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
     var mediaQuery = MediaQuery.of(context).size;
+
+    final userData = Provider.of<AuthProvider>(context, listen: false);
+    _loadedDate(userData.userId, context);
     return Scaffold(
       key: _scaffoldKey,
       // drawer: AppDrawer(),
@@ -28,8 +43,42 @@ class BestAdsScreen extends StatelessWidget {
           style: TextStyle(fontSize: 15),
         ),
       ),
-      body: Center(
-        child: Text("افضل الاعلانات"),
+      body: BlocBuilder<PostFavoritesBloc, PostFavoritesState>(
+        builder: (context, state) {
+          if (state is PostFavoritesInProgress) {
+            return Center(
+              child: sleekCircularSlider(
+                  context, 40, AppColors.primaryColor, AppColors.scondryColor),
+            );
+          } else if (state is PostFavoritesError) {
+            return Center(
+              child: Text("يوجد خطأ الرجاء المحاولة لاحقا"),
+            );
+          } else if (state is FetchFavoritesDone) {
+            if (state.realEstates.isEmpty) {
+              return Center(
+                child: Text("عفوا لا يوجد بيانات لهذا النوع"),
+              );
+            }
+            return ListView.builder(
+              itemBuilder: (context, index) => Container(
+                padding: EdgeInsets.only(
+                  top: 10,
+                  left: 4,
+                  right: 4,
+                ),
+                child: RealEstateItem(
+                  realEstat: state.realEstates[index],
+                  screenUtil: screenUtil,
+                  isLandScape: isLandScape,
+                ),
+              ),
+              itemCount: state.realEstates.length,
+            );
+          } else {
+            return Center(child: Text("Done"));
+          }
+        },
       ),
     );
   }

@@ -419,8 +419,7 @@ class RealEstateRepo {
 
   ////////////////////////////////////[Fetch Favorites RealEstate ]////////////////////////////////////////////
 
-  Future<List<RealEstate>> fetchFavoritesRealStates(
-      String userId, String realEstateId) async {
+  Future<List<RealEstate>> fetchFavoritesRealStates({String userId}) async {
     final url = 'http://162.0.230.58/api/Customer/$userId/favorit';
 
     final _response = await dio.get(

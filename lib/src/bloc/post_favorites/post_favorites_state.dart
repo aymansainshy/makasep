@@ -18,3 +18,9 @@ class PostFavoritesError extends PostFavoritesState {
 
   PostFavoritesError({this.errorMassege});
 }
+
+class FetchFavoritesDone extends PostFavoritesState {
+  final List<RealEstate> realEstates;
+
+  FetchFavoritesDone({this.realEstates});
+}

@@ -13,3 +13,9 @@ class PostFavoriteRealEstate extends PostFavoritesEvent {
 
   PostFavoriteRealEstate({this.realEstatsId, this.userId});
 }
+
+class FetchFavoritesRealEstate extends PostFavoritesEvent {
+  final String userId;
+
+  FetchFavoritesRealEstate({this.userId});
+}
