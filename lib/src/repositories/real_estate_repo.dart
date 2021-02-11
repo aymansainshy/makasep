@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'dart:convert';
 
 import '../models/real_estate_model.dart';
+import '../models/user_model.dart';
 
 class RealEstateRepo {
   Dio dio = Dio();
@@ -79,6 +80,17 @@ class RealEstateRepo {
               ketchen: e["kitchen"].toString() == "0" ? false : true,
               parking: e["car_door"].toString() == "0" ? false : true,
               mafrosha: e["Furnished"].toString() == "0" ? false : true,
+            ),
+            ownerDetail: User(
+              userId: e["user"]["id"].toString(),
+              imageUrl: e["user"]["image"] == null
+                  ? null
+                  : 'http://162.0.230.58' + e["user"]["image"],
+              phoneNumber: e["user"]["phone_number"].toString(),
+              showContct: e["user"]["show_contact"].toString(),
+              rating: double.parse(e["user"]["rating"].toString()),
+              userName: e["user"]["user_name"],
+              userType: e["user"]["user_type_id"],
             ),
           ),
         );
