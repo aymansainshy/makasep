@@ -61,7 +61,7 @@ class AuthProvider with ChangeNotifier {
       userAddress = responseData["address"];
       _userPassword = responseData["password"].toString();
       _userToken = responseData["remember_token"];
-      imageUrl = responseData["image"];
+      imageUrl = 'http://162.0.230.58' + responseData["image"];
       rating = responseData["rating"].toString();
       showContact = responseData["show_contact"].toString();
       userTypeId = responseData["user_type_id"].toString();
@@ -80,7 +80,7 @@ class AuthProvider with ChangeNotifier {
         "userAddress": responseData["address"],
         "userPassword": responseData["password"].toString(),
         "userToken": responseData["remember_token"],
-        "imageUrl": responseData["image"],
+        "imageUrl": 'http://162.0.230.58' + responseData["image"],
         "rating": responseData["rating"].toString(),
         "showContact": responseData["show_contact"].toString(),
         "userTypeId": responseData["user_type_id"].toString(),
@@ -195,7 +195,7 @@ class AuthProvider with ChangeNotifier {
         "userAddress": responseData["address"],
         "userPassword": responseData["password"].toString(),
         "userToken": responseData["remember_token"],
-        "imageUrl": responseData["image"],
+        "imageUrl": 'http://162.0.230.58' + responseData["image"],
         "rating": responseData["rating"].toString(),
         "showContact": responseData["show_contact"].toString(),
         "userTypeId": responseData["user_type_id"].toString(),
@@ -251,7 +251,7 @@ class AuthProvider with ChangeNotifier {
         "userAddress": responseData["address"],
         "userPassword": responseData["password"].toString(),
         "userToken": responseData["remember_token"],
-        "imageUrl": responseData["image"],
+        "imageUrl": 'http://162.0.230.58' + responseData["image"],
         "rating": responseData["rating"].toString(),
         "showContact": responseData["show_contact"].toString(),
         "userTypeId": responseData["user_type_id"].toString(),

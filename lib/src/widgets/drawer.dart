@@ -11,7 +11,6 @@ import '../providers/auth_provider.dart';
 import '../screens/best_ads_screen.dart';
 import '../lang/language_provider.dart';
 import '../screens/chats_screen.dart';
-import '../screens/order_screen.dart';
 import '../screens/home_screen.dart';
 import '../utils/app_constant.dart';
 
@@ -122,9 +121,14 @@ class _AppDrawerState extends State<AppDrawer> {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                               ),
-                              child: Image.network(
-                                authProvider.imageUrl,
-                                fit: BoxFit.cover,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(70),
+                                ),
+                                child: Image.network(
+                                  authProvider.imageUrl,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                       Positioned(
