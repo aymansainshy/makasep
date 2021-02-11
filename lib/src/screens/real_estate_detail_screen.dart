@@ -242,7 +242,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                   color: Colors.grey.shade300,
                   text: "النوع",
                   widget: Text(
-                    "مفروشة",
+                    "${realEstateType(widget.realEstat.type)}",
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: isLandScape
@@ -336,7 +336,9 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                   color: Colors.grey.shade300,
                   text: "الدور",
                   widget: Text(
-                    "الطابق الارضي",
+                    widget.realEstat.details.steps == 0
+                        ? " الطابق الارضي"
+                        : "${widget.realEstat.details.steps}",
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: isLandScape
@@ -414,7 +416,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                   color: Colors.grey.shade100,
                   text: "عدد المشاهدات",
                   widget: Text(
-                    "45",
+                    "${widget.realEstat.details.views}",
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: isLandScape
@@ -430,7 +432,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                   color: Colors.grey.shade300,
                   text: "رقم العلان",
                   widget: Text(
-                    "23",
+                    "${widget.realEstat.id}",
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: isLandScape

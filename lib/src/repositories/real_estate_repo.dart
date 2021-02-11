@@ -73,7 +73,7 @@ class RealEstateRepo {
               views: int.parse(e["watching_time"].toString()),
               old: e["bulding_age"].toString(),
               steps: int.parse(e["floor_num"].toString()),
-              bathroom: 2, //api null
+              bathroom: int.parse(e["path_room"].toString()),
               airConditioner:
                   e["Conditioners"].toString() == "0" ? false : true,
               elevator: e["elevator"].toString() == "0" ? false : true,
@@ -135,7 +135,7 @@ class RealEstateRepo {
               views: int.parse(e["watching_time"].toString()),
               old: e["bulding_age"].toString(),
               steps: int.parse(e["floor_num"].toString()),
-              bathroom: 2, //api null
+              bathroom: int.parse(e["path_room"].toString()),
               airConditioner:
                   e["Conditioners"].toString() == "0" ? false : true,
               elevator: e["elevator"].toString() == "0" ? false : true,
@@ -196,7 +196,7 @@ class RealEstateRepo {
               views: int.parse(e["real_estate"]["watching_time"].toString()),
               old: e["real_estate"]["bulding_age"].toString(),
               steps: int.parse(e["real_estate"]["floor_num"].toString()),
-              bathroom: 2, //api null
+              bathroom: int.parse(e["path_room"].toString()),
               airConditioner: e["real_estate"]["Conditioners"].toString() == "0"
                   ? false
                   : true,
@@ -263,7 +263,7 @@ class RealEstateRepo {
               views: int.parse(e["watching_time"].toString()),
               old: e["bulding_age"].toString(),
               steps: int.parse(e["floor_num"].toString()),
-              bathroom: 2, //api null
+              bathroom: int.parse(e["path_room"].toString()),
               airConditioner:
                   e["Conditioners"].toString() == "0" ? false : true,
               elevator: e["elevator"].toString() == "0" ? false : true,
@@ -324,7 +324,7 @@ class RealEstateRepo {
               views: int.parse(e["watching_time"].toString()),
               old: e["bulding_age"].toString(),
               steps: int.parse(e["floor_num"].toString()),
-              bathroom: 2, //api null
+              bathroom: int.parse(e["path_room"].toString()),
               airConditioner:
                   e["Conditioners"].toString() == "0" ? false : true,
               elevator: e["elevator"].toString() == "0" ? false : true,
@@ -417,6 +417,71 @@ class RealEstateRepo {
     // }
   }
 
+  ////////////////////////////////////[Fetch Favorites RealEstate ]////////////////////////////////////////////
+
+  Future<List<RealEstate>> fetchFavoritesRealStates(
+      String userId, String realEstateId) async {
+    final url = 'http://162.0.230.58/api/Customer/$userId/favorit';
+
+    final _response = await dio.get(
+      url,
+      options: Options(
+        sendTimeout: 2000,
+        receiveTimeout: 1000,
+        headers: {
+          'content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    );
+
+    final _respostDate = _response.data as List<dynamic>;
+
+    List<RealEstate> _loadedRealStates = [];
+    _respostDate.forEach(
+      (e) {
+        _loadedRealStates.add(
+          RealEstate(
+            id: e["real_estate"]["id"].toString(),
+            categoryType: e["real_estate"]["primary_type_id"].toString(),
+            price: double.parse(e["real_estate"]["price"].toString()),
+            owner: e["real_estate"]["user_id"].toString(),
+            area: e["real_estate"]["space"].toString(),
+            description: e["real_estate"]["describstion"],
+            imageUrl: e["real_estate"]["image"],
+            type: int.parse(e["real_estate"]["secondry_type_id"].toString()),
+            address: Address(
+              lat: e["real_estate"]["lat"],
+              lan: e["real_estate"]["long"],
+            ),
+            details: RealEstateDetails(
+              hall: int.parse(e["real_estate"]["halls_num"].toString()),
+              rooms: int.parse(e["real_estate"]["room_num"].toString()),
+              views: int.parse(e["real_estate"]["watching_time"].toString()),
+              old: e["real_estate"]["bulding_age"].toString(),
+              steps: int.parse(e["real_estate"]["floor_num"].toString()),
+              bathroom: int.parse(e["real_estate"]["path_room"].toString()),
+              airConditioner: e["real_estate"]["Conditioners"].toString() == "0"
+                  ? false
+                  : true,
+              elevator:
+                  e["real_estate"]["elevator"].toString() == "0" ? false : true,
+              ketchen:
+                  e["real_estate"]["kitchen"].toString() == "0" ? false : true,
+              parking:
+                  e["real_estate"]["car_door"].toString() == "0" ? false : true,
+              mafrosha: e["real_estate"]["Furnished"].toString() == "0"
+                  ? false
+                  : true,
+            ),
+          ),
+        );
+      },
+    );
+
+    return _loadedRealStates;
+  }
+
 ///////////////////////////////////////////[ Post RealEsate ]//////////////////////////////////////////////////
   ///
   Future<void> postRealEstate(
@@ -434,10 +499,10 @@ class RealEstateRepo {
     print("Start Posting RealEstate  ..........");
 
     FormData data = FormData.fromMap({
+      "user_id": userId,
       "primary_type_id": realEstate.categoryType,
       "secondry_type_id": realEstate.type,
       "price": realEstate.price.toString(),
-      "user_id": userId,
       "space": realEstate.area,
       "lat": realEstate.address.lat,
       "long": realEstate.address.lan,
@@ -455,6 +520,7 @@ class RealEstateRepo {
       "elevator": realEstate.details.elevator ? 1 : 0,
       "Furnished": realEstate.details.mafrosha ? 1 : 0,
       "Conditioners": realEstate.details.airConditioner ? 1 : 0,
+      "path_room": realEstate.details.bathroom,
     });
     // try {
     final response = await dio.post(
