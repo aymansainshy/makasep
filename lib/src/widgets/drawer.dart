@@ -248,6 +248,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         imageUrl: "assets/icons/logout.png",
                         text: "تسجيل خروج",
                         function: () {
+                          Navigator.of(context).pop();
                           authProvider.logOut();
                         },
                       ),

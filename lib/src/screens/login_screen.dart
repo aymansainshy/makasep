@@ -8,7 +8,6 @@ import '../models/http_exception.dart';
 import '../screens/sign_up_screen.dart';
 import '../lang/language_provider.dart';
 import '../utils/app_constant.dart';
-import '../screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login-screen';
