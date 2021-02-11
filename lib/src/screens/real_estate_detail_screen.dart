@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../widgets/advertisment_info.dart';
 import '../bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
+import '../bloc/semilar_real_estate/semilar_real_estate_bloc.dart';
 import '../bloc/post_favorites/post_favorites_bloc.dart';
 import '../providers/auth_provider.dart';
 import '../models/real_estate_model.dart';
@@ -532,8 +533,8 @@ class _SemilerAdsState extends State<SemilerAds> {
   }
 
   _loadedDate() async {
-    BlocProvider.of<RealEstatsBlocBloc>(context, listen: false).add(
-      FetchSamilerRealEstate(realEstateId: widget.realEstateId),
+    BlocProvider.of<SemilarRealEstateBloc>(context, listen: false).add(
+      FetchSemilarRealEstate(realEstateId: widget.realEstateId),
     );
   }
 
@@ -560,22 +561,22 @@ class _SemilerAdsState extends State<SemilerAds> {
           ),
           Container(
             height: 350,
-            child: BlocBuilder<RealEstatsBlocBloc, RealEstatsBlocState>(
+            child: BlocBuilder<SemilarRealEstateBloc, SemilarRealEstateState>(
               builder: (context, state) {
-                if (state is RealEstatsLoading) {
+                if (state is SemilarRealEstateInProgress) {
                   return Center(
                     child: sleekCircularSlider(context, 40,
                         AppColors.primaryColor, AppColors.scondryColor),
                   );
-                } else if (state is RealEstatsError) {
+                } else if (state is SemilarRealEstateError) {
                   return Center(
-                    child: Text("An error occurred"),
+                    child: Text("يوجد خطأ الرجاء المحاولة لاحقا"),
                   );
-                } else if (state is RealEstatsLoaded) {
+                } else if (state is SemilarRealEstateLoadingDone) {
                   return ListView.builder(
-                    itemCount: state.realEstats.length,
+                    itemCount: state.realEstates.length,
                     itemBuilder: (context, index) => RealEstateItem(
-                      realEstat: state.realEstats[index],
+                      realEstat: state.realEstates[index],
                       screenUtil: widget.screenUtil,
                       isLandScape: widget.isLandScape,
                     ),

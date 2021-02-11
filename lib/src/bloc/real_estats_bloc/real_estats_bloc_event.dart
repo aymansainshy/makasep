@@ -15,12 +15,6 @@ class FetchRealEstate extends RealEstatsBlocEvent {
   FetchRealEstate({this.catId, this.filterId, this.selectedUrl});
 }
 
-class FetchSamilerRealEstate extends RealEstatsBlocEvent {
-  final String realEstateId;
-
-  FetchSamilerRealEstate({this.realEstateId});
-}
-
 class FetchLastCallRealEstate extends RealEstatsBlocEvent {
   final String userId;
 

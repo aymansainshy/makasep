@@ -21,8 +21,6 @@ class RealEstatsBlocBloc
       RealEstatsBlocEvent event) async* {
     if (event is FetchRealEstate) {
       yield* _mapFetchRealEstate(event);
-    } else if (event is FetchSamilerRealEstate) {
-      yield* _mapFetchSemilerRealEstate(event);
     } else if (event is FetchLastCallRealEstate) {
       yield* _mapFetchLastCallRealEstate(event);
     } else if (event is FetchTodayRealEstate) {
@@ -41,19 +39,6 @@ class RealEstatsBlocBloc
     final List<RealEstate> realEstats = await realEstateRepo.fetchRealStates(
         event.catId, event.filterId, event.selectedUrl);
     yield RealEstatsLoaded(realEstats: realEstats);
-  }
-
-  ///[Semilar RealEstate ... ]............
-  Stream<RealEstatsBlocState> _mapFetchSemilerRealEstate(
-      FetchSamilerRealEstate event) async* {
-    try {
-      yield RealEstatsLoading();
-      final List<RealEstate> realEstats =
-          await realEstateRepo.fetchSemilerRealStates(event.realEstateId);
-      yield RealEstatsLoaded(realEstats: realEstats);
-    } catch (e) {
-      RealEstatsError(errorMassage: e.toString());
-    }
   }
 
   ///[Last Call RealEstate ... ]............
