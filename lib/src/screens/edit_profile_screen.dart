@@ -102,6 +102,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       if (e.toString() == '12') {
         _showArrorDialog("Image is too larg");
       }
+      if (e.toString() == '5') {
+        _showArrorDialog("Image is too larg");
+      }
       setState(() {
         isLoading = false;
       });

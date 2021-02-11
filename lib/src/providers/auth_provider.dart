@@ -62,7 +62,7 @@ class AuthProvider with ChangeNotifier {
       _userPassword = responseData["password"].toString();
       _userToken = responseData["remember_token"];
       imageUrl = responseData["image"] == null
-          ? ""
+          ? null
           : 'http://162.0.230.58' + responseData["image"];
       rating = responseData["rating"].toString();
       showContact = responseData["show_contact"].toString();
@@ -83,7 +83,7 @@ class AuthProvider with ChangeNotifier {
         "userPassword": responseData["password"].toString(),
         "userToken": responseData["remember_token"],
         "imageUrl": responseData["image"] == null
-            ? ""
+            ? null
             : 'http://162.0.230.58' + responseData["image"],
         "rating": responseData["rating"].toString(),
         "showContact": responseData["show_contact"].toString(),
@@ -200,7 +200,7 @@ class AuthProvider with ChangeNotifier {
         "userPassword": responseData["password"].toString(),
         "userToken": responseData["remember_token"],
         "imageUrl": responseData["image"] == null
-            ? ""
+            ? null
             : 'http://162.0.230.58' + responseData["image"],
         "rating": responseData["rating"].toString(),
         "showContact": responseData["show_contact"].toString(),
@@ -258,7 +258,7 @@ class AuthProvider with ChangeNotifier {
         "userPassword": responseData["password"].toString(),
         "userToken": responseData["remember_token"],
         "imageUrl": responseData["image"] == null
-            ? ""
+            ? null
             : 'http://162.0.230.58' + responseData["image"],
         "rating": responseData["rating"].toString(),
         "showContact": responseData["show_contact"].toString(),
@@ -268,8 +268,12 @@ class AuthProvider with ChangeNotifier {
       prefs.setString("userData", userData);
       await tryAutoLogin();
     } on DioError catch (e) {
+      print("Dio Errror" + e.response.data.toString());
       throw HttpException(e.response.data['code'].toString());
     } catch (e) {
+      print(" Errror" + e
+        ..toString());
+
       throw e.toString();
     }
   }

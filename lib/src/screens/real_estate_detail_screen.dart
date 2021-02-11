@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/advertisment_info.dart';
-import '../bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
 import '../bloc/semilar_real_estate/semilar_real_estate_bloc.dart';
 import '../bloc/post_favorites/post_favorites_bloc.dart';
 import '../providers/auth_provider.dart';
@@ -86,7 +82,8 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
             if (state is PostFavoritesDone) {
               Scaffold.of(context).showSnackBar(
                 SnackBar(
-                  content: Text("Done"),
+                  duration: Duration(milliseconds: 500),
+                  content: Text("تمت العملية بنجاح"),
                 ),
               );
             }

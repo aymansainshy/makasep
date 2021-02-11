@@ -142,4 +142,38 @@ class ModifiedRealEstat with ChangeNotifier {
     _realEstate.details.airConditioner = isconditions;
     notifyListeners();
   }
+
+  void reaSet() {
+    RealEstate _newRealEstate = RealEstate(
+      id: "",
+      area: "0.0",
+      categoryType: "",
+      description: "",
+      imageUrl: "",
+      owner: "",
+      price: 0.0,
+      type: 1,
+      address: Address(
+        lan: 0.0,
+        lat: 0.0,
+        locationDescription: "",
+      ),
+      details: RealEstateDetails(
+        bathroom: 1,
+        hall: 1,
+        old: "1",
+        rooms: 1,
+        steps: 1,
+        views: 0,
+        elevator: false,
+        ketchen: false,
+        mafrosha: false,
+        parking: false,
+        airConditioner: false,
+      ),
+    );
+
+    _realEstate = _newRealEstate;
+    notifyListeners();
+  }
 }

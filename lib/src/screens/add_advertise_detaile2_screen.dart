@@ -3,11 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/build_form_field.dart';
-import '../providers/categories_provider.dart';
 import '../bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
 import '../providers/modifid_real_estate_provider.dart';
+import '../providers/categories_provider.dart';
+import '../widgets/build_form_field.dart';
 import '../providers/auth_provider.dart';
+import '../screens/home_screen.dart';
 import '../utils/app_constant.dart';
 
 class AddAdvertiseDetaile2Screen extends StatefulWidget {
@@ -300,6 +301,9 @@ class _AddAdvertiseDetaile2ScreenState
                       ),
                       onPressed: () {
                         _saveForm();
+                        _realEstate.reaSet();
+                        Navigator.of(context)
+                            .pushReplacementNamed(HomeScreen.routeName);
                       },
                     ),
                   ),
