@@ -271,8 +271,7 @@ class AuthProvider with ChangeNotifier {
       print("Dio Errror" + e.response.data.toString());
       throw HttpException(e.response.data['code'].toString());
     } catch (e) {
-      print(" Errror" + e
-        ..toString());
+      print(" Errror" + e.toString());
 
       throw e.toString();
     }

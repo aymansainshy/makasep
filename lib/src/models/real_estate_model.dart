@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-import './user_model.dart';
-
 class RealEstate {
   String id;
   int type; // 1= apartment , 2= normal house ....
@@ -13,13 +11,11 @@ class RealEstate {
   String description;
   String categoryType; //1 - all, 2 - Selling .....
   RealEstateDetails details;
-  User ownerDetail;
 
   RealEstate({
     @required this.id,
     @required this.type,
     @required this.area,
-    this.ownerDetail,
     @required this.owner,
     @required this.price,
     @required this.address,

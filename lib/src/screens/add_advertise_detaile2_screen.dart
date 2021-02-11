@@ -114,6 +114,8 @@ class _AddAdvertiseDetaile2ScreenState
               if (state is RealEstatsPosted) {
                 Navigator.of(context).pop();
                 _formKey.currentState.reset();
+                _realEstate.reaSet();
+
                 showDialog(
                   context: context,
                   builder: (ctx) => GestureDetector(
@@ -137,6 +139,8 @@ class _AddAdvertiseDetaile2ScreenState
                         FlatButton(
                           onPressed: () {
                             Navigator.of(context).pop();
+                            Navigator.of(context)
+                                .pushReplacementNamed(HomeScreen.routeName);
                           },
                           child: Text(
                             "Ok",
@@ -301,9 +305,6 @@ class _AddAdvertiseDetaile2ScreenState
                       ),
                       onPressed: () {
                         _saveForm();
-                        _realEstate.reaSet();
-                        Navigator.of(context)
-                            .pushReplacementNamed(HomeScreen.routeName);
                       },
                     ),
                   ),

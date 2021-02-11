@@ -243,7 +243,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                 BuildContainerRowText(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
-                  color: Colors.grey.shade300,
+                  color: Colors.grey.shade100,
                   text: "النوع",
                   widget: Text(
                     "${realEstateType(widget.realEstat.type)}",
@@ -253,6 +253,24 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                           ? screenUtil.setSp(20)
                           : screenUtil.setSp(40),
                       letterSpacing: 1,
+                    ),
+                  ),
+                ),
+                BuildContainerRowText(
+                  isLandScape: isLandScape,
+                  screenUtil: screenUtil,
+                  color: Colors.grey.shade300,
+                  text: "المساحة",
+                  widget: FittedBox(
+                    child: Text(
+                      "${widget.realEstat.area}",
+                      style: TextStyle(
+                        color: Colors.grey.shade700,
+                        fontSize: isLandScape
+                            ? screenUtil.setSp(20)
+                            : screenUtil.setSp(40),
+                        letterSpacing: 1,
+                      ),
                     ),
                   ),
                 ),

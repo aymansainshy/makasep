@@ -174,6 +174,7 @@ class ModifiedRealEstat with ChangeNotifier {
     );
 
     _realEstate = _newRealEstate;
+    _storedImage = null;
     notifyListeners();
   }
 }

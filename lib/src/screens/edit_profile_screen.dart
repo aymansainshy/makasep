@@ -28,6 +28,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   var isLoading = false;
   AuthProvider _userData;
   String _userImage;
+  File _storedImage;
 
   void _showArrorDialog(String message) {
     showDialog(
@@ -89,6 +90,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         userPhone: _editedData['phoneNumber'],
       );
       if (_storedImage != null) {
+        print("Image Path ........." + _storedImage.path.toString());
         await Provider.of<AuthProvider>(context, listen: false).uploadImage(
           image: _storedImage,
           userId: _userData.userId,
@@ -122,7 +124,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     // _formKey.currentState.reset();
   }
 
-  File _storedImage;
   final _picker = ImagePicker();
   Future _picImage() async {
     final pickedFile = await _picker.getImage(source: ImageSource.gallery);
