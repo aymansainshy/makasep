@@ -179,9 +179,9 @@ class _MealItemState extends State<RealEstateItem> {
                       color: Colors.white,
                       child: FadeInImage(
                         placeholder: AssetImage(
-                          "assets/images/breakfast.png",
+                          "assets/images/building.png",
                         ),
-                        image: AssetImage("assets/images/sudan.png"),
+                        image: NetworkImage(widget.realEstat.imageUrl),
                         fit: BoxFit.fill,
                       ),
                       height: widget.isLandScape

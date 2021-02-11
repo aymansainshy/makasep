@@ -122,7 +122,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   File _storedImage;
   final _picker = ImagePicker();
   Future _picImage() async {
-    final pickedFile = await _picker.getImage(source: ImageSource.camera);
+    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {

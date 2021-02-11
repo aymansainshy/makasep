@@ -60,9 +60,8 @@ class RealEstateRepo {
             owner: e["user_id"].toString(),
             area: e["space"].toString(),
             description: e["describstion"],
-            imageUrl: e["image"],
-            type: int.parse(e["secondry_type_id"]
-                .toString()), /////////////[TYPE OF REAESTATE]//////////////
+            imageUrl: 'http://162.0.230.58' + e["image"],
+            type: int.parse(e["secondry_type_id"].toString()),
             address: Address(
               lat: e["lat"],
               lan: e["long"],
@@ -123,7 +122,7 @@ class RealEstateRepo {
             owner: e["user_id"].toString(),
             area: e["space"].toString(),
             description: e["describstion"],
-            imageUrl: e["image"],
+            imageUrl: 'http://162.0.230.58' + e["image"],
             type: int.parse(e["secondry_type_id"].toString()),
             address: Address(
               lat: e["lat"],
@@ -184,7 +183,7 @@ class RealEstateRepo {
             owner: e["real_estate"]["user_id"].toString(),
             area: e["real_estate"]["space"].toString(),
             description: e["real_estate"]["describstion"],
-            imageUrl: e["real_estate"]["image"],
+            imageUrl: 'http://162.0.230.58' + e["real_estate"]["image"],
             type: int.parse(e["real_estate"]["secondry_type_id"].toString()),
             address: Address(
               lat: e["real_estate"]["lat"],
@@ -251,7 +250,7 @@ class RealEstateRepo {
             owner: e["user_id"].toString(),
             area: e["space"].toString(),
             description: e["describstion"],
-            imageUrl: e["image"],
+            imageUrl: 'http://162.0.230.58' + e["image"],
             type: int.parse(e["secondry_type_id"].toString()),
             address: Address(
               lat: e["lat"],
@@ -312,7 +311,7 @@ class RealEstateRepo {
             owner: e["user_id"].toString(),
             area: e["space"].toString(),
             description: e["describstion"],
-            imageUrl: e["image"],
+            imageUrl: 'http://162.0.230.58' + e["image"],
             type: int.parse(e["secondry_type_id"].toString()),
             address: Address(
               lat: e["lat"],
@@ -447,7 +446,7 @@ class RealEstateRepo {
             owner: e["real_estate"]["user_id"].toString(),
             area: e["real_estate"]["space"].toString(),
             description: e["real_estate"]["describstion"],
-            imageUrl: e["real_estate"]["image"],
+            imageUrl: 'http://162.0.230.58' + e["real_estate"]["image"],
             type: int.parse(e["real_estate"]["secondry_type_id"].toString()),
             address: Address(
               lat: e["real_estate"]["lat"],

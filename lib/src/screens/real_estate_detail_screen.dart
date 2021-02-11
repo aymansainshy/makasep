@@ -170,8 +170,8 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
               stretchModes: [
                 StretchMode.zoomBackground,
               ],
-              background: Image.asset(
-                "assets/images/sudan.png",
+              background: Image.network(
+                "${widget.realEstat.imageUrl}",
                 fit: BoxFit.fill,
               ),
             ),
@@ -573,6 +573,11 @@ class _SemilerAdsState extends State<SemilerAds> {
                     child: Text("يوجد خطأ الرجاء المحاولة لاحقا"),
                   );
                 } else if (state is SemilarRealEstateLoadingDone) {
+                  if (state.realEstates.isEmpty) {
+                    return Center(
+                      child: Text("عفوا لا يوجد اعلانات مشابهه لهذ النوع"),
+                    );
+                  }
                   return ListView.builder(
                     itemCount: state.realEstates.length,
                     itemBuilder: (context, index) => RealEstateItem(
