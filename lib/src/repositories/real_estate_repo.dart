@@ -196,7 +196,7 @@ class RealEstateRepo {
               views: int.parse(e["real_estate"]["watching_time"].toString()),
               old: e["real_estate"]["bulding_age"].toString(),
               steps: int.parse(e["real_estate"]["floor_num"].toString()),
-              bathroom: int.parse(e["path_room"].toString()),
+              bathroom: int.parse(e["real_estate"]["path_room"].toString()),
               airConditioner: e["real_estate"]["Conditioners"].toString() == "0"
                   ? false
                   : true,

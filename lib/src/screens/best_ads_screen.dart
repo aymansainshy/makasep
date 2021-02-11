@@ -57,7 +57,7 @@ class BestAdsScreen extends StatelessWidget {
           } else if (state is FetchFavoritesDone) {
             if (state.realEstates.isEmpty) {
               return Center(
-                child: Text("عفوا لا يوجد بيانات لهذا النوع"),
+                child: Text("عفوا لا يوجد لديك بيانات مفضلة"),
               );
             }
             return ListView.builder(
