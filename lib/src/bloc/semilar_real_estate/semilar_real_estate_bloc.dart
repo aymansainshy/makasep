@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../models/real_estate_model.dart';
+import '../../models/user_model.dart';
 import '../../repositories/real_estate_repo.dart';
 
 part 'semilar_real_estate_event.dart';
@@ -28,9 +29,12 @@ class SemilarRealEstateBloc
       FetchSemilarRealEstate event) async* {
     try {
       yield SemilarRealEstateInProgress();
-      final List<RealEstate> realEstats =
+      final Map<String, dynamic> realEstatsById =
           await realEstateRepo.fetchSemilerRealStates(event.realEstateId);
-      yield SemilarRealEstateLoadingDone(realEstates: realEstats);
+      yield SemilarRealEstateLoadingDone(
+        realEstates: realEstatsById["semilarRealEstate"] as List<RealEstate>,
+        userData: realEstatsById["userData"] as User,
+      );
     } catch (e) {
       SemilarRealEstateError(errorMassage: e.toString());
     }

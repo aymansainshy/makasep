@@ -56,9 +56,15 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
     prefs.setBool(widget.realEstat.id, _isFavorite);
   }
 
+  _loadedDate() async {
+    BlocProvider.of<SemilarRealEstateBloc>(context, listen: false).add(
+      FetchSemilarRealEstate(realEstateId: widget.realEstat.id),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(_isFavorite);
+    _loadedDate();
     final userDate = Provider.of<AuthProvider>(context, listen: false);
     ScreenUtil.init(context);
     var isLandScape =
@@ -506,7 +512,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
   }
 }
 
-class SemilerAds extends StatefulWidget {
+class SemilerAds extends StatelessWidget {
   final ScreenUtil screenUtil;
   final bool isLandScape;
   final String realEstateId;
@@ -517,23 +523,6 @@ class SemilerAds extends StatefulWidget {
     this.isLandScape,
     this.realEstateId,
   }) : super(key: key);
-
-  @override
-  _SemilerAdsState createState() => _SemilerAdsState();
-}
-
-class _SemilerAdsState extends State<SemilerAds> {
-  @override
-  void initState() {
-    super.initState();
-    _loadedDate();
-  }
-
-  _loadedDate() async {
-    BlocProvider.of<SemilarRealEstateBloc>(context, listen: false).add(
-      FetchSemilarRealEstate(realEstateId: widget.realEstateId),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -550,9 +539,8 @@ class _SemilerAdsState extends State<SemilerAds> {
             style: TextStyle(
               color: Colors.grey.shade900,
               fontWeight: FontWeight.bold,
-              fontSize: widget.isLandScape
-                  ? widget.screenUtil.setSp(20)
-                  : widget.screenUtil.setSp(45),
+              fontSize:
+                  isLandScape ? screenUtil.setSp(20) : screenUtil.setSp(45),
               letterSpacing: 1,
             ),
           ),
@@ -579,8 +567,8 @@ class _SemilerAdsState extends State<SemilerAds> {
                     itemCount: state.realEstates.length,
                     itemBuilder: (context, index) => RealEstateItem(
                       realEstat: state.realEstates[index],
-                      screenUtil: widget.screenUtil,
-                      isLandScape: widget.isLandScape,
+                      screenUtil: screenUtil,
+                      isLandScape: isLandScape,
                     ),
                   );
                 }

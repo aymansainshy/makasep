@@ -13,8 +13,9 @@ class SemilarRealEstateInProgress extends SemilarRealEstateState {}
 
 class SemilarRealEstateLoadingDone extends SemilarRealEstateState {
   final List<RealEstate> realEstates;
+  final User userData;
 
-  SemilarRealEstateLoadingDone({this.realEstates});
+  SemilarRealEstateLoadingDone({this.realEstates, this.userData});
 }
 
 class SemilarRealEstateError extends SemilarRealEstateState {

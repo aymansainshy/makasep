@@ -81,17 +81,6 @@ class RealEstateRepo {
               parking: e["car_door"].toString() == "0" ? false : true,
               mafrosha: e["Furnished"].toString() == "0" ? false : true,
             ),
-            ownerDetail: User(
-              userId: e["user"]["id"].toString(),
-              imageUrl: e["user"]["image"] == null
-                  ? null
-                  : 'http://162.0.230.58' + e["user"]["image"],
-              phoneNumber: e["user"]["phone_number"].toString(),
-              showContct: e["user"]["show_contact"].toString(),
-              rating: double.parse(e["user"]["rating"].toString()),
-              userName: e["user"]["user_name"],
-              userType: e["user"]["user_type_id"],
-            ),
           ),
         );
       },
@@ -101,7 +90,8 @@ class RealEstateRepo {
   }
 
   ///////////////////////////////////////////[ SIMELER REALESTATE ]////////////////////////////////////////////////////
-  Future<List<RealEstate>> fetchSemilerRealStates(String realEstateId) async {
+  Future<Map<String, dynamic>> fetchSemilerRealStates(
+      String realEstateId) async {
     final url = 'http://162.0.230.58/api/realestate/$realEstateId';
 
     print("Start Fetching SemilarRealStates ..... ");
@@ -121,12 +111,29 @@ class RealEstateRepo {
       ),
     );
 
-    final _respostDate = _response.data['same'] as List<dynamic>;
+    Map<String, dynamic> realEstateById = {};
 
-    List<RealEstate> _loadedRealStates = [];
+    final _respostDate = _response.data['same'] as List<dynamic>;
+    final _respostUserData =
+        _response.data['real_state']['user'] as Map<dynamic, dynamic>;
+
+    User userData = User(
+      userId: _respostUserData["user"]["id"].toString(),
+      imageUrl: _respostUserData["user"]["image"] == null
+          ? null
+          : 'http://162.0.230.58' + _respostUserData["user"]["image"],
+      phoneNumber: _respostUserData["user"]["phone_number"].toString(),
+      showContct: _respostUserData["user"]["show_contact"].toString(),
+      rating: double.parse(_respostUserData["user"]["rating"].toString()),
+      userName: _respostUserData["user"]["user_name"],
+      userType: _respostUserData["user"]["user_type_id"],
+    );
+
+    List<RealEstate> loadedRealStates = [];
+
     _respostDate.forEach(
       (e) {
-        _loadedRealStates.add(
+        loadedRealStates.add(
           RealEstate(
             id: e["id"].toString(),
             categoryType: e["primary_type_id"].toString(),
@@ -159,7 +166,10 @@ class RealEstateRepo {
       },
     );
 
-    return _loadedRealStates;
+    realEstateById["semilarRealEstate"] = loadedRealStates;
+    realEstateById["userData"] = userData;
+
+    return realEstateById;
   }
 
   ////////////////////////////////[Fetch Last Call RealEstate ]//////////////////////////////////////
