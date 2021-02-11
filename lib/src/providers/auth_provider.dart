@@ -220,10 +220,11 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> uploadImage({File image, String userId}) async {
     final url = 'http://162.0.230.58/api/Customer/$userId/imageUpdate';
+    print(userId);
     try {
       String fileName = image.path.split('/').last;
       FormData formData = FormData.fromMap({
-        "image_url": await MultipartFile.fromFile(
+        "image": await MultipartFile.fromFile(
           image.path,
           filename: fileName,
         ),
@@ -268,7 +269,7 @@ class AuthProvider with ChangeNotifier {
       prefs.setString("userData", userData);
       await tryAutoLogin();
     } on DioError catch (e) {
-      print("Dio Errror" + e.response.data.toString());
+      print("Dio Errror" + e.message.toString());
       throw HttpException(e.response.data['code'].toString());
     } catch (e) {
       print(" Errror" + e.toString());

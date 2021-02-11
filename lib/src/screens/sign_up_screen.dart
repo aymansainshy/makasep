@@ -229,7 +229,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
       if (e.toString() == '2') {
         errorMessage = translate("thisPhoneForAnthorUser", context);
       } else if (e.toString() == '5') {
-        errorMessage = translate("thisEmailForAnthorUser", context);
+        errorMessage = "رقم الهاتف  هذا لمستخدم اخر ";
       }
       _showArrorDialog(errorMessage);
     } catch (e) {

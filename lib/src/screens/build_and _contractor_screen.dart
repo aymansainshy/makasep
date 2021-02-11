@@ -143,7 +143,7 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
                       BuilFormField(
                         textInputAction: TextInputAction.next,
                         contentPadding: 8.0,
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.number,
                         // fieldName: "المساحة",
                         validator: (value) {
                           if (value.toString().isEmpty) {
@@ -165,7 +165,7 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
                       BuilFormField(
                         textInputAction: TextInputAction.next,
                         contentPadding: 8.0,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.text,
                         // fieldName: "السعر الاجمالى",
                         validator: (value) {
                           if (value.toString().isEmpty) {

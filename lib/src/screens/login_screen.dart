@@ -235,7 +235,7 @@ class _LogInFormState extends State<LogInForm> {
       if (e.toString() == '0') {
         errorMessage = translate("thisPasswordInCorrect", context);
       } else if (e.toString() == '1') {
-        errorMessage = translate("thisEmailInCorrect", context);
+        errorMessage = "رقم الهاتف غير صحيح";
       }
       _showArrorDialog(errorMessage);
     } catch (e) {

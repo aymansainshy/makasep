@@ -38,10 +38,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         content: Text(message),
         actions: [
           FlatButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(translate("ok", context)))
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(translate("ok", context)),
+          ),
         ],
       ),
     );
@@ -90,7 +91,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         userPhone: _editedData['phoneNumber'],
       );
       if (_storedImage != null) {
-        print("Image Path ........." + _storedImage.path.toString());
+        print("Image Path ........." + _storedImage.path.split('/').last);
         await Provider.of<AuthProvider>(context, listen: false).uploadImage(
           image: _storedImage,
           userId: _userData.userId,
@@ -111,7 +112,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         isLoading = false;
       });
     } catch (e) {
-      var errorMessage = translate("anErrorPleaseTryLater", context);
+      var errorMessage = e.toString();
+
+      // translate("anErrorPleaseTryLater", context);
       if (e.toString() == '12') {
         errorMessage = translate("imagIsTooLarg", context);
       }
