@@ -104,7 +104,7 @@ class _AddAdvertiseDetaileScreenState extends State<AddAdvertiseDetaileScreen> {
                       realEstateProvider.changRooms(value.toInt());
                     },
                   ),
-                  DrawSlider(
+                  DrawSliderFloor(
                     text: "الدور",
                     isLandScape: isLandScape,
                     screenUtil: screenUtil,
@@ -289,6 +289,79 @@ class DrawSlider extends StatelessWidget {
           ),
           child: Slider.adaptive(
             label: counter.toInt().toString(),
+            value: counter,
+            min: 1,
+            max: 10,
+            divisions: 10,
+            onChanged: func,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class DrawSliderFloor extends StatelessWidget {
+  DrawSliderFloor({
+    Key key,
+    @required this.isLandScape,
+    @required this.screenUtil,
+    @required this.counter,
+    @required this.text,
+    @required this.func,
+  }) : super(key: key);
+
+  final bool isLandScape;
+  final ScreenUtil screenUtil;
+  double counter;
+  final String text;
+  final Function func;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Transform.translate(
+          offset: Offset(-12, 0),
+          child: Row(
+            children: [
+              Text(
+                text,
+                style: TextStyle(
+                  fontSize:
+                      isLandScape ? screenUtil.setSp(20) : screenUtil.setSp(40),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade800,
+                ),
+              ),
+              SizedBox(width: 10),
+              Text(
+                "${counter.toInt() - 1}",
+                style: TextStyle(
+                  fontSize:
+                      isLandScape ? screenUtil.setSp(20) : screenUtil.setSp(40),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade800,
+                ),
+              ),
+            ],
+          ),
+        ),
+        SliderTheme(
+          data: SliderTheme.of(context).copyWith(
+            trackHeight: 3,
+            activeTrackColor: AppColors.primaryColor,
+            inactiveTrackColor: Colors.grey[300],
+            thumbColor: Colors.green,
+            minThumbSeparation: 100,
+            rangeThumbShape: RoundRangeSliderThumbShape(
+              enabledThumbRadius: 10,
+              disabledThumbRadius: 10,
+            ),
+          ),
+          child: Slider.adaptive(
+            label: (counter.toInt() - 1).toString(),
             value: counter,
             min: 1,
             max: 10,

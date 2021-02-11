@@ -511,7 +511,9 @@ class RealEstateRepo {
       ),
       "room_num": realEstate.details.rooms,
       "halls_num": realEstate.details.hall,
-      "floor_num": realEstate.details.steps,
+      "floor_num": realEstate.details.steps == 0
+          ? realEstate.details.steps
+          : realEstate.details.steps - 1,
       "bulding_age": realEstate.details.old,
       "kitchen": realEstate.details.ketchen ? 1 : 0,
       "car_door": realEstate.details.parking ? 1 : 0,
