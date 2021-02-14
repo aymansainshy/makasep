@@ -39,9 +39,10 @@ class LocationOnMap extends StatelessWidget {
               height: 150,
               color: Colors.blueGrey,
               child: Image.network(
+                // 15.555449, 32.563770
                 GoogleServicesApi.genarateLocationImage(
-                  latitude: 37.4447,
-                  longitude: -121.7910,
+                  latitude: 37.43296265331129,
+                  longitude: -122.08832357078792,
                 ),
                 fit: BoxFit.cover,
               ),
