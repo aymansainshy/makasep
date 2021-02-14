@@ -270,7 +270,7 @@ class AuthProvider with ChangeNotifier {
       await tryAutoLogin();
     } on DioError catch (e) {
       print("Dio Errror" + e.message.toString());
-      throw HttpException(e.response.data['code'].toString());
+      // throw HttpException(e.response.data['code'].toString());
     } catch (e) {
       print(" Errror" + e.toString());
 

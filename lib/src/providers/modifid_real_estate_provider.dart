@@ -56,10 +56,10 @@ class ModifiedRealEstat with ChangeNotifier {
     return _storedImage;
   }
 
-  void setAdderess(Map<String, dynamic> address) {
+  void setAdderess({double latitude, double longitude}) {
     _realEstate.address = Address(
-      lan: address["lan"],
-      lat: address["lat"],
+      lat: latitude,
+      lan: longitude,
     );
     notifyListeners();
   }
