@@ -477,6 +477,8 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                 LocationOnMap(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
+                  latitude: widget.realEstat.address.lat,
+                  longitude: widget.realEstat.address.lan,
                 ),
                 _reportContainer(),
                 SemilerAds(

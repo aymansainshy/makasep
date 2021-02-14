@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:location/location.dart';
 
 import '../providers/categories_provider.dart';
 import '../providers/modifid_real_estate_provider.dart';
@@ -15,6 +16,12 @@ class AddAdvertiseLocationScreen extends StatelessWidget {
     "lan": 4442432.334,
     "lat": 223.3341414,
   };
+
+  Future<void> _getCurrentUserLocation() async {
+    final locationData = await Location().getLocation();
+    print(locationData.latitude);
+    print(locationData.longitude);
+  }
 
   @override
   Widget build(BuildContext context) {

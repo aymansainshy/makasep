@@ -18,6 +18,10 @@
 	<string>we need to take a picture</string>
 	<key>NSCameraUsageDescription</key>
     <string>we need to take a picture</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string> Need to get your location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+    <string> Need to get your location</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>

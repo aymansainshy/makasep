@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import '../repositories/google_map_api.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LocationOnMap extends StatelessWidget {
   final bool isLandScape;
   final ScreenUtil screenUtil;
+  final double latitude;
+  final double longitude;
 
-  const LocationOnMap({Key key, this.isLandScape, this.screenUtil})
-      : super(key: key);
+  const LocationOnMap({
+    Key key,
+    this.isLandScape,
+    this.screenUtil,
+    this.latitude,
+    this.longitude,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,14 +34,16 @@ class LocationOnMap extends StatelessWidget {
               ),
             ),
             SizedBox(height: 5),
+            // 37.4447, -121.7910
             Container(
               height: 150,
               color: Colors.blueGrey,
-              child: Center(
-                child: Text(
-                  "الموقع على الخريطة",
-                  style: TextStyle(color: Colors.white),
+              child: Image.network(
+                GoogleServicesApi.genarateLocationImage(
+                  latitude: 37.4447,
+                  longitude: -121.7910,
                 ),
+                fit: BoxFit.cover,
               ),
             )
           ],
