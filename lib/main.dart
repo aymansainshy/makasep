@@ -3,10 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
+import './src/bloc/fetch_favorite_realEstate/fetch_favorites_realestate_bloc.dart';
 import './src/bloc/build_and_contractor_bloc/build_and_contract_bloc.dart';
 import './src/bloc/semilar_real_estate/semilar_real_estate_bloc.dart';
 import './src/bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
-import './src/bloc/post_favorites/post_favorites_bloc.dart';
+import './src/bloc/post_favorites_realEstate/post_favorites_bloc.dart';
+import './src/bloc/post_realEstate/post_realestate_bloc.dart';
 import './src/providers/modifid_real_estate_provider.dart';
 import './src/screens/animated_splash_screen.dart';
 import './src/providers/categories_provider.dart';
@@ -21,6 +23,7 @@ import './src/utils/app_constant.dart';
 import './src/utils/app_routes.dart';
 
 void main() {
+  FetchRealEstate().fetchRealEstate(1.toString(), 1.toString(), 1);
   runApp(MyApp());
 }
 
@@ -49,22 +52,32 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider<RealEstatsBlocBloc>(
             create: (context) => RealEstatsBlocBloc(
-              realEstateRepo: RealEstateRepo(),
+              realEstateRepo: FetchRealEstate(),
             ),
           ),
           BlocProvider<BuildAndContractBloc>(
             create: (context) => BuildAndContractBloc(
-              realEstateRepo: RealEstateRepo(),
+              realEstateRepo: BuildingAndContract(),
             ),
           ),
           BlocProvider<PostFavoritesBloc>(
             create: (context) => PostFavoritesBloc(
-              realEstateRepo: RealEstateRepo(),
+              realEstateRepo: FavoriteRealEstatePost(),
+            ),
+          ),
+          BlocProvider<PostRealestateBloc>(
+            create: (context) => PostRealestateBloc(
+              realEstateRepo: PostRealEstate(),
+            ),
+          ),
+          BlocProvider<FetchFavoritesRealestateBloc>(
+            create: (context) => FetchFavoritesRealestateBloc(
+              realEstateRepo: FetchFavoritRealEState(),
             ),
           ),
           BlocProvider<SemilarRealEstateBloc>(
             create: (context) => SemilarRealEstateBloc(
-              realEstateRepo: RealEstateRepo(),
+              realEstateRepo: FetchSimelarRealEstate(),
             ),
           ),
         ],

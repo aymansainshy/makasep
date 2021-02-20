@@ -8,14 +8,8 @@ abstract class PostFavoritesEvent extends Equatable {
 }
 
 class PostFavoriteRealEstate extends PostFavoritesEvent {
-  final String realEstatsId;
+  final int realEstatsId;
   final String userId;
 
   PostFavoriteRealEstate({this.realEstatsId, this.userId});
-}
-
-class FetchFavoritesRealEstate extends PostFavoritesEvent {
-  final String userId;
-
-  FetchFavoritesRealEstate({this.userId});
 }

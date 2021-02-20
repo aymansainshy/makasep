@@ -8,7 +8,7 @@ abstract class SemilarRealEstateEvent extends Equatable {
 }
 
 class FetchSemilarRealEstate extends SemilarRealEstateEvent {
-  final String realEstateId;
+  final int realEstateId;
 
   FetchSemilarRealEstate({this.realEstateId});
 }

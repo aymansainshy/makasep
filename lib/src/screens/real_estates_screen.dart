@@ -44,7 +44,7 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
 
   _loadedDate() async {
     BlocProvider.of<RealEstatsBlocBloc>(context, listen: false).add(
-      FetchRealEstate(
+      GetRealEstate(
         catId: catId,
         filterId: filterStateId.toString(),
         selectedUrl: _selectedItemIndex,

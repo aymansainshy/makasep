@@ -7,14 +7,14 @@ import '../models/real_estate_model.dart';
 
 class ModifiedRealEstat with ChangeNotifier {
   RealEstate _realEstate = RealEstate(
-    id: "",
+    id: null,
     area: "0.0",
     categoryType: "",
     description: "",
     imageUrl: "",
     owner: "",
     price: 0.0,
-    type: 1,
+    type: "1",
     address: Address(
       lan: 0.0,
       lat: 0.0,
@@ -23,7 +23,7 @@ class ModifiedRealEstat with ChangeNotifier {
     details: RealEstateDetails(
       bathroom: 1,
       hall: 1,
-      old: "1",
+      old: 1,
       rooms: 1,
       steps: 1,
       views: 0,
@@ -84,7 +84,7 @@ class ModifiedRealEstat with ChangeNotifier {
     notifyListeners();
   }
 
-  void setType(int typeId) {
+  void setType(String typeId) {
     _realEstate.type = typeId;
     notifyListeners();
   }
@@ -108,7 +108,7 @@ class ModifiedRealEstat with ChangeNotifier {
     notifyListeners();
   }
 
-  void setOld(String old) {
+  void setOld(int old) {
     _realEstate.details.old = old;
     notifyListeners();
   }
@@ -145,14 +145,14 @@ class ModifiedRealEstat with ChangeNotifier {
 
   void reaSet() {
     RealEstate _newRealEstate = RealEstate(
-      id: "",
+      id: null,
       area: "0.0",
       categoryType: "",
       description: "",
       imageUrl: "",
       owner: "",
       price: 0.0,
-      type: 1,
+      type: "1",
       address: Address(
         lan: 0.0,
         lat: 0.0,
@@ -161,7 +161,7 @@ class ModifiedRealEstat with ChangeNotifier {
       details: RealEstateDetails(
         bathroom: 1,
         hall: 1,
-        old: "1",
+        old: 1,
         rooms: 1,
         steps: 1,
         views: 0,

@@ -119,9 +119,9 @@ class _AddAdvertiseDetaileScreenState extends State<AddAdvertiseDetaileScreen> {
                     isLandScape: isLandScape,
                     screenUtil: screenUtil,
                     counter:
-                        double.parse(realEstateProvider.reatEstate.details.old),
-                    func: (double value) {
-                      realEstateProvider.setOld(value.toString());
+                        realEstateProvider.reatEstate.details.old.toDouble(),
+                    func: (int value) {
+                      realEstateProvider.setOld(value);
                     },
                   ),
                   DrawSwitcher(

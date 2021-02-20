@@ -7,12 +7,12 @@ abstract class RealEstatsBlocEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchRealEstate extends RealEstatsBlocEvent {
+class GetRealEstate extends RealEstatsBlocEvent {
   final String catId;
   final int selectedUrl;
   final String filterId;
 
-  FetchRealEstate({this.catId, this.filterId, this.selectedUrl});
+  GetRealEstate({this.catId, this.filterId, this.selectedUrl});
 }
 
 class FetchLastCallRealEstate extends RealEstatsBlocEvent {
@@ -27,12 +27,4 @@ class FetchTodayRealEstate extends RealEstatsBlocEvent {
 
 class FetchSpecialRealEstate extends RealEstatsBlocEvent {
   FetchSpecialRealEstate();
-}
-
-class PostRealEstate extends RealEstatsBlocEvent {
-  final RealEstate realEstats;
-  final String userId;
-  final File image;
-
-  PostRealEstate({this.realEstats, this.image, this.userId});
 }

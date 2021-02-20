@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import '../bloc/post_favorites/post_favorites_bloc.dart';
+import '../bloc/fetch_favorite_realEstate/fetch_favorites_realestate_bloc.dart';
 import '../providers/auth_provider.dart';
 import '../widgets/real_estate_item.dart';
 import '../utils/app_constant.dart';
@@ -14,7 +14,7 @@ class BestAdsScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   _loadedDate(String userId, BuildContext context) async {
-    BlocProvider.of<PostFavoritesBloc>(context, listen: false).add(
+    BlocProvider.of<FetchFavoritesRealestateBloc>(context, listen: false).add(
       FetchFavoritesRealEstate(
         userId: userId,
       ),
@@ -43,18 +43,19 @@ class BestAdsScreen extends StatelessWidget {
           style: TextStyle(fontSize: 15),
         ),
       ),
-      body: BlocBuilder<PostFavoritesBloc, PostFavoritesState>(
+      body: BlocBuilder<FetchFavoritesRealestateBloc,
+          FetchFavoritesRealestateState>(
         builder: (context, state) {
-          if (state is PostFavoritesInProgress) {
+          if (state is FetchFavoritesInProgress) {
             return Center(
               child: sleekCircularSlider(
                   context, 40, AppColors.primaryColor, AppColors.scondryColor),
             );
-          } else if (state is PostFavoritesError) {
+          } else if (state is FetchFavoritesInError) {
             return Center(
               child: Text("يوجد خطأ الرجاء المحاولة لاحقا"),
             );
-          } else if (state is FetchFavoritesDone) {
+          } else if (state is FetchFavoritesInDone) {
             if (state.realEstates.isEmpty) {
               return Center(
                 child: Text("عفوا لا يوجد لديك بيانات مفضلة"),

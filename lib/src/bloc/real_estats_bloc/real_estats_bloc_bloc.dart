@@ -19,67 +19,59 @@ class RealEstatsBlocBloc
   @override
   Stream<RealEstatsBlocState> mapEventToState(
       RealEstatsBlocEvent event) async* {
-    if (event is FetchRealEstate) {
+    if (event is GetRealEstate) {
       yield* _mapFetchRealEstate(event);
-    } else if (event is FetchLastCallRealEstate) {
-      yield* _mapFetchLastCallRealEstate(event);
-    } else if (event is FetchTodayRealEstate) {
-      yield* _mapFetchTodayRealEstate(event);
-    } else if (event is FetchSpecialRealEstate) {
-      yield* _mapFetchEspecialRealEstate(event);
-    } else if (event is PostRealEstate) {
-      yield* _mapPostRealEstate(event);
     }
+
+    // else if (event is FetchLastCallRealEstate) {
+    //   yield* _mapFetchLastCallRealEstate(event);
+    // } else if (event is FetchTodayRealEstate) {
+    //   yield* _mapFetchTodayRealEstate(event);
+    // } else if (event is FetchSpecialRealEstate) {
+    //   yield* _mapFetchEspecialRealEstate(event);
+    // } else if (event is PostRealEstate) {
+    //   yield* _mapPostRealEstate(event);
+    // }
   }
 
   ///[All RealEstate ... ]............
-  Stream<RealEstatsBlocState> _mapFetchRealEstate(
-      FetchRealEstate event) async* {
-    yield RealEstatsLoading();
-    final List<RealEstate> realEstats = await realEstateRepo.fetchRealStates(
-        event.catId, event.filterId, event.selectedUrl);
-    yield RealEstatsLoaded(realEstats: realEstats);
-  }
-
-  ///[Last Call RealEstate ... ]............
-  Stream<RealEstatsBlocState> _mapFetchLastCallRealEstate(
-      FetchLastCallRealEstate event) async* {
-    yield RealEstatsLoading();
-    final List<RealEstate> realEstats =
-        await realEstateRepo.fetchLastCallRealStates(event.userId);
-    yield RealEstatsLoaded(realEstats: realEstats);
-  }
-
-  ///[Today RealEstate ... ]............
-  Stream<RealEstatsBlocState> _mapFetchTodayRealEstate(
-      FetchTodayRealEstate event) async* {
-    yield RealEstatsLoading();
-    final List<RealEstate> realEstats =
-        await realEstateRepo.fetchTodayRealStates();
-    yield RealEstatsLoaded(realEstats: realEstats);
-  }
-
-  ///[Espeacial RealEstate ... ]............
-  Stream<RealEstatsBlocState> _mapFetchEspecialRealEstate(
-      FetchSpecialRealEstate event) async* {
-    yield RealEstatsLoading();
-    final List<RealEstate> realEstats =
-        await realEstateRepo.fetchEspecialRealStates();
-    yield RealEstatsLoaded(realEstats: realEstats);
-  }
-
-  ///[Post RealEstate ... ]............
-  Stream<RealEstatsBlocState> _mapPostRealEstate(PostRealEstate event) async* {
+  Stream<RealEstatsBlocState> _mapFetchRealEstate(GetRealEstate event) async* {
     try {
       yield RealEstatsLoading();
-      await realEstateRepo.postRealEstate(
-        realEstate: event.realEstats,
-        image: event.image,
-        userId: event.userId,
-      );
-      yield RealEstatsPosted();
+      final List<RealEstate> realEstats = await realEstateRepo.fetchRealEstate(
+          event.catId, event.filterId, event.selectedUrl);
+      yield RealEstatsLoaded(realEstats: realEstats);
     } catch (e) {
-      yield RealEstatsError(errorMassage: e.toString());
+      // print("Sio Error ..... " + e.message.toString());
+      yield RealEstatsError(errorMassage: e);
     }
   }
+
+  // ///[Last Call RealEstate ... ]............
+  // Stream<RealEstatsBlocState> _mapFetchLastCallRealEstate(
+  //     FetchLastCallRealEstate event) async* {
+  //   yield RealEstatsLoading();
+  //   final List<RealEstate> realEstats =
+  //       await realEstateRepo.fetchLastCallRealStates(event.userId);
+  //   yield RealEstatsLoaded(realEstats: realEstats);
+  // }
+
+  // ///[Today RealEstate ... ]............
+  // Stream<RealEstatsBlocState> _mapFetchTodayRealEstate(
+  //     FetchTodayRealEstate event) async* {
+  //   yield RealEstatsLoading();
+  //   final List<RealEstate> realEstats =
+  //       await realEstateRepo.fetchTodayRealStates();
+  //   yield RealEstatsLoaded(realEstats: realEstats);
+  // }
+
+  // ///[Espeacial RealEstate ... ]............
+  // Stream<RealEstatsBlocState> _mapFetchEspecialRealEstate(
+  //     FetchSpecialRealEstate event) async* {
+  //   yield RealEstatsLoading();
+  //   final List<RealEstate> realEstats =
+  //       await realEstateRepo.fetchEspecialRealStates();
+  //   yield RealEstatsLoaded(realEstats: realEstats);
+  // }
+
 }

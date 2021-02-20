@@ -59,7 +59,7 @@ class _MealItemState extends State<RealEstateItem> {
                           children: [
                             FittedBox(
                               child: Text(
-                                '${realEstateType(widget.realEstat.type)} ${realEstatePrimaryType(widget.realEstat.categoryType)}',
+                                '${realEstateType(int.parse(widget.realEstat.type))} ${realEstatePrimaryType(widget.realEstat.categoryType)}',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: widget.isLandScape
@@ -181,7 +181,8 @@ class _MealItemState extends State<RealEstateItem> {
                         placeholder: AssetImage(
                           "assets/images/building.png",
                         ),
-                        image: NetworkImage(widget.realEstat.imageUrl),
+                        image: NetworkImage(
+                            "http://162.0.230.58" + widget.realEstat.imageUrl),
                         fit: BoxFit.fill,
                       ),
                       height: widget.isLandScape

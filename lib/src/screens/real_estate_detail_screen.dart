@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../widgets/advertisment_info.dart';
 import '../bloc/semilar_real_estate/semilar_real_estate_bloc.dart';
-import '../bloc/post_favorites/post_favorites_bloc.dart';
+import '../bloc/post_favorites_realEstate/post_favorites_bloc.dart';
 import '../providers/auth_provider.dart';
 import '../models/real_estate_model.dart';
 import '../widgets/discreption_text.dart';
@@ -36,11 +36,11 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
 
   _setIsFav() async {
     final prefs = await SharedPreferences.getInstance();
-    if (!prefs.containsKey(widget.realEstat.id)) {
+    if (!prefs.containsKey(widget.realEstat.id.toString())) {
       return false;
     }
     setState(() {
-      _isFavorite = prefs.getBool(widget.realEstat.id);
+      _isFavorite = prefs.getBool(widget.realEstat.id.toString());
     });
   }
 
@@ -50,10 +50,10 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
     });
 
     final prefs = await SharedPreferences.getInstance();
-    if (prefs.containsKey(widget.realEstat.id)) {
-      prefs.remove(widget.realEstat.id);
+    if (prefs.containsKey(widget.realEstat.id.toString())) {
+      prefs.remove(widget.realEstat.id.toString());
     }
-    prefs.setBool(widget.realEstat.id, _isFavorite);
+    prefs.setBool(widget.realEstat.id.toString(), _isFavorite);
   }
 
   _loadedDate() async {
@@ -185,7 +185,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
                   child: Text(
-                    '${realEstateType(widget.realEstat.type)} ${realEstatePrimaryType(widget.realEstat.categoryType)}',
+                    '${realEstateType(int.parse(widget.realEstat.type))} ${realEstatePrimaryType(widget.realEstat.categoryType)}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: isLandScape
@@ -246,7 +246,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                   color: Colors.grey.shade100,
                   text: "النوع",
                   widget: Text(
-                    "${realEstateType(widget.realEstat.type)}",
+                    "${realEstateType(int.parse(widget.realEstat.type))}",
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: isLandScape
@@ -535,7 +535,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
 class SemilerAds extends StatelessWidget {
   final ScreenUtil screenUtil;
   final bool isLandScape;
-  final String realEstateId;
+  final int realEstateId;
 
   const SemilerAds({
     Key key,

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
+import '../bloc/post_realEstate/post_realestate_bloc.dart';
 import '../providers/modifid_real_estate_provider.dart';
 import '../providers/categories_provider.dart';
 import '../widgets/build_form_field.dart';
@@ -57,8 +58,8 @@ class _AddAdvertiseDetaile2ScreenState
 
     print(_realEstate.reatEstate.description + " EEEEEEEEEEEEEEEEEEEEEEEeeeee");
 
-    BlocProvider.of<RealEstatsBlocBloc>(context, listen: false).add(
-      PostRealEstate(
+    BlocProvider.of<PostRealestateBloc>(context, listen: false).add(
+      PostRealEstatee(
         image: _realEstate.storedImage,
         realEstats: _realEstate.reatEstate,
         userId: _userData.userId,
