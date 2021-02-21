@@ -131,7 +131,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            expandedHeight: 230,
+            expandedHeight: 250,
             backgroundColor: AppColors.primaryColor,
             automaticallyImplyLeading: false,
             centerTitle: true,
@@ -174,7 +174,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                 StretchMode.zoomBackground,
               ],
               background: Image.network(
-                "${widget.realEstat.imageUrl}",
+                "http://162.0.230.58" + widget.realEstat.imageUrl,
                 fit: BoxFit.fill,
               ),
             ),
