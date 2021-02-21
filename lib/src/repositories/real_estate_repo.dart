@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:makasep/src/models/secondryType.dart';
 import 'dart:convert';
 
 import '../models/real_estate_model.dart';
@@ -53,6 +54,10 @@ abstract class RealEstateRepo {
     String description,
     String buildingTypeId,
   }) {
+    return null;
+  }
+
+  Future<List<SecondryType>> fetchType() {
     return null;
   }
 }
@@ -445,5 +450,37 @@ class BuildingAndContract extends RealEstateRepo {
     //   print("Catch E " + e.toString());
     //   throw e.toString();
     // }
+  }
+}
+
+class FetchType extends RealEstateRepo {
+  @override
+  Future<List<SecondryType>> fetchType() async {
+    final url = 'http://162.0.230.58/api/secondry';
+
+    final _response = await dio.get(
+      url,
+      options: Options(
+        sendTimeout: 2000,
+        receiveTimeout: 1000,
+        headers: {
+          'content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    );
+
+    final _respostDate = _response.data as List<dynamic>;
+
+    List<SecondryType> _loadedType = [];
+    _respostDate.forEach(
+      (e) {
+        _loadedType.add(
+          SecondryType.fromJson(e),
+        );
+      },
+    );
+
+    return _loadedType;
   }
 }
