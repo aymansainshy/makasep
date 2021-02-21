@@ -35,15 +35,15 @@ class AddAdvertiseScreen extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.all(10),
         child: ListView.builder(
-          itemCount: categoriesProvider.categoryList.length,
+          itemCount: categoriesProvider.categoryPostList.length,
           itemBuilder: (contex, i) => Column(
             children: [
               AddAdvertisContent(
-                leading: categoriesProvider.categoryList[i].imageUrl,
-                title: categoriesProvider.categoryList[i].title,
+                leading: categoriesProvider.categoryPostList[i].imageUrl,
+                title: categoriesProvider.categoryPostList[i].title,
                 onTap: () {
                   Provider.of<ModifiedRealEstat>(context, listen: false)
-                      .setCatType(categoriesProvider.categoryList[i].id);
+                      .setCatType(categoriesProvider.categoryPostList[i].id);
                   Navigator.of(context)
                       .pushNamed(AddAdvertisePhontoScreen.routeName);
                 },

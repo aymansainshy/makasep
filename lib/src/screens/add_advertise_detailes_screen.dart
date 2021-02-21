@@ -120,8 +120,8 @@ class _AddAdvertiseDetaileScreenState extends State<AddAdvertiseDetaileScreen> {
                     screenUtil: screenUtil,
                     counter:
                         realEstateProvider.reatEstate.details.old.toDouble(),
-                    func: (int value) {
-                      realEstateProvider.setOld(value);
+                    func: (double value) {
+                      realEstateProvider.setOld(value.toInt());
                     },
                   ),
                   DrawSwitcher(

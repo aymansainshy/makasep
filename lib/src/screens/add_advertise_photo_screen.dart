@@ -69,7 +69,7 @@ class AddAdvertisePhontoScreen extends StatelessWidget {
                       value: 3,
                     ),
                   ],
-                  value: modifiedRealEstateProvider.reatEstate.type,
+                  value: int.parse(modifiedRealEstateProvider.reatEstate.type),
                   onChanged: (value) {
                     modifiedRealEstateProvider.setType(value);
                   },

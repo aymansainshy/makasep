@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import '../bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
 import '../bloc/post_realEstate/post_realestate_bloc.dart';
 import '../providers/modifid_real_estate_provider.dart';
 import '../providers/categories_provider.dart';
@@ -93,9 +92,9 @@ class _AddAdvertiseDetaile2ScreenState
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           child: SingleChildScrollView(
-              child: BlocConsumer<RealEstatsBlocBloc, RealEstatsBlocState>(
+              child: BlocConsumer<PostRealestateBloc, PostRealestateState>(
             listener: (context, state) {
-              if (state is RealEstatsLoading) {
+              if (state is PostRealestateInprogress) {
                 showDialog(
                   context: context,
                   builder: (ctx) => GestureDetector(
@@ -112,7 +111,7 @@ class _AddAdvertiseDetaile2ScreenState
                   ),
                 );
               }
-              if (state is RealEstatsPosted) {
+              if (state is PostRealestateDone) {
                 Navigator.of(context).pop();
                 _formKey.currentState.reset();
                 _realEstate.reaSet();
@@ -156,7 +155,7 @@ class _AddAdvertiseDetaile2ScreenState
                 );
               }
 
-              if (state is RealEstatsError) {
+              if (state is PostRealestateError) {
                 Navigator.of(context).pop();
                 showDialog(
                   context: context,

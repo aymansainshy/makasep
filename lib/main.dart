@@ -23,7 +23,7 @@ import './src/utils/app_constant.dart';
 import './src/utils/app_routes.dart';
 
 void main() {
-  FetchRealEstate().fetchRealEstate(1.toString(), 1.toString(), 1);
+  // FetchRealEstate().fetchRealEstate(1.toString(), 1.toString(), 1);
   runApp(MyApp());
 }
 
