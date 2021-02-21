@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../providers/categories_provider.dart';
+import '../bloc/fetch_type/fetch_type_bloc.dart';
 import '../widgets/category_Item.dart';
 import '../utils/app_constant.dart';
 import '../widgets/drawer.dart';
@@ -19,8 +21,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  void _fetchType() {
+    BlocProvider.of<FetchTypeBloc>(context, listen: false).add(
+      FetchTypeNow(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    _fetchType();
     var mediaQuery = MediaQuery.of(context).size;
     ScreenUtil.init(context);
     ScreenUtil screenUtil = ScreenUtil();
@@ -40,43 +50,69 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(fontSize: 15),
         ),
       ),
-      body: Column(
-        children: [
-          Container(
-            height: screenUtil.setHeight(500),
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.red,
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage(
-                  "assets/images/sudan.png",
+      body: BlocConsumer<FetchTypeBloc, FetchTypeState>(
+        listener: (context, state) {
+          if (state is FetchTypeInProgress) {
+            showDialog(
+              context: context,
+              builder: (ctx) => GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {},
+                child: Center(
+                  child: sleekCircularSlider(
+                    context,
+                    40,
+                    AppColors.primaryColor,
+                    AppColors.scondryColor,
+                  ),
                 ),
               ),
-            ),
-            child: Container(
-              color: Colors.black54,
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: GridView.builder(
-                itemCount: categoriesProvider.categoryList.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 1,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+            );
+          }
+          if (state is FetchTypeDone) {
+            Navigator.of(context).pop();
+          }
+        },
+        builder: (context, state) {
+          return Column(
+            children: [
+              Container(
+                height: screenUtil.setHeight(500),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage(
+                      "assets/images/sudan.png",
+                    ),
+                  ),
                 ),
-                itemBuilder: (context, index) => CategoryItem(
-                  screenUtil: screenUtil,
-                  category: categoriesProvider.categoryList[index],
+                child: Container(
+                  color: Colors.black54,
                 ),
               ),
-            ),
-          ),
-        ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: GridView.builder(
+                    itemCount: categoriesProvider.categoryList.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
+                    itemBuilder: (context, index) => CategoryItem(
+                      screenUtil: screenUtil,
+                      category: categoriesProvider.categoryList[index],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

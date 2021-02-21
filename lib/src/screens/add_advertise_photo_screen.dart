@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../screens/add_advertise_location_screen.dart';
+import '../bloc/fetch_type/fetch_type_bloc.dart';
 import '../providers/modifid_real_estate_provider.dart';
-import '../providers/categories_provider.dart';
 import '../utils/app_constant.dart';
 
 class AddAdvertisePhontoScreen extends StatelessWidget {
@@ -14,15 +15,11 @@ class AddAdvertisePhontoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final modifiedRealEstateProvider =
-        Provider.of<ModifiedRealEstat>(context, listen: false);
-    var mediaQuery = MediaQuery.of(context).size;
     ScreenUtil.init(context);
     ScreenUtil screenUtil = ScreenUtil();
     var isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
-    final categoriesProvider =
-        Provider.of<CategoriesProvider>(context, listen: false);
+
     return Scaffold(
       key: _scaffoldKey,
       // drawer: AppDrawer(),
@@ -52,26 +49,26 @@ class AddAdvertisePhontoScreen extends StatelessWidget {
               ),
               SizedBox(height: 10),
               DropdownButtonHideUnderline(
-                child: DropdownButton(
-                  isExpanded: true,
-                  iconSize: 30,
-                  items: [
-                    DropdownMenuItem(
-                      child: Text("عمارة"),
-                      value: 1,
-                    ),
-                    DropdownMenuItem(
-                      child: Text("شقة"),
-                      value: 2,
-                    ),
-                    DropdownMenuItem(
-                      child: Text("منزل"),
-                      value: 3,
-                    ),
-                  ],
-                  value: int.parse(modifiedRealEstateProvider.reatEstate.type),
-                  onChanged: (value) {
-                    modifiedRealEstateProvider.setType(value);
+                child: BlocBuilder<FetchTypeBloc, FetchTypeState>(
+                  builder: (context, state) {
+                    if (state is FetchTypeDone) {
+                      return DropdownButton(
+                        items: state.typeList
+                            .map(
+                              (e) => DropdownMenuItem(
+                                child: Text(e.name),
+                                value: e.id,
+                              ),
+                            )
+                            .toList(),
+                        value: int.parse(
+                            modifiedRealEstateProvider.reatEstate.type),
+                        onChanged: (value) {
+                          modifiedRealEstateProvider.setType(value);
+                        },
+                      );
+                    }
+                    return Text("Done");
                   },
                 ),
               ),

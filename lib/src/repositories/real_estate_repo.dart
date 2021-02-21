@@ -470,6 +470,8 @@ class FetchType extends RealEstateRepo {
       ),
     );
 
+    print("Respons Body ............." + _response.data.toString());
+
     final _respostDate = _response.data as List<dynamic>;
 
     List<SecondryType> _loadedType = [];

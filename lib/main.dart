@@ -5,11 +5,12 @@ import 'package:provider/provider.dart';
 
 import './src/bloc/fetch_favorite_realEstate/fetch_favorites_realestate_bloc.dart';
 import './src/bloc/build_and_contractor_bloc/build_and_contract_bloc.dart';
+import './src/bloc/post_favorites_realEstate/post_favorites_bloc.dart';
 import './src/bloc/semilar_real_estate/semilar_real_estate_bloc.dart';
 import './src/bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
-import './src/bloc/post_favorites_realEstate/post_favorites_bloc.dart';
 import './src/bloc/post_realEstate/post_realestate_bloc.dart';
 import './src/providers/modifid_real_estate_provider.dart';
+import './src/bloc/fetch_type/fetch_type_bloc.dart';
 import './src/screens/animated_splash_screen.dart';
 import './src/providers/categories_provider.dart';
 import './src/repositories/real_estate_repo.dart';
@@ -78,6 +79,11 @@ class MyApp extends StatelessWidget {
           BlocProvider<SemilarRealEstateBloc>(
             create: (context) => SemilarRealEstateBloc(
               realEstateRepo: FetchSimelarRealEstate(),
+            ),
+          ),
+          BlocProvider<FetchTypeBloc>(
+            create: (context) => FetchTypeBloc(
+              realEstateRepo: FetchType(),
             ),
           ),
         ],

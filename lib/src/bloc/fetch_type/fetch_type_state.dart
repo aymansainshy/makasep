@@ -15,6 +15,9 @@ class FetchTypeDone extends FetchTypeState {
   final List<SecondryType> typeList;
 
   FetchTypeDone({this.typeList});
+
+  @override
+  List<Object> get props => [typeList];
 }
 
 class FetchTypeError extends FetchTypeState {}

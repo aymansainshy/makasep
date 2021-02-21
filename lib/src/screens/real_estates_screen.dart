@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
+import '../bloc/fetch_type/fetch_type_bloc.dart';
 import '../widgets/real_estate_item.dart';
 import '../utils/app_constant.dart';
 
@@ -107,23 +108,39 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
                   child: Row(
                     children: [
                       DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                          items: [
-                            DropdownMenuItem(
-                              child: Text("عمارة"),
-                              value: 1,
-                            ),
-                            DropdownMenuItem(
-                              child: Text("شقق"),
-                              value: 2,
-                            ),
-                            DropdownMenuItem(
-                              child: Text("منزل"),
-                              value: 3,
-                            ),
-                          ],
-                          value: filterStateId,
-                          onChanged: selectedFilter,
+                        child: BlocBuilder<FetchTypeBloc, FetchTypeState>(
+                          builder: (context, state) {
+                            if (state is FetchTypeDone) {
+                              return DropdownButton(
+                                items: state.typeList
+                                    .map(
+                                      (e) => DropdownMenuItem(
+                                        child: Text(e.name),
+                                        value: e.id,
+                                      ),
+                                    )
+                                    .toList(),
+
+                                //  [
+                                //   DropdownMenuItem(
+                                //     child: Text("عمارة"),
+                                //     value: 1,
+                                //   ),
+                                //   DropdownMenuItem(
+                                //     child: Text("شقق"),
+                                //     value: 2,
+                                //   ),
+                                //   DropdownMenuItem(
+                                //     child: Text("منزل"),
+                                //     value: 3,
+                                //   ),
+                                // ],
+                                value: filterStateId,
+                                onChanged: selectedFilter,
+                              );
+                            }
+                            return Text("Done");
+                          },
                         ),
                       ),
                     ],

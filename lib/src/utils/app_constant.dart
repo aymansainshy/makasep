@@ -36,13 +36,16 @@ String translate(String text, BuildContext context) {
 String realEstateType(int reatEstateTypeId) {
   switch (reatEstateTypeId) {
     case 1:
-      return "عمارة";
+      return "شقة";
       break;
     case 2:
-      return "شقة";
+      return "عرض - مزارع";
       break;
     case 3:
       return "منزل";
+      break;
+    case 4:
+      return "ارض";
       break;
     default:
       return "منزل";
