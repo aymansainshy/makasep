@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:makasep/src/providers/massages_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,6 +32,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    Provider.of<MassagesProvider>(context, listen: false)
+        .fetchUserChat(1.toString());
+    Provider.of<MassagesProvider>(context, listen: false)
+        .fetchChatMessages(1.toString());
     _fetchType();
   }
 

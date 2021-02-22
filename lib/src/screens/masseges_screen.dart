@@ -7,6 +7,11 @@ import '../utils/app_constant.dart';
 
 class MassagesScreen extends StatefulWidget {
   static const routeName = "/massages-screen";
+  final String chatId;
+  final bool isChatScreen;
+
+  const MassagesScreen({Key key, this.chatId, this.isChatScreen = false})
+      : super(key: key);
   @override
   _MassagesScreenState createState() => _MassagesScreenState();
 }
@@ -31,7 +36,7 @@ class _MassagesScreenState extends State<MassagesScreen> {
         MediaQuery.of(context).orientation == Orientation.landscape;
 
     final massages = Provider.of<MassagesProvider>(context, listen: false)
-        .massages
+        .chatMassages
         .reversed
         .toList();
 
@@ -57,9 +62,7 @@ class _MassagesScreenState extends State<MassagesScreen> {
                 itemCount: massages.length,
                 itemBuilder: (context, i) => Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: massages[i].senderId == "1"
-                      ? CrossAxisAlignment.start
-                      : CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Container(
                       padding: EdgeInsets.all(5),
@@ -69,15 +72,11 @@ class _MassagesScreenState extends State<MassagesScreen> {
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Column(
-                        mainAxisAlignment: massages[i].senderId == "1"
-                            ? MainAxisAlignment.start
-                            : MainAxisAlignment.end,
-                        crossAxisAlignment: massages[i].senderId == "1"
-                            ? CrossAxisAlignment.start
-                            : CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            massages[i].senderId,
+                            "hi",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: isLandScape
@@ -86,7 +85,7 @@ class _MassagesScreenState extends State<MassagesScreen> {
                             ),
                           ),
                           Text(
-                            massages[i].content,
+                            "hhhh",
                             style: TextStyle(
                               fontFamily: 'Cairo',
                               color: Colors.black,

@@ -99,7 +99,7 @@ class FetchRealEstate extends RealEstateRepo {
         },
       ),
     );
-    print("Response Body .. " + _response.data.toString());
+    // print("Response Body .. " + _response.data.toString());
     final _respostDate = _response.data as List<dynamic>;
 
     List<RealEstate> _loadedRealStates = [];
@@ -470,7 +470,7 @@ class FetchType extends RealEstateRepo {
       ),
     );
 
-    print("Respons Body ............." + _response.data.toString());
+    // print("Respons Body ............." + _response.data.toString());
 
     final _respostDate = _response.data as List<dynamic>;
 
