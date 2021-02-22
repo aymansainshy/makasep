@@ -15,9 +15,9 @@ class ChatsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
-    ScreenUtil screenUtil = ScreenUtil();
-    var isLandScape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    // ScreenUtil screenUtil = ScreenUtil();
+    // var isLandScape =
+    //     MediaQuery.of(context).orientation == Orientation.landscape;
 
     final _userData = Provider.of<AuthProvider>(context, listen: false);
 
@@ -53,7 +53,6 @@ class ChatsScreen extends StatelessWidget {
                               return MassagesScreen(
                                 chatId:
                                     massages.userChat[index].chatId.toString(),
-                                isChatScreen: true,
                               );
                             },
                           ));
@@ -63,7 +62,8 @@ class ChatsScreen extends StatelessWidget {
                             massages.userChat[index].realEstateImageUrl,
                           ),
                         ),
-                        titleText: massages.userChat[index].realEsateTypeId,
+                        titleText:
+                            massages.userChat[index].realEstateId.toString(),
                         subtitleText:
                             'Lorem ipsum dolor sit amet, consectetur adipiscing',
                         icon: Icon(

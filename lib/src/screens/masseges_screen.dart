@@ -9,10 +9,18 @@ import '../utils/app_constant.dart';
 class MassagesScreen extends StatefulWidget {
   static const routeName = "/massages-screen";
   final String chatId;
-  final bool isChatScreen;
+  final String userId;
+  final String realEstateId;
 
-  const MassagesScreen({Key key, this.chatId, this.isChatScreen = false})
-      : super(key: key);
+  final bool isStarChat;
+
+  const MassagesScreen({
+    Key key,
+    this.chatId,
+    this.realEstateId,
+    this.userId,
+    this.isStarChat = false,
+  }) : super(key: key);
   @override
   _MassagesScreenState createState() => _MassagesScreenState();
 }
@@ -27,13 +35,23 @@ class _MassagesScreenState extends State<MassagesScreen> {
   String _recievedId;
   String _chatId;
 
-  @override
-  void initState() {
-    super.initState();
-    fetchMassages();
+  Future<void> starChat() async {
+    setState(() {
+      isLoading = true;
+    });
+    final massageProvider =
+        Provider.of<MassagesProvider>(context, listen: false);
+    await massageProvider.startChat(
+        realEstateId: widget.realEstateId, userId: widget.userId);
+    final _startChatId = massageProvider.startChatId;
+    await Provider.of<MassagesProvider>(context, listen: false)
+        .fetchChatMessages(_startChatId.toString());
+    setState(() {
+      isLoading = false;
+    });
   }
 
-  void fetchMassages() async {
+  Future<void> fetchMassages() async {
     setState(() {
       isLoading = true;
     });
@@ -45,6 +63,15 @@ class _MassagesScreenState extends State<MassagesScreen> {
   }
 
   @override
+  void initState() {
+    if (widget.isStarChat) {
+      starChat();
+    }
+    fetchMassages();
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _textEditingController.dispose();
     super.dispose();
@@ -52,8 +79,6 @@ class _MassagesScreenState extends State<MassagesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context).size;
-
     ScreenUtil.init(context);
     ScreenUtil screenUtil = ScreenUtil();
     var isLandScape =

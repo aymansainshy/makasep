@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -17,10 +16,15 @@ final _options = BaseOptions(
 Dio _dio = Dio(_options);
 
 class MassagesProvider with ChangeNotifier {
+  int _startChatId;
   List<UserChat> _userChats = [];
 
   List<UserChat> get userChat {
     return [..._userChats];
+  }
+
+  int get startChatId {
+    return _startChatId;
   }
 
   List<ChatMassage> _chatMessages = [];
@@ -56,9 +60,11 @@ class MassagesProvider with ChangeNotifier {
 
       final _responsData = _response.data as List<dynamic>;
       List<ChatMassage> _loadedMessage = [];
+
       _responsData.forEach((chat) {
         return _loadedMessage.add(ChatMassage.fromJson(chat));
       });
+
       _chatMessages = _loadedMessage;
       notifyListeners();
       print("Response chatMessage ..... " + _chatMessages.toString());
@@ -74,11 +80,12 @@ class MassagesProvider with ChangeNotifier {
       final _response = await _dio.get("/chat/$userId/start",
           queryParameters: {"real_estate_id": realEstateId});
 
-      final _responsData = _response.data as List<dynamic>;
+      final _responsData = _response.data["message"] as List<dynamic>;
       List<ChatMassage> _loadedMessage = [];
       _responsData.forEach((chat) {
         return _loadedMessage.add(ChatMassage.fromJson(chat));
       });
+      _startChatId = _response.data["chat_id"];
       _chatMessages = _loadedMessage;
       notifyListeners();
       print("Response chatMessage ..... " + _chatMessages.toString());
