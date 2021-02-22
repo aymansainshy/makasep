@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../providers/massages_provider.dart';
+import '../providers/auth_provider.dart';
 import '../utils/app_constant.dart';
 
 class MassagesScreen extends StatefulWidget {
@@ -21,6 +22,28 @@ class _MassagesScreenState extends State<MassagesScreen> {
 
   var isWitchLand = false;
 
+  var isLoading = false;
+
+  String _recievedId;
+  String _chatId;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchMassages();
+  }
+
+  void fetchMassages() async {
+    setState(() {
+      isLoading = true;
+    });
+    await Provider.of<MassagesProvider>(context, listen: false)
+        .fetchChatMessages(widget.chatId);
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   void dispose() {
     _textEditingController.dispose();
@@ -30,15 +53,13 @@ class _MassagesScreenState extends State<MassagesScreen> {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
+
     ScreenUtil.init(context);
     ScreenUtil screenUtil = ScreenUtil();
     var isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
 
-    final massages = Provider.of<MassagesProvider>(context, listen: false)
-        .chatMassages
-        .reversed
-        .toList();
+    final isMe = Provider.of<AuthProvider>(context, listen: false).userId;
 
     return Scaffold(
       appBar: AppBar(
@@ -50,49 +71,159 @@ class _MassagesScreenState extends State<MassagesScreen> {
           style: TextStyle(fontSize: 15),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              child: ListView.builder(
-                reverse: true,
-                itemCount: massages.length,
-                itemBuilder: (context, i) => Column(
+      body: isLoading
+          ? Center(
+              child: sleekCircularSlider(
+                context,
+                40,
+                AppColors.primaryColor,
+                AppColors.scondryColor,
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Consumer<MassagesProvider>(
+                builder: (context, massage, child) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
+                    Expanded(
+                      child: ListView.builder(
+                          reverse: true,
+                          itemCount: massage.chatMassages.length,
+                          itemBuilder: (context, i) {
+                            _recievedId = massage.chatMassages[i].receiverId;
+                            _chatId = massage.chatMassages[i].chatId;
+                            return Column(
+                              mainAxisAlignment:
+                                  isMe == massage.chatMassages[i].senderId
+                                      ? MainAxisAlignment.end
+                                      : MainAxisAlignment.start,
+                              crossAxisAlignment:
+                                  isMe == massage.chatMassages[i].senderId
+                                      ? CrossAxisAlignment.start
+                                      : CrossAxisAlignment.end,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(5),
+                                  // width: screenUtil.setWidth(450),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Text(
+                                    massage.chatMassages[i].content,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: isLandScape
+                                          ? screenUtil.setSp(25)
+                                          : screenUtil.setSp(35),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                              ],
+                            );
+                          }),
+                    ),
+
+                    // SizedBox(height: 5),
                     Container(
-                      padding: EdgeInsets.all(5),
-                      // width: screenUtil.setWidth(450),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(5),
-                      ),
+                      // color: Colors.grey,
+                      height: isLandScape
+                          ? screenUtil.setHeight(450)
+                          : screenUtil.setHeight(300),
+                      padding: EdgeInsets.only(top: 5, bottom: 5),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text(
-                            "hi",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: isLandScape
-                                  ? screenUtil.setSp(25)
-                                  : screenUtil.setSp(35),
-                            ),
-                          ),
-                          Text(
-                            "hhhh",
-                            style: TextStyle(
-                              fontFamily: 'Cairo',
-                              color: Colors.black,
-                              fontSize: isLandScape
-                                  ? screenUtil.setSp(22)
-                                  : screenUtil.setSp(32),
-                            ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    labelText: "اكتب رسالتك",
+                                    labelStyle: TextStyle(
+                                      fontSize: isLandScape
+                                          ? screenUtil.setSp(25)
+                                          : screenUtil.setSp(30),
+                                    ),
+                                    contentPadding: EdgeInsets.all(8.0),
+                                    errorBorder: OutlineInputBorder(
+                                      // borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                        color: Colors.red,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      // borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                        color: Colors.red,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      // borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                        color: Colors.grey,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      // borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                        color: Colors.grey,
+                                        width: 1,
+                                      ),
+                                    ),
+                                  ),
+                                  controller: _textEditingController,
+                                  // onChanged: (value) {
+                                  //   setState(() {
+                                  //     commentText = value;
+                                  //   });
+                                  // },
+                                ),
+                              ),
+                              SizedBox(width: 20),
+                              InkWell(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 5, bottom: 5),
+                                  child: Icon(
+                                    Icons.send,
+                                    size: isLandScape
+                                        ? screenUtil.setSp(35)
+                                        : screenUtil.setSp(60),
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                                onTap: () async {
+                                  if (_textEditingController.text
+                                          .trim()
+                                          .length <
+                                      1) {
+                                    return;
+                                  }
+                                  try {
+                                    await Provider.of<MassagesProvider>(context,
+                                            listen: false)
+                                        .postMessage(
+                                      content: _textEditingController.text,
+                                      senderId: int.parse(isMe),
+                                      recieverId: int.parse(_recievedId),
+                                      chatId: int.parse(_chatId),
+                                    );
+                                    _textEditingController.clear();
+                                  } catch (e) {
+                                    print(e.toString());
+                                  }
+                                },
+                              )
+                            ],
                           ),
                         ],
                       ),
@@ -101,93 +232,6 @@ class _MassagesScreenState extends State<MassagesScreen> {
                 ),
               ),
             ),
-            // SizedBox(height: 5),
-            Container(
-              // color: Colors.grey,
-              height: isLandScape
-                  ? screenUtil.setHeight(450)
-                  : screenUtil.setHeight(300),
-              padding: EdgeInsets.only(top: 5, bottom: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            labelText: "اكتب رسالتك",
-                            labelStyle: TextStyle(
-                              fontSize: isLandScape
-                                  ? screenUtil.setSp(25)
-                                  : screenUtil.setSp(30),
-                            ),
-                            contentPadding: EdgeInsets.all(8.0),
-                            errorBorder: OutlineInputBorder(
-                              // borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: Colors.red,
-                                width: 1,
-                              ),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              // borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: Colors.red,
-                                width: 1,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              // borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                                width: 1,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              // borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                          controller: _textEditingController,
-                          // onChanged: (value) {
-                          //   setState(() {
-                          //     commentText = value;
-                          //   });
-                          // },
-                        ),
-                      ),
-                      SizedBox(width: 20),
-                      InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 5, bottom: 5),
-                          child: Icon(
-                            Icons.send,
-                            size: isLandScape
-                                ? screenUtil.setSp(35)
-                                : screenUtil.setSp(60),
-                            color: AppColors.primaryColor,
-                          ),
-                        ),
-                        onTap: () async {
-                          // if (_textEditingController.text.trim().length < 1) {
-                          //   return;
-                          // }
-                        },
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

@@ -25,7 +25,7 @@ class MassagesProvider with ChangeNotifier {
   List<ChatMassage> _chatMessages = [];
 
   List<ChatMassage> get chatMassages {
-    return [..._chatMessages];
+    return [..._chatMessages.reversed.toList()];
   }
 
   Future<void> fetchUserChat(String userId) async {
@@ -67,6 +67,26 @@ class MassagesProvider with ChangeNotifier {
     }
   }
 
+//////////////////////////////////[Start Chat]///////////////////////////////////////////
+  Future<void> startChat({String userId, String realEstateId}) async {
+    try {
+      final _response = await _dio.get("/chat/$userId/start",
+          queryParameters: {"real_estate_id": realEstateId});
+
+      final _responsData = _response.data as List<dynamic>;
+      List<ChatMassage> _loadedMessage = [];
+      _responsData.forEach((chat) {
+        return _loadedMessage.add(ChatMassage.fromJson(chat));
+      });
+      _chatMessages = _loadedMessage;
+      notifyListeners();
+      print("Response chatMessage ..... " + _chatMessages.toString());
+    } catch (e) {
+      print("Errror Message ..... " + e.toString());
+      throw e.toString();
+    }
+  }
+
 //////////////////////////////////[PostChat]///////////////////////////////////////////
   Future<void> postMessage({
     int senderId,
@@ -81,6 +101,17 @@ class MassagesProvider with ChangeNotifier {
         "chat_id": chatId,
         "message": content,
       });
+
+      final newChatMassage = ChatMassage(
+        id: 12345678976543,
+        chatId: chatId.toString(),
+        content: content,
+        receiverId: recieverId.toString(),
+        senderId: senderId.toString(),
+      );
+
+      _chatMessages.add(newChatMassage);
+      notifyListeners();
 
       print("Response Post ..... " + _response.data.toString());
     } catch (e) {
