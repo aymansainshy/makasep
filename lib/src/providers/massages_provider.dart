@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -94,16 +95,10 @@ class MassagesProvider with ChangeNotifier {
     int chatId,
     String content,
   }) async {
+    final dataTime = DateTime.now();
     try {
-      final _response = await _dio.post("/message", data: {
-        "sender_id": senderId,
-        "resiver_id": recieverId,
-        "chat_id": chatId,
-        "message": content,
-      });
-
       final newChatMassage = ChatMassage(
-        id: 12345678976543,
+        id: dataTime.toIso8601String(),
         chatId: chatId.toString(),
         content: content,
         receiverId: recieverId.toString(),
@@ -112,10 +107,19 @@ class MassagesProvider with ChangeNotifier {
 
       _chatMessages.add(newChatMassage);
       notifyListeners();
+      final _response = await _dio.post("/message", data: {
+        "sender_id": senderId,
+        "resiver_id": recieverId,
+        "chat_id": chatId,
+        "message": content,
+      });
 
       print("Response Post ..... " + _response.data.toString());
     } catch (e) {
       print("Errror Message ..... " + e.toString());
+      _chatMessages
+          .removeWhere((massage) => massage.id == dataTime.toIso8601String());
+      notifyListeners();
       throw e.toString();
     }
   }

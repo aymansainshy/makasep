@@ -25,7 +25,7 @@ class UserChat {
 }
 
 class ChatMassage {
-  final int id;
+  final String id;
   final String chatId;
   final String senderId;
   final String receiverId;
@@ -41,7 +41,7 @@ class ChatMassage {
 
   factory ChatMassage.fromJson(Map<String, dynamic> json) {
     return ChatMassage(
-      id: json["id"],
+      id: json["id"].toString(),
       senderId: json["sender_id"],
       receiverId: json["resiver_id"],
       chatId: json["chat_id"],

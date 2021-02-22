@@ -108,13 +108,30 @@ class _MassagesScreenState extends State<MassagesScreen> {
                                   padding: EdgeInsets.all(5),
                                   // width: screenUtil.setWidth(450),
                                   decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                    borderRadius: BorderRadius.circular(5),
+                                    color:
+                                        isMe == massage.chatMassages[i].senderId
+                                            ? Colors.grey[300]
+                                            : AppColors.primaryColor,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                      bottomLeft: isMe ==
+                                              massage.chatMassages[i].senderId
+                                          ? Radius.circular(10)
+                                          : Radius.circular(0),
+                                      bottomRight: isMe ==
+                                              massage.chatMassages[i].senderId
+                                          ? Radius.circular(0)
+                                          : Radius.circular(10),
+                                    ),
                                   ),
                                   child: Text(
                                     massage.chatMassages[i].content,
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      color: isMe ==
+                                              massage.chatMassages[i].senderId
+                                          ? Colors.black
+                                          : Colors.white,
                                       fontSize: isLandScape
                                           ? screenUtil.setSp(25)
                                           : screenUtil.setSp(35),
@@ -132,7 +149,7 @@ class _MassagesScreenState extends State<MassagesScreen> {
                       // color: Colors.grey,
                       height: isLandScape
                           ? screenUtil.setHeight(450)
-                          : screenUtil.setHeight(300),
+                          : screenUtil.setHeight(270),
                       padding: EdgeInsets.only(top: 5, bottom: 5),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -144,7 +161,7 @@ class _MassagesScreenState extends State<MassagesScreen> {
                               Expanded(
                                 child: TextField(
                                   decoration: InputDecoration(
-                                    labelText: "اكتب رسالتك",
+                                    labelText: "  اكتب رسالتك...",
                                     labelStyle: TextStyle(
                                       fontSize: isLandScape
                                           ? screenUtil.setSp(25)
@@ -152,28 +169,28 @@ class _MassagesScreenState extends State<MassagesScreen> {
                                     ),
                                     contentPadding: EdgeInsets.all(8.0),
                                     errorBorder: OutlineInputBorder(
-                                      // borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(15),
                                       borderSide: BorderSide(
                                         color: Colors.red,
                                         width: 1,
                                       ),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
-                                      // borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(15),
                                       borderSide: BorderSide(
                                         color: Colors.red,
                                         width: 1,
                                       ),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      // borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(15),
                                       borderSide: BorderSide(
                                         color: Colors.grey,
                                         width: 1,
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      // borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(15),
                                       borderSide: BorderSide(
                                         color: Colors.grey,
                                         width: 1,
@@ -181,11 +198,6 @@ class _MassagesScreenState extends State<MassagesScreen> {
                                     ),
                                   ),
                                   controller: _textEditingController,
-                                  // onChanged: (value) {
-                                  //   setState(() {
-                                  //     commentText = value;
-                                  //   });
-                                  // },
                                 ),
                               ),
                               SizedBox(width: 20),
@@ -219,7 +231,14 @@ class _MassagesScreenState extends State<MassagesScreen> {
                                     );
                                     _textEditingController.clear();
                                   } catch (e) {
-                                    print(e.toString());
+                                    // print(e.toString());
+                                    Scaffold.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          "يوجد خطأ الرجاء التاكد من الاتصال بالانترنت",
+                                        ),
+                                      ),
+                                    );
                                   }
                                 },
                               )
