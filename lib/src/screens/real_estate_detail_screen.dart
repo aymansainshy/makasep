@@ -473,6 +473,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                 AdvertisInfo(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
+                  realEstateId: widget.realEstat.id.toString(),
                 ),
                 LocationOnMap(
                   isLandScape: isLandScape,

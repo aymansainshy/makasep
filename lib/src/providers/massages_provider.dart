@@ -70,28 +70,33 @@ class MassagesProvider with ChangeNotifier {
       print("Response chatMessage ..... " + _chatMessages.toString());
     } catch (e) {
       print("Errror Message ..... " + e.toString());
-      throw e.toString();
+      // throw e.toString();
     }
   }
 
 //////////////////////////////////[Start Chat]///////////////////////////////////////////
-  Future<void> startChat({String userId, String realEstateId}) async {
+  Future<void> startChat({String userId, int realEstateId}) async {
     try {
-      final _response = await _dio.get("/chat/$userId/start",
-          queryParameters: {"real_estate_id": realEstateId});
+      final _response = await _dio.get(
+        "/chat/$userId/start",
+        queryParameters: {
+          "real_estate_id": realEstateId,
+        },
+      );
 
       final _responsData = _response.data["message"] as List<dynamic>;
       List<ChatMassage> _loadedMessage = [];
       _responsData.forEach((chat) {
         return _loadedMessage.add(ChatMassage.fromJson(chat));
       });
-      _startChatId = _response.data["chat_id"];
+      final startChatId = _response.data["chat_id"];
+      _startChatId = startChatId;
       _chatMessages = _loadedMessage;
       notifyListeners();
       print("Response chatMessage ..... " + _chatMessages.toString());
     } catch (e) {
       print("Errror Message ..... " + e.toString());
-      throw e.toString();
+      // throw e.toString();
     }
   }
 

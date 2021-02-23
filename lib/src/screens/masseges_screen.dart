@@ -10,6 +10,7 @@ class MassagesScreen extends StatefulWidget {
   static const routeName = "/massages-screen";
   final String chatId;
   final String userId;
+  final String realEstatOwner;
   final String realEstateId;
 
   final bool isStarChat;
@@ -17,6 +18,7 @@ class MassagesScreen extends StatefulWidget {
   const MassagesScreen({
     Key key,
     this.chatId,
+    this.realEstatOwner,
     this.realEstateId,
     this.userId,
     this.isStarChat = false,
@@ -34,6 +36,7 @@ class _MassagesScreenState extends State<MassagesScreen> {
 
   String _recievedId;
   String _chatId;
+  int _startChatId;
 
   Future<void> starChat() async {
     setState(() {
@@ -41,9 +44,13 @@ class _MassagesScreenState extends State<MassagesScreen> {
     });
     final massageProvider =
         Provider.of<MassagesProvider>(context, listen: false);
+    print("??????????? RealEStatId ??????????????" +
+        widget.realEstateId.toString());
+    print("??????????  UserId ???????????????" + widget.userId);
     await massageProvider.startChat(
-        realEstateId: widget.realEstateId, userId: widget.userId);
-    final _startChatId = massageProvider.startChatId;
+        realEstateId: int.parse(widget.realEstateId), userId: widget.userId);
+    _startChatId = massageProvider.startChatId;
+    print("???????????? Start Chat Id ?????????????" + _startChatId.toString());
     await Provider.of<MassagesProvider>(context, listen: false)
         .fetchChatMessages(_startChatId.toString());
     setState(() {
@@ -65,6 +72,7 @@ class _MassagesScreenState extends State<MassagesScreen> {
   @override
   void initState() {
     if (widget.isStarChat) {
+      print('Start Chat Fetching .........');
       starChat();
     }
     fetchMassages();
@@ -246,17 +254,25 @@ class _MassagesScreenState extends State<MassagesScreen> {
                                     return;
                                   }
                                   try {
+                                    // print("realEstate Owner Id ....." +
+                                    //     widget.realEstatOwner);
+                                    // print("Chat Id ....." +
+                                    //     _chatId.toString());
                                     await Provider.of<MassagesProvider>(context,
                                             listen: false)
                                         .postMessage(
                                       content: _textEditingController.text,
                                       senderId: int.parse(isMe),
-                                      recieverId: int.parse(_recievedId),
-                                      chatId: int.parse(_chatId),
+                                      recieverId: widget.isStarChat
+                                          ? int.parse(widget.realEstatOwner)
+                                          : int.parse(_recievedId),
+                                      chatId: widget.isStarChat
+                                          ? _startChatId
+                                          : int.parse(_chatId),
                                     );
                                     _textEditingController.clear();
                                   } catch (e) {
-                                    // print(e.toString());
+                                    print(e.toString());
                                     Scaffold.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(

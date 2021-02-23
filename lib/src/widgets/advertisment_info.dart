@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import '../utils/app_constant.dart';
 import '../bloc/semilar_real_estate/semilar_real_estate_bloc.dart';
 import '../screens/masseges_screen.dart';
+import '../providers/auth_provider.dart';
 
 class AdvertisInfo extends StatelessWidget {
   final bool isLandScape;
   final ScreenUtil screenUtil;
+  final String realEstateId;
 
   const AdvertisInfo({
     Key key,
     @required this.isLandScape,
+    @required this.realEstateId,
     @required this.screenUtil,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final _userData = Provider.of<AuthProvider>(context);
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
       child: BlocBuilder<SemilarRealEstateBloc, SemilarRealEstateState>(
@@ -83,8 +88,18 @@ class AdvertisInfo extends StatelessWidget {
                                 RaisedButton(
                                   color: AppColors.primaryColor,
                                   onPressed: () {
-                                    Navigator.of(context)
-                                        .pushNamed(MassagesScreen.routeName);
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => MassagesScreen(
+                                          realEstateId: realEstateId,
+                                          realEstatOwner: state.userData.userId,
+                                          userId: _userData.userId,
+                                          isStarChat: true,
+                                        ),
+                                      ),
+                                    );
+                                    // Navigator.of(context)
+                                    //     .pushNamed(MassagesScreen.routeName);
                                   },
                                   child: Text(
                                     "محادثة",
