@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import '../bloc/post_realEstate/post_realestate_bloc.dart';
+import '../providers/massages_provider.dart';
 import '../widgets/build_form_field.dart';
 import '../providers/auth_provider.dart';
 import '../utils/app_constant.dart';
 
 class ReportScreen extends StatefulWidget {
+  final int realEstateId;
+
+  const ReportScreen({Key key, this.realEstateId}) : super(key: key);
+
   @override
   _ReportScreenState createState() => _ReportScreenState();
 }
@@ -17,8 +20,9 @@ class _ReportScreenState extends State<ReportScreen> {
   final _formKey = GlobalKey<FormState>();
 
   AuthProvider _userData;
-  String _reportContent;
+  String _reportContent = "";
   var isInit = true;
+  var _isLoading = false;
 
   @override
   void didChangeDependencies() {
@@ -34,8 +38,79 @@ class _ReportScreenState extends State<ReportScreen> {
     if (!isValid) {
       return;
     }
-
     _formKey.currentState.save();
+
+    print("user id ....." + _userData.userId.toString());
+    print("RealEstate Id ....." + widget.realEstateId.toString());
+    print("Report Content ....." + _reportContent);
+
+    try {
+      // setState(() {
+      //   _isLoading = true;
+      // });
+
+      await Provider.of<MassagesProvider>(context, listen: false).postReport(
+        reaEstateId: widget.realEstateId,
+        reportContent: _reportContent,
+        userId: _userData.userId,
+      );
+
+      showDialog(
+        context: context,
+        builder: (ctx) => GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {},
+          child: AlertDialog(
+            title: Text(
+              "طلبك تم بنجاح",
+              style: TextStyle(
+                color: AppColors.primaryColor,
+                fontSize: 15,
+              ),
+            ),
+            content: Text(
+              "سيتم التحقق بشأن هذا الابلاغ ",
+              style: TextStyle(
+                fontSize: 12,
+              ),
+            ),
+            actions: [
+              FlatButton(
+                onPressed: () {},
+                child: Text(
+                  "Ok",
+                  style: TextStyle(
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+      // setState(() {
+      //   _isLoading = false;
+      // });
+    } catch (e) {
+      // setState(() {
+      //   _isLoading = false;
+      // });
+      // showDialog(
+      //   context: context,
+      //   builder: (ctx) => AlertDialog(
+      //     // title:
+      //     content: Text("يوجد خطأ الرجاء المحاولة لاحقا"),
+      //     actions: [
+      //       FlatButton(
+      //         onPressed: () {
+      //           Navigator.of(context).pop();
+      //         },
+      //         child: Text("Ok"),
+      //       ),
+      //     ],
+      //   ),
+      // );
+    }
   }
 
   @override
@@ -59,148 +134,81 @@ class _ReportScreenState extends State<ReportScreen> {
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-          child: SingleChildScrollView(
-              child: BlocConsumer<PostRealestateBloc, PostRealestateState>(
-            listener: (context, state) {
-              if (state is PostRealestateInprogress) {
-                showDialog(
-                  context: context,
-                  builder: (ctx) => GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () {},
-                    child: Center(
-                      child: sleekCircularSlider(
-                        context,
-                        40,
-                        AppColors.primaryColor,
-                        AppColors.scondryColor,
-                      ),
-                    ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "محتوى البـلاغ :",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 10),
+              BuilFormField(
+                textInputAction: TextInputAction.done,
+                contentPadding: 8.0,
+                keyboardType: TextInputType.multiline,
+                hintText: "اكتب التفاصيل البـلاغ هنا",
+                hintStyle: TextStyle(
+                  fontSize: 13,
+                  wordSpacing: 2,
+                ),
+                maxLines: 3,
+                validator: (value) {
+                  if (value.toString().isEmpty) {
+                    return "الرجاء كتابة تفاصيل البلاغ ";
+                  }
+                },
+                onSaved: (value) {
+                  _reportContent = value;
+                },
+              ),
+              SizedBox(height: 10),
+              Container(
+                width: double.infinity,
+                height: isLandScape
+                    ? screenUtil.setHeight(230)
+                    : screenUtil.setHeight(150),
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                );
-              }
-              if (state is PostRealestateDone) {
-                Navigator.of(context).pop();
-                _formKey.currentState.reset();
-
-                showDialog(
-                  context: context,
-                  builder: (ctx) => GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () {},
-                    child: AlertDialog(
-                      title: Text(
-                        "طلبك تم بنجاح",
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontSize: 15,
-                        ),
-                      ),
-                      content: Text(
-                        "تم اضافة الاعلان بنجاح",
-                        style: TextStyle(
-                          fontSize: 12,
-                        ),
-                      ),
-                      actions: [
-                        FlatButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Ok",
-                            style: TextStyle(
-                              color: AppColors.primaryColor,
+                  color: AppColors.primaryColor,
+                  textColor: Colors.white,
+                  child: _isLoading
+                      ? showDialog(
+                          context: context,
+                          builder: (ctx) => GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () {},
+                            child: Center(
+                              child: sleekCircularSlider(
+                                context,
+                                30,
+                                AppColors.primaryColor,
+                                AppColors.scondryColor,
+                              ),
                             ),
                           ),
+                        )
+                      : Text(
+                          "ارسال البـلاغ",
+                          style: TextStyle(
+                            fontSize: isLandScape
+                                ? screenUtil.setSp(25)
+                                : screenUtil.setSp(40),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
-                );
-              }
-
-              if (state is PostRealestateError) {
-                Navigator.of(context).pop();
-                showDialog(
-                  context: context,
-                  builder: (ctx) => AlertDialog(
-                    title: Text("يوجد خطأ الرجاء المحاولة لاحقا"),
-                    content: Text(state.errorMassage),
-                    actions: [
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text("Ok"),
-                      ),
-                    ],
-                  ),
-                );
-              }
-            },
-            builder: (context, state) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "محتوى البـلاغ :",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  BuilFormField(
-                    textInputAction: TextInputAction.done,
-                    contentPadding: 8.0,
-                    keyboardType: TextInputType.multiline,
-                    hintText: "اكتب التفاصيل البـلاغ هنا",
-                    hintStyle: TextStyle(
-                      fontSize: 13,
-                      wordSpacing: 2,
-                    ),
-                    maxLines: 3,
-                    validator: (value) {
-                      if (value.toString().isEmpty) {
-                        return "الرجاء كتابة تفاصيل البلاغ ";
-                      }
-                    },
-                    onSaved: (value) {
-                      setState(() {
-                        _reportContent = value;
-                      });
-                    },
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    width: double.infinity,
-                    height: isLandScape
-                        ? screenUtil.setHeight(230)
-                        : screenUtil.setHeight(150),
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      color: AppColors.primaryColor,
-                      textColor: Colors.white,
-                      child: Text(
-                        "ارسال البـلاغ",
-                        style: TextStyle(
-                          fontSize: isLandScape
-                              ? screenUtil.setSp(25)
-                              : screenUtil.setSp(40),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onPressed: () {
-                        _saveForm();
-                      },
-                    ),
-                  ),
-                ],
-              );
-            },
-          )),
+                  onPressed: () {
+                    _saveForm();
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -125,10 +125,6 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
           ),
         ),
       ),
-      // appBar: AppBar(
-      //   backgroundColor: AppColors.primaryColor,
-      //   title: Text("Real Estates Detail"),
-      // ),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
@@ -486,7 +482,9 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => ReportScreen(),
+                        builder: (context) => ReportScreen(
+                          realEstateId: widget.realEstat.id,
+                        ),
                       ),
                     );
                   },

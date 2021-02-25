@@ -138,17 +138,15 @@ class MassagesProvider with ChangeNotifier {
 
 //////////////////////////////////[PostReport]///////////////////////////////////////////
   Future<void> postReport({
-    int senderId,
-    int recieverId,
-    int chatId,
-    String content,
+    String userId,
+    int reaEstateId,
+    String reportContent,
   }) async {
     try {
-      final _response = await _dio.post("/message", data: {
-        "sender_id": senderId,
-        "resiver_id": recieverId,
-        "chat_id": chatId,
-        "message": content,
+      final _response = await _dio.post("/flageds", data: {
+        "user_id": userId,
+        "real_estate_id": reaEstateId,
+        "cause_of_flag": reportContent,
       });
 
       print("Response PostReport ..... " + _response.data.toString());
