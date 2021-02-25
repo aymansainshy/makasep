@@ -4,14 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/advertisment_info.dart';
-import '../bloc/semilar_real_estate/semilar_real_estate_bloc.dart';
 import '../bloc/post_favorites_realEstate/post_favorites_bloc.dart';
-import '../providers/auth_provider.dart';
+import '../bloc/semilar_real_estate/semilar_real_estate_bloc.dart';
+import '../widgets/advertisment_info.dart';
+import '../widgets/real_estate_item.dart';
 import '../models/real_estate_model.dart';
 import '../widgets/discreption_text.dart';
+import '../providers/auth_provider.dart';
 import '../widgets/location_on_map.dart';
-import '../widgets/real_estate_item.dart';
+import '../screens/report_screen.dart';
 import '../utils/app_constant.dart';
 
 class RealEstateDetailScreen extends StatefulWidget {
@@ -32,6 +33,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
   void initState() {
     super.initState();
     _setIsFav();
+    _loadedDate();
   }
 
   _setIsFav() async {
@@ -64,7 +66,6 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _loadedDate();
     final userDate = Provider.of<AuthProvider>(context, listen: false);
     ScreenUtil.init(context);
     var isLandScape =
@@ -200,7 +201,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: '${widget.realEstat.price}',
+                          text: '${widget.realEstat.price.toStringAsFixed(0)}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: isLandScape
@@ -481,7 +482,16 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                   latitude: widget.realEstat.address.lat,
                   longitude: widget.realEstat.address.lan,
                 ),
-                _reportContainer(),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ReportScreen(),
+                      ),
+                    );
+                  },
+                  child: _reportContainer(),
+                ),
                 SemilerAds(
                   screenUtil: screenUtil,
                   isLandScape: isLandScape,
@@ -499,33 +509,19 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
     return Container(
       padding: EdgeInsets.all(10.0),
       margin: EdgeInsets.all(10.0),
-      height: 50,
-      // width: 20,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(30),
-        ),
-        border: Border.all(
-          color: Colors.red,
-          width: 2,
-        ),
-      ),
       child: Row(
         children: [
-          Expanded(
-            child: Text(
-              "ابلاغ",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.red,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Icon(
-              Icons.ac_unit,
+          Text(
+            "ابلاغ",
+            textAlign: TextAlign.center,
+            style: TextStyle(
               color: Colors.red,
             ),
+          ),
+          SizedBox(width: 5),
+          Icon(
+            Icons.report,
+            color: Colors.red,
           ),
         ],
       ),

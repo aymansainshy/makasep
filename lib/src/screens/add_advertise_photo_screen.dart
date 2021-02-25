@@ -22,7 +22,6 @@ class AddAdvertisePhontoScreen extends StatelessWidget {
 
     return Scaffold(
       key: _scaffoldKey,
-      // drawer: AppDrawer(),
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
@@ -64,7 +63,7 @@ class AddAdvertisePhontoScreen extends StatelessWidget {
                         value: int.parse(
                             modifiedRealEstateProvider.reatEstate.type),
                         onChanged: (value) {
-                          modifiedRealEstateProvider.setType(value);
+                          modifiedRealEstateProvider.setType(value.toString());
                         },
                       );
                     }

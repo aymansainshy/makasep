@@ -44,9 +44,9 @@ class MassagesProvider with ChangeNotifier {
       });
       _userChats = _loadedChats;
       notifyListeners();
-      print("Response Message ..... " + _userChats.toString());
+      // print("Response Message ..... " + _userChats.toString());
     } catch (e) {
-      print("Errror Message ..... " + e.toString());
+      // print("Errror Message ..... " + e.toString());
       throw e.toString();
     }
   }
@@ -67,9 +67,9 @@ class MassagesProvider with ChangeNotifier {
 
       _chatMessages = _loadedMessage;
       notifyListeners();
-      print("Response chatMessage ..... " + _chatMessages.toString());
+      // print("Response chatMessage ..... " + _chatMessages.toString());
     } catch (e) {
-      print("Errror Message ..... " + e.toString());
+      // print("Errror Message ..... " + e.toString());
       // throw e.toString();
     }
   }
@@ -93,9 +93,9 @@ class MassagesProvider with ChangeNotifier {
       _startChatId = startChatId;
       _chatMessages = _loadedMessage;
       notifyListeners();
-      print("Response chatMessage ..... " + _chatMessages.toString());
+      // print("Response chatMessage ..... " + _chatMessages.toString());
     } catch (e) {
-      print("Errror Message ..... " + e.toString());
+      // print("Errror Message ..... " + e.toString());
       // throw e.toString();
     }
   }
@@ -119,6 +119,31 @@ class MassagesProvider with ChangeNotifier {
 
       _chatMessages.add(newChatMassage);
       notifyListeners();
+      await _dio.post("/message", data: {
+        "sender_id": senderId,
+        "resiver_id": recieverId,
+        "chat_id": chatId,
+        "message": content,
+      });
+
+      // print("Response Post ..... " + _response.data.toString());
+    } catch (e) {
+      // print("Errror Message ..... " + e.toString());
+      _chatMessages
+          .removeWhere((massage) => massage.id == dataTime.toIso8601String());
+      notifyListeners();
+      throw e.toString();
+    }
+  }
+
+//////////////////////////////////[PostReport]///////////////////////////////////////////
+  Future<void> postReport({
+    int senderId,
+    int recieverId,
+    int chatId,
+    String content,
+  }) async {
+    try {
       final _response = await _dio.post("/message", data: {
         "sender_id": senderId,
         "resiver_id": recieverId,
@@ -126,12 +151,9 @@ class MassagesProvider with ChangeNotifier {
         "message": content,
       });
 
-      print("Response Post ..... " + _response.data.toString());
+      print("Response PostReport ..... " + _response.data.toString());
     } catch (e) {
       print("Errror Message ..... " + e.toString());
-      _chatMessages
-          .removeWhere((massage) => massage.id == dataTime.toIso8601String());
-      notifyListeners();
       throw e.toString();
     }
   }

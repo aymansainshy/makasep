@@ -55,13 +55,12 @@ class AdvertisInfo extends StatelessWidget {
                 Card(
                   elevation: 5,
                   child: Container(
-                    // color: Colors.red,
                     child: Row(
                       children: [
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            padding: const EdgeInsets.only(left: 8, right: 8),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [

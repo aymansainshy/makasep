@@ -120,21 +120,6 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
                                       ),
                                     )
                                     .toList(),
-
-                                //  [
-                                //   DropdownMenuItem(
-                                //     child: Text("عمارة"),
-                                //     value: 1,
-                                //   ),
-                                //   DropdownMenuItem(
-                                //     child: Text("شقق"),
-                                //     value: 2,
-                                //   ),
-                                //   DropdownMenuItem(
-                                //     child: Text("منزل"),
-                                //     value: 3,
-                                //   ),
-                                // ],
                                 value: filterStateId,
                                 onChanged: selectedFilter,
                               );
