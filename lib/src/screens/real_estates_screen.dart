@@ -95,12 +95,12 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
                       "المساحة",
                       2,
                     ),
-                    Expanded(
-                      child: IconButton(
-                        icon: Icon(Icons.search),
-                        onPressed: () {},
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: IconButton(
+                    //     icon: Icon(Icons.search),
+                    //     onPressed: () {},
+                    //   ),
+                    // ),
                   ],
                 ),
                 Padding(
@@ -220,7 +220,7 @@ class Area extends StatelessWidget {
           );
         } else if (state is RealEstatsError) {
           return Center(
-            child: Text(state.errorMassage),
+            child: Text("Error Massage " + state.errorMassage),
           );
         } else if (state is RealEstatsLoaded) {
           if (state.realEstats.isEmpty) {
@@ -272,7 +272,7 @@ class Price extends StatelessWidget {
           );
         } else if (state is RealEstatsError) {
           return Center(
-            child: Text("An error occurred"),
+            child: Text("Error Massage " + state.errorMassage),
           );
         } else if (state is RealEstatsLoaded) {
           if (state.realEstats.isEmpty) {
@@ -328,7 +328,7 @@ class _NewestState extends State<Newest> {
           );
         } else if (state is RealEstatsError) {
           return Center(
-            child: Text("An error occurred"),
+            child: Text(state.errorMassage),
           );
         } else if (state is RealEstatsLoaded) {
           if (state.realEstats.isEmpty) {

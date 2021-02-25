@@ -73,7 +73,7 @@ class FetchRealEstate extends RealEstateRepo {
     var url = "";
 
     if (selectedUrl == 0) {
-      url = "http://162.0.230.58/api/realEstate/secondry/$fliterId";
+      url = "http://162.0.230.58/api/realEstate/secondryy/$fliterId";
     }
     if (selectedUrl == 1) {
       url = "http://162.0.230.58/api/realEstate/secondry/$fliterId/byPrice";
@@ -82,34 +82,36 @@ class FetchRealEstate extends RealEstateRepo {
       url = "http://162.0.230.58/api/realEstate/secondry/$fliterId/bySpace";
     }
 
-    print("Selected Url String //////////////  " + url.toString());
+    // print("Selected Url String //////////////  " + url.toString());
     print("Start Fetching RealStates ..... ");
-
-    final _response = await dio.get(
-      url,
-      queryParameters: {
-        'primary_type_id': catId,
-      },
-      options: Options(
-        sendTimeout: 5000,
-        receiveTimeout: 1000,
-        headers: {
-          'content-type': 'application/json',
-          'Accept': 'application/json',
+    try {
+      final _response = await dio.get(
+        url,
+        queryParameters: {
+          'primary_type_id': catId,
         },
-      ),
-    );
-    // print("Response Body .. " + _response.data.toString());
-    final _respostDate = _response.data as List<dynamic>;
-
-    List<RealEstate> _loadedRealStates = [];
-    _respostDate.forEach((realEstate) {
-      _loadedRealStates.add(
-        RealEstate.fromJson(realEstate),
+        options: Options(
+          sendTimeout: 5000,
+          receiveTimeout: 1000,
+          headers: {
+            'content-type': 'application/json',
+            'Accept': 'application/json',
+          },
+        ),
       );
-    });
-    print(_loadedRealStates.toString());
-    return _loadedRealStates;
+      // print("Response Body .. " + _response.data.toString());
+      final _respostDate = _response.data as List<dynamic>;
+
+      List<RealEstate> _loadedRealStates = [];
+      _respostDate.forEach((realEstate) {
+        _loadedRealStates.add(
+          RealEstate.fromJson(realEstate),
+        );
+      });
+      return _loadedRealStates;
+    } catch (e) {
+      throw DioError(error: e.toString());
+    }
   }
 
   @override
@@ -118,9 +120,6 @@ class FetchRealEstate extends RealEstateRepo {
 
     final _response = await dio.get(
       url,
-      // queryParameters: {
-      //   'primary_type_id': catId,
-      // },
       options: Options(
         sendTimeout: 2000,
         receiveTimeout: 1000,
@@ -151,9 +150,6 @@ class FetchRealEstate extends RealEstateRepo {
 
     final _response = await dio.get(
       url,
-      // queryParameters: {
-      //   'primary_type_id': catId,
-      // },
       options: Options(
         sendTimeout: 2000,
         receiveTimeout: 1000,
@@ -184,9 +180,6 @@ class FetchRealEstate extends RealEstateRepo {
 
     final _response = await dio.get(
       url,
-      // queryParameters: {
-      //   'primary_type_id': catId,
-      // },
       options: Options(
         sendTimeout: 2000,
         receiveTimeout: 1000,
@@ -221,9 +214,6 @@ class FetchSimelarRealEstate extends RealEstateRepo {
 
     final _response = await dio.get(
       url,
-      // queryParameters: {
-      //   'primary_type_id': catId,
-      // },
       options: Options(
         sendTimeout: 2000,
         receiveTimeout: 1000,

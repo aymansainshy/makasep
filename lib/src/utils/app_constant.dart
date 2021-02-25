@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
@@ -110,4 +111,14 @@ Widget sleekCircularSlider(
       ),
     ),
   );
+}
+
+String dioErrorType(DioErrorType errorType) {
+  switch (errorType) {
+    case DioErrorType.DEFAULT:
+      return "يوجد خطأ الرجا الرجاء التأكد من خدمة الانترنت والمحاولة لاحقا";
+      break;
+    default:
+      return "666666666666666666666666";
+  }
 }
