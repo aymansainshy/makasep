@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 import '../models/massages_model.dart';
 
@@ -143,15 +143,12 @@ class MassagesProvider with ChangeNotifier {
     String reportContent,
   }) async {
     try {
-      final _response = await _dio.post("/flageds", data: {
+      await _dio.post("/flageds", data: {
         "user_id": userId,
         "real_estate_id": reaEstateId,
         "cause_of_flag": reportContent,
       });
-
-      print("Response PostReport ..... " + _response.data.toString());
     } catch (e) {
-      print("Errror Message ..... " + e.toString());
       throw e.toString();
     }
   }

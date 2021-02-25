@@ -178,7 +178,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         imageUrl: "assets/icons/home.png",
                         text: "الرئيسية",
                         function: () {
-                          Navigator.of(context).pushNamed(HomeScreen.routeName);
+                          Navigator.of(context).pop();
                         },
                       ),
                     ),
@@ -247,9 +247,13 @@ class _AppDrawerState extends State<AppDrawer> {
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/logout.png",
                         text: "تسجيل خروج",
-                        function: () {
+                        function: () async {
                           Navigator.of(context).pop();
-                          authProvider.logOut();
+                          await authProvider.logOut();
+                          Navigator.pushReplacementNamed(
+                            context,
+                            '/',
+                          );
                         },
                       ),
                     ),
@@ -265,19 +269,6 @@ class _AppDrawerState extends State<AppDrawer> {
                     ),
                   ],
                 ),
-                // Row(
-                //   children: [
-                //     Expanded(
-                //       child: BuilDraweGridViewItem(
-                //         imageUrl: "assets/icons/logout.png",
-                //         text: "تسجيل خروج",
-                //         function: () {
-                //           authProvider.logOut();
-                //         },
-                //       ),
-                //     ),
-                //   ],
-                // )
               ],
             ),
           ),

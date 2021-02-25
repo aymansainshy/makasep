@@ -40,20 +40,21 @@ class _ReportScreenState extends State<ReportScreen> {
     }
     _formKey.currentState.save();
 
-    print("user id ....." + _userData.userId.toString());
-    print("RealEstate Id ....." + widget.realEstateId.toString());
-    print("Report Content ....." + _reportContent);
-
     try {
-      // setState(() {
-      //   _isLoading = true;
-      // });
+      setState(() {
+        _isLoading = true;
+      });
 
       await Provider.of<MassagesProvider>(context, listen: false).postReport(
         reaEstateId: widget.realEstateId,
         reportContent: _reportContent,
         userId: _userData.userId,
       );
+
+      setState(() {
+        _isLoading = false;
+      });
+      _formKey.currentState.reset();
 
       showDialog(
         context: context,
@@ -76,7 +77,10 @@ class _ReportScreenState extends State<ReportScreen> {
             ),
             actions: [
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
                 child: Text(
                   "Ok",
                   style: TextStyle(
@@ -88,28 +92,24 @@ class _ReportScreenState extends State<ReportScreen> {
           ),
         ),
       );
-      // setState(() {
-      //   _isLoading = false;
-      // });
     } catch (e) {
-      // setState(() {
-      //   _isLoading = false;
-      // });
-      // showDialog(
-      //   context: context,
-      //   builder: (ctx) => AlertDialog(
-      //     // title:
-      //     content: Text("يوجد خطأ الرجاء المحاولة لاحقا"),
-      //     actions: [
-      //       FlatButton(
-      //         onPressed: () {
-      //           Navigator.of(context).pop();
-      //         },
-      //         child: Text("Ok"),
-      //       ),
-      //     ],
-      //   ),
-      // );
+      setState(() {
+        _isLoading = false;
+      });
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          content: Text("يوجد خطأ الرجاء المحاولة لاحقا"),
+          actions: [
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Ok"),
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -178,20 +178,12 @@ class _ReportScreenState extends State<ReportScreen> {
                   color: AppColors.primaryColor,
                   textColor: Colors.white,
                   child: _isLoading
-                      ? showDialog(
-                          context: context,
-                          builder: (ctx) => GestureDetector(
-                            behavior: HitTestBehavior.opaque,
-                            onTap: () {},
-                            child: Center(
-                              child: sleekCircularSlider(
-                                context,
-                                30,
-                                AppColors.primaryColor,
-                                AppColors.scondryColor,
-                              ),
-                            ),
-                          ),
+                      ? Center(
+                          child: sleekCircularSlider(
+                              context,
+                              screenUtil.setSp(80),
+                              AppColors.primaryColor,
+                              AppColors.scondryColor),
                         )
                       : Text(
                           "ارسال البـلاغ",
