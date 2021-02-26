@@ -570,12 +570,38 @@ class SemilerAds extends StatelessWidget {
                   );
                 } else if (state is SemilarRealEstateError) {
                   return Center(
-                    child: Text("يوجد خطأ الرجاء المحاولة لاحقا"),
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      height: screenUtil.setHeight(300),
+                      width: screenUtil.setWidth(700),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.blueGrey,
+                          width: 1,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          state.errorMassage,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: AppColors.primaryColor,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ),
                   );
                 } else if (state is SemilarRealEstateLoadingDone) {
                   if (state.realEstates.isEmpty) {
                     return Center(
-                      child: Text("عفوا لا يوجد اعلانات مشابهه لهذ النوع"),
+                      child: Text(
+                        "عفوا لا يوجد اعلانات مشابهه لهذ النوع",
+                        style: TextStyle(
+                          color: AppColors.primaryColor,
+                          fontSize: 12,
+                        ),
+                      ),
                     );
                   }
                   return ListView.builder(

@@ -110,17 +110,6 @@ class FetchRealEstate extends RealEstateRepo {
       });
       return _loadedRealStates;
     } on DioError catch (e) {
-      if (e.response != null) {
-        print("RESPONSE Error Respons Data == " + e.response.data.toString());
-        print("RESPONSE Error Respons Status massege == " +
-            e.response.statusMessage.toString());
-        print("RESPONSE Error Response Request == " +
-            e.response.request.uri.toString());
-      }
-      print("ERROR Error error == " + e.error.toString());
-      print("ERROR Error request == " + e.request.uri.toString());
-      print("ERROR Error type == " + e.type.toString());
-      print("ERROR Error massege == " + e.message.toString());
       throw DioError(error: e);
     }
   }
@@ -129,90 +118,102 @@ class FetchRealEstate extends RealEstateRepo {
   Future<List<RealEstate>> fetchEspecialRealStates() async {
     final url = 'http://162.0.230.58/api/realEstate/special';
 
-    final _response = await dio.get(
-      url,
-      options: Options(
-        sendTimeout: 2000,
-        receiveTimeout: 1000,
-        headers: {
-          'content-type': 'application/json',
-          'Accept': 'application/json',
+    try {
+      final _response = await dio.get(
+        url,
+        options: Options(
+          sendTimeout: 2000,
+          receiveTimeout: 1000,
+          headers: {
+            'content-type': 'application/json',
+            'Accept': 'application/json',
+          },
+        ),
+      );
+
+      final _respostDate = _response.data as List<dynamic>;
+
+      List<RealEstate> _loadedRealStates = [];
+      _respostDate.forEach(
+        (e) {
+          _loadedRealStates.add(
+            RealEstate.fromJson(e),
+          );
         },
-      ),
-    );
+      );
 
-    final _respostDate = _response.data as List<dynamic>;
-
-    List<RealEstate> _loadedRealStates = [];
-    _respostDate.forEach(
-      (e) {
-        _loadedRealStates.add(
-          RealEstate.fromJson(e),
-        );
-      },
-    );
-
-    return _loadedRealStates;
+      return _loadedRealStates;
+    } on DioError catch (e) {
+      throw DioError(error: e);
+    }
   }
 
   @override
   Future<List<RealEstate>> fetchLastCallRealStates(String userId) async {
     final url = 'http://162.0.230.58/api/realEstate/lastViewed/$userId';
 
-    final _response = await dio.get(
-      url,
-      options: Options(
-        sendTimeout: 2000,
-        receiveTimeout: 1000,
-        headers: {
-          'content-type': 'application/json',
-          'Accept': 'application/json',
+    try {
+      final _response = await dio.get(
+        url,
+        options: Options(
+          sendTimeout: 2000,
+          receiveTimeout: 1000,
+          headers: {
+            'content-type': 'application/json',
+            'Accept': 'application/json',
+          },
+        ),
+      );
+
+      final _respostDate = _response.data as List<dynamic>;
+
+      List<RealEstate> _loadedRealStates = [];
+      _respostDate.forEach(
+        (e) {
+          _loadedRealStates.add(
+            RealEstate.fromJson(e["real_estate"]),
+          );
         },
-      ),
-    );
+      );
 
-    final _respostDate = _response.data as List<dynamic>;
-
-    List<RealEstate> _loadedRealStates = [];
-    _respostDate.forEach(
-      (e) {
-        _loadedRealStates.add(
-          RealEstate.fromJson(e["real_estate"]),
-        );
-      },
-    );
-
-    return _loadedRealStates;
+      return _loadedRealStates;
+    } on DioError catch (e) {
+      throw DioError(error: e);
+    }
   }
 
   @override
   Future<List<RealEstate>> fetchTodayRealStates() async {
     final url = 'http://162.0.230.58/api/realEstate/today';
 
-    final _response = await dio.get(
-      url,
-      options: Options(
-        sendTimeout: 2000,
-        receiveTimeout: 1000,
-        headers: {
-          'content-type': 'application/json',
-          'Accept': 'application/json',
+    try {
+      final _response = await dio.get(
+        url,
+        options: Options(
+          sendTimeout: 2000,
+          receiveTimeout: 1000,
+          headers: {
+            'content-type': 'application/json',
+            'Accept': 'application/json',
+          },
+        ),
+      );
+
+      final _respostDate = _response.data as List<dynamic>;
+
+      List<RealEstate> _loadedRealStates = [];
+      _respostDate.forEach(
+        (e) {
+          _loadedRealStates.add(
+            RealEstate.fromJson(e),
+          );
         },
-      ),
-    );
+      );
 
-    final _respostDate = _response.data as List<dynamic>;
-
-    List<RealEstate> _loadedRealStates = [];
-    _respostDate.forEach(
-      (e) {
-        _loadedRealStates.add(
-          RealEstate.fromJson(e),
-        );
-      },
-    );
-
-    return _loadedRealStates;
+      return _loadedRealStates;
+    } on DioError catch (e) {
+      throw DioError(error: e);
+    }
   }
 }
 
@@ -223,50 +224,54 @@ class FetchSimelarRealEstate extends RealEstateRepo {
 
     print("Start Fetching SemilarRealStates ..... ");
 
-    final _response = await dio.get(
-      url,
-      options: Options(
-        sendTimeout: 2000,
-        receiveTimeout: 1000,
-        headers: {
-          'content-type': 'application/json',
-          'Accept': 'application/json',
+    try {
+      final _response = await dio.get(
+        url,
+        options: Options(
+          sendTimeout: 2000,
+          receiveTimeout: 1000,
+          headers: {
+            'content-type': 'application/json',
+            'Accept': 'application/json',
+          },
+        ),
+      );
+
+      Map<String, dynamic> realEstateById = {};
+
+      final _respostDate = _response.data['same'] as List<dynamic>;
+      final _respostUserData =
+          _response.data['real_state']['user'] as Map<dynamic, dynamic>;
+
+      final User userData = User(
+        userId: _respostUserData["id"].toString(),
+        imageUrl: _respostUserData["image"] == null
+            ? null
+            : 'http://162.0.230.58' + _respostUserData["image"],
+        phoneNumber: _respostUserData["phone_number"].toString(),
+        showContct: _respostUserData["show_contact"].toString(),
+        rating: double.parse(_respostUserData["rating"].toString()),
+        userName: _respostUserData["user_name"],
+        userType: _respostUserData["user_type_id"],
+      );
+
+      final List<RealEstate> loadedRealStates = [];
+
+      _respostDate.forEach(
+        (e) {
+          loadedRealStates.add(
+            RealEstate.fromJson(e),
+          );
         },
-      ),
-    );
+      );
 
-    Map<String, dynamic> realEstateById = {};
+      realEstateById["semilarRealEstate"] = loadedRealStates;
+      realEstateById["userData"] = userData;
 
-    final _respostDate = _response.data['same'] as List<dynamic>;
-    final _respostUserData =
-        _response.data['real_state']['user'] as Map<dynamic, dynamic>;
-
-    final User userData = User(
-      userId: _respostUserData["id"].toString(),
-      imageUrl: _respostUserData["image"] == null
-          ? null
-          : 'http://162.0.230.58' + _respostUserData["image"],
-      phoneNumber: _respostUserData["phone_number"].toString(),
-      showContct: _respostUserData["show_contact"].toString(),
-      rating: double.parse(_respostUserData["rating"].toString()),
-      userName: _respostUserData["user_name"],
-      userType: _respostUserData["user_type_id"],
-    );
-
-    final List<RealEstate> loadedRealStates = [];
-
-    _respostDate.forEach(
-      (e) {
-        loadedRealStates.add(
-          RealEstate.fromJson(e),
-        );
-      },
-    );
-
-    realEstateById["semilarRealEstate"] = loadedRealStates;
-    realEstateById["userData"] = userData;
-
-    return realEstateById;
+      return realEstateById;
+    } on DioError catch (e) {
+      throw DioError(error: e);
+    }
   }
 }
 
@@ -312,34 +317,44 @@ class PostRealEstate extends RealEstateRepo {
       "Conditioners": realEstate.details.airConditioner ? 1 : 0,
       "path_room": realEstate.details.bathroom,
     });
-    // try {
-    final response = await dio.post(
-      url,
-      data: data,
-      options: Options(
-        sendTimeout: 5000,
-        receiveTimeout: 5000,
-        headers: {
-          // 'content-type': 'application/json',
-          // 'Accept': 'application/json',
-          'Accept': '*/*',
-          'content-type': 'multipart/form-data',
+    try {
+      final response = await dio.post(
+        url,
+        data: data,
+        options: Options(
+          sendTimeout: 5000,
+          receiveTimeout: 5000,
+          headers: {
+            'Accept': '*/*',
+            'content-type': 'multipart/form-data',
+          },
+        ),
+        onSendProgress: (sent, total) {
+          print("Sent : [ ${(sent / total) * 100} ] from : [ 100\% ] ....");
         },
-      ),
-    );
+      );
 
-    print("Response Data .........." + response.data.toString());
-    print("Response Stause Code .........." + response.statusCode.toString());
-    print("Response Message .......... " + response.statusMessage.toString());
+      print("Response Data .........." + response.data.toString());
+      print("Response Stause Code .........." + response.statusCode.toString());
+      print("Response Message .......... " + response.statusMessage.toString());
 
-    print("Requested Data ........................" +
-        response.request.data.toString());
-    // } on DioError catch (e) {
-    //   print("Catch E " + e.toString());
-    //   throw e.message;
-    // } catch (e) {
-    //   throw e.toString();
-    // }
+      print("Requested Data ........................" +
+          response.request.data.toString());
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print("RESPONSE Error Respons Data == " + e.response.data.toString());
+        print("RESPONSE Error Respons Status massege == " +
+            e.response.statusMessage.toString());
+        print("RESPONSE Error Response Request == " +
+            e.response.request.uri.toString());
+      }
+      print("ERROR Error error == " + e.error.toString());
+      print("ERROR Error request == " + e.request.uri.toString());
+      print("ERROR Error type == " + e.type.toString());
+      print("ERROR Error massege == " + e.message.toString());
+
+      throw DioError(error: e);
+    }
   }
 }
 

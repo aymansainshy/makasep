@@ -39,12 +39,38 @@ class LastCall extends StatelessWidget {
             );
           } else if (state is RealEstatsError) {
             return Center(
-              child: Text("يوجد خطأ الرجاء المحاولة لاحقا"),
+              child: Container(
+                padding: EdgeInsets.all(5),
+                height: screenUtil.setHeight(300),
+                width: screenUtil.setWidth(700),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.blueGrey,
+                    width: 1,
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    state.errorMassage,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: AppColors.primaryColor,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ),
             );
           } else if (state is RealEstatsLoaded) {
             if (state.realEstats.isEmpty) {
               return Center(
-                child: Text("عفوا لايوجد اعلانات  لهذا اليوم"),
+                child: Text(
+                  "عفوا لا يوجد بيانات لهذا النوع",
+                  style: TextStyle(
+                    color: AppColors.primaryColor,
+                    fontSize: 12,
+                  ),
+                ),
               );
             }
             return ListView.builder(

@@ -250,7 +250,13 @@ class Area extends StatelessWidget {
         } else if (state is RealEstatsLoaded) {
           if (state.realEstats.isEmpty) {
             return Center(
-              child: Text("عفوا لا يوجد بيانات لهذا النوع"),
+              child: Text(
+                "عفوا لا يوجد بيانات لهذا النوع",
+                style: TextStyle(
+                  color: AppColors.primaryColor,
+                  fontSize: 12,
+                ),
+              ),
             );
           }
 
@@ -322,7 +328,13 @@ class Price extends StatelessWidget {
         } else if (state is RealEstatsLoaded) {
           if (state.realEstats.isEmpty) {
             return Center(
-              child: Text("عفوا لا يوجد بيانات لهذا النوع"),
+              child: Text(
+                "عفوا لا يوجد بيانات لهذا النوع",
+                style: TextStyle(
+                  color: AppColors.primaryColor,
+                  fontSize: 12,
+                ),
+              ),
             );
           }
           return ListView.builder(
@@ -398,7 +410,13 @@ class _NewestState extends State<Newest> {
         } else if (state is RealEstatsLoaded) {
           if (state.realEstats.isEmpty) {
             return Center(
-              child: Text("عفوا لا يوجد بيانات لهذا النوع"),
+              child: Text(
+                "عفوا لا يوجد بيانات لهذا النوع",
+                style: TextStyle(
+                  color: AppColors.primaryColor,
+                  fontSize: 12,
+                ),
+              ),
             );
           }
           return ListView.builder(

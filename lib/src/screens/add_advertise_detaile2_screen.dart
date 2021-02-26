@@ -68,13 +68,10 @@ class _AddAdvertiseDetaile2ScreenState
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context).size;
     ScreenUtil.init(context);
     ScreenUtil screenUtil = ScreenUtil();
     var isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
-    final categoriesProvider =
-        Provider.of<CategoriesProvider>(context, listen: false);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -160,7 +157,7 @@ class _AddAdvertiseDetaile2ScreenState
                 showDialog(
                   context: context,
                   builder: (ctx) => AlertDialog(
-                    title: Text("يوجد خطأ الرجاء المحاولة لاحقا"),
+                    title: Text("يوجد خطأ "),
                     content: Text(state.errorMassage),
                     actions: [
                       FlatButton(
@@ -216,7 +213,7 @@ class _AddAdvertiseDetaile2ScreenState
                         return "الرجاء ادخال ارقام صحيحة";
                       }
                       if (double.parse(value) <= 0) {
-                        return "سعر العقار لا يجب عن يقل عن 100 جنيه";
+                        return "سعر العقار لا يجب عن يقل عن 100 ";
                       }
                     },
                     onSaved: (value) {

@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:dio/dio.dart';
 
 import '../../models/real_estate_model.dart';
 import '../../models/user_model.dart';
 import '../../repositories/real_estate_repo.dart';
+import '../../utils/app_constant.dart';
 
 part 'semilar_real_estate_event.dart';
 part 'semilar_real_estate_state.dart';
@@ -35,8 +37,9 @@ class SemilarRealEstateBloc
         realEstates: realEstatsById["semilarRealEstate"] as List<RealEstate>,
         userData: realEstatsById["userData"] as User,
       );
-    } catch (e) {
-      SemilarRealEstateError(errorMassage: e.toString());
+    } on DioError catch (e) {
+      final errorMassege = dioErrorType(e);
+      yield SemilarRealEstateError(errorMassage: errorMassege);
     }
   }
 }

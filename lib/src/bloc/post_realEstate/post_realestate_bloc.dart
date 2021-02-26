@@ -3,8 +3,10 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:dio/dio.dart';
 
 import '../../models/real_estate_model.dart';
+import '../../utils/app_constant.dart';
 import '../../repositories/real_estate_repo.dart';
 
 part 'post_realestate_event.dart';
@@ -34,8 +36,9 @@ class PostRealestateBloc
         userId: event.userId,
       );
       yield PostRealestateDone();
-    } catch (e) {
-      yield PostRealestateError(errorMassage: e.toString());
+    } on DioError catch (e) {
+      final errorMassege = dioErrorType(e);
+      yield PostRealestateError(errorMassage: errorMassege);
     }
   }
 }

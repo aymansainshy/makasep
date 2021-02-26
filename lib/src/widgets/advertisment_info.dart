@@ -31,13 +31,33 @@ class AdvertisInfo extends StatelessWidget {
               child: sleekCircularSlider(
                   context, 40, AppColors.primaryColor, AppColors.scondryColor),
             );
-          }
-          if (state is SemilarRealEstateError) {
-            return Center(
-              child: Text("يوجد خطأ الرجاء المحاولة لاحقا"),
-            );
-          }
-          if (state is SemilarRealEstateLoadingDone) {
+          } else if (state is SemilarRealEstateError) {
+            if (state.errorMassage != null) {
+              return Center(
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  height: screenUtil.setHeight(300),
+                  width: screenUtil.setWidth(700),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.blueGrey,
+                      width: 1,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "عفوا يوجد خطأ لا يمكن عرض معلومات المعلن",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: AppColors.primaryColor,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }
+          } else if (state is SemilarRealEstateLoadingDone) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
