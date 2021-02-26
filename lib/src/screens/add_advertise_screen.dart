@@ -13,11 +13,10 @@ class AddAdvertiseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context).size;
     ScreenUtil.init(context);
     ScreenUtil screenUtil = ScreenUtil();
-    var isLandScape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    // var isLandScape =
+    //     MediaQuery.of(context).orientation == Orientation.landscape;
     final categoriesProvider =
         Provider.of<CategoriesProvider>(context, listen: false);
     return Scaffold(

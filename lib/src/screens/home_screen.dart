@@ -74,6 +74,28 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           }
+          if (state is FetchTypeError) {
+            Navigator.of(context).pop();
+            showDialog(
+              context: context,
+              builder: (ctx) => GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {},
+                child: AlertDialog(
+                  title: Text("يوجد خطأ"),
+                  content: Text(state.errorMassege),
+                  actions: [
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text("Ok"),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
           if (state is FetchTypeDone) {
             Navigator.of(context).pop();
           }

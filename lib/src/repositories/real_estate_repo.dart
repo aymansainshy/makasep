@@ -82,8 +82,6 @@ class FetchRealEstate extends RealEstateRepo {
       url = "http://162.0.230.58/api/realEstate/secondry/$fliterId/bySpace";
     }
 
-    // print("Selected Url String //////////////  " + url.toString());
-    print("Start Fetching RealStates ..... ");
     try {
       final _response = await dio.get(
         url,
@@ -99,7 +97,7 @@ class FetchRealEstate extends RealEstateRepo {
           },
         ),
       );
-      // print("Response Body .. " + _response.data.toString());
+
       final _respostDate = _response.data as List<dynamic>;
 
       List<RealEstate> _loadedRealStates = [];
@@ -222,8 +220,6 @@ class FetchSimelarRealEstate extends RealEstateRepo {
   Future<Map<String, dynamic>> fetchSemilerRealStates(int realEstateId) async {
     final url = 'http://162.0.230.58/api/realestate/$realEstateId';
 
-    print("Start Fetching SemilarRealStates ..... ");
-
     try {
       final _response = await dio.get(
         url,
@@ -318,7 +314,7 @@ class PostRealEstate extends RealEstateRepo {
       "path_room": realEstate.details.bathroom,
     });
     try {
-      final response = await dio.post(
+      await dio.post(
         url,
         data: data,
         options: Options(
@@ -333,26 +329,7 @@ class PostRealEstate extends RealEstateRepo {
           print("Sent : [ ${(sent / total) * 100} ] from : [ 100\% ] ....");
         },
       );
-
-      print("Response Data .........." + response.data.toString());
-      print("Response Stause Code .........." + response.statusCode.toString());
-      print("Response Message .......... " + response.statusMessage.toString());
-
-      print("Requested Data ........................" +
-          response.request.data.toString());
     } on DioError catch (e) {
-      if (e.response != null) {
-        print("RESPONSE Error Respons Data == " + e.response.data.toString());
-        print("RESPONSE Error Respons Status massege == " +
-            e.response.statusMessage.toString());
-        print("RESPONSE Error Response Request == " +
-            e.response.request.uri.toString());
-      }
-      print("ERROR Error error == " + e.error.toString());
-      print("ERROR Error request == " + e.request.uri.toString());
-      print("ERROR Error type == " + e.type.toString());
-      print("ERROR Error massege == " + e.message.toString());
-
       throw DioError(error: e);
     }
   }
@@ -366,32 +343,25 @@ class FavoriteRealEstatePost extends RealEstateRepo {
   }) async {
     final url = 'http://162.0.230.58/api/Customer/$usetId/favorit';
 
-    print("Start Posting Favorites  ..........");
-
     Map<String, dynamic> data = {
       "real_estate_id": realEstateId,
     };
-    // try {
-    final response = await dio.post(
-      url,
-      data: jsonEncode(data),
-      options: Options(
-        sendTimeout: 2000,
-        receiveTimeout: 1000,
-        headers: {
-          'content-type': 'application/json',
-          'Accept': 'application/json',
-        },
-      ),
-    );
-
-    print("Response Data .........." + response.data.toString());
-    print("Response Stause Code .........." + response.statusCode.toString());
-    print("Response Message .......... " + response.statusMessage.toString());
-    // } catch (e) {
-    //   print("Catch E " + e.toString());
-    //   throw e.toString();
-    // }
+    try {
+      await dio.post(
+        url,
+        data: jsonEncode(data),
+        options: Options(
+          sendTimeout: 2000,
+          receiveTimeout: 1000,
+          headers: {
+            'content-type': 'application/json',
+            'Accept': 'application/json',
+          },
+        ),
+      );
+    } on DioError catch (e) {
+      throw DioError(error: e);
+    }
   }
 }
 
@@ -399,31 +369,34 @@ class FetchFavoritRealEState extends RealEstateRepo {
   @override
   Future<List<RealEstate>> fetchFavoritesRealStates({String userId}) async {
     final url = 'http://162.0.230.58/api/Customer/$userId/favorit';
+    try {
+      final _response = await dio.get(
+        url,
+        options: Options(
+          sendTimeout: 2000,
+          receiveTimeout: 1000,
+          headers: {
+            'content-type': 'application/json',
+            'Accept': 'application/json',
+          },
+        ),
+      );
 
-    final _response = await dio.get(
-      url,
-      options: Options(
-        sendTimeout: 2000,
-        receiveTimeout: 1000,
-        headers: {
-          'content-type': 'application/json',
-          'Accept': 'application/json',
+      final _respostDate = _response.data as List<dynamic>;
+
+      List<RealEstate> _loadedRealStates = [];
+      _respostDate.forEach(
+        (e) {
+          _loadedRealStates.add(
+            RealEstate.fromJson(e["real_estate"]),
+          );
         },
-      ),
-    );
+      );
 
-    final _respostDate = _response.data as List<dynamic>;
-
-    List<RealEstate> _loadedRealStates = [];
-    _respostDate.forEach(
-      (e) {
-        _loadedRealStates.add(
-          RealEstate.fromJson(e["real_estate"]),
-        );
-      },
-    );
-
-    return _loadedRealStates;
+      return _loadedRealStates;
+    } on DioError catch (e) {
+      throw DioError(error: e);
+    }
   }
 }
 
@@ -445,27 +418,22 @@ class BuildingAndContract extends RealEstateRepo {
       "desceribsion": description,
       "buliding_type_id": buildingTypeId,
     };
-    // try {
-    final response = await dio.post(
-      url,
-      data: jsonEncode(data),
-      options: Options(
-        sendTimeout: 2000,
-        receiveTimeout: 1000,
-        headers: {
-          'content-type': 'application/json',
-          'Accept': 'application/json',
-        },
-      ),
-    );
-
-    print("Response Data .........." + response.data.toString());
-    print("Response Stause Code .........." + response.statusCode.toString());
-    print("Response Message .......... " + response.statusMessage.toString());
-    // } catch (e) {
-    //   print("Catch E " + e.toString());
-    //   throw e.toString();
-    // }
+    try {
+      await dio.post(
+        url,
+        data: jsonEncode(data),
+        options: Options(
+          sendTimeout: 2000,
+          receiveTimeout: 1000,
+          headers: {
+            'content-type': 'application/json',
+            'Accept': 'application/json',
+          },
+        ),
+      );
+    } on DioError catch (e) {
+      throw DioError(error: e);
+    }
   }
 }
 
@@ -473,32 +441,44 @@ class FetchType extends RealEstateRepo {
   @override
   Future<List<SecondryType>> fetchType() async {
     final url = 'http://162.0.230.58/api/secondry';
+    try {
+      final _response = await dio.get(
+        url,
+        options: Options(
+          sendTimeout: 2000,
+          receiveTimeout: 1000,
+          headers: {
+            'content-type': 'application/json',
+            'Accept': 'application/json',
+          },
+        ),
+      );
 
-    final _response = await dio.get(
-      url,
-      options: Options(
-        sendTimeout: 2000,
-        receiveTimeout: 1000,
-        headers: {
-          'content-type': 'application/json',
-          'Accept': 'application/json',
+      final _respostDate = _response.data as List<dynamic>;
+
+      List<SecondryType> _loadedType = [];
+      _respostDate.forEach(
+        (e) {
+          _loadedType.add(
+            SecondryType.fromJson(e),
+          );
         },
-      ),
-    );
+      );
 
-    // print("Respons Body ............." + _response.data.toString());
-
-    final _respostDate = _response.data as List<dynamic>;
-
-    List<SecondryType> _loadedType = [];
-    _respostDate.forEach(
-      (e) {
-        _loadedType.add(
-          SecondryType.fromJson(e),
-        );
-      },
-    );
-
-    return _loadedType;
+      return _loadedType;
+    } on DioError catch (e) {
+      // if (e.response != null) {
+      //   print("RESPONSE Error Respons Data == " + e.response.data.toString());
+      //   print("RESPONSE Error Respons Status massege == " +
+      //       e.response.statusMessage.toString());
+      //   print("RESPONSE Error Response Request == " +
+      //       e.response.request.uri.toString());
+      // }
+      // print("ERROR Error error == " + e.error.toString());
+      // print("ERROR Error request == " + e.request.uri.toString());
+      // print("ERROR Error type == " + e.type.toString());
+      // print("ERROR Error massege == " + e.message.toString());
+      throw DioError(error: e);
+    }
   }
 }

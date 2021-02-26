@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:dio/dio.dart';
 
 import '../../repositories/real_estate_repo.dart';
+import '../../utils/app_constant.dart';
 
 part 'build_and_contract_event.dart';
 part 'build_and_contract_state.dart';
@@ -35,10 +37,9 @@ class BuildAndContractBloc
         usetId: event.userId,
       );
       yield BuildAndContractDone();
-    } catch (e) {
-      yield BuildAndContractError(
-        errorMassage: e.toString(),
-      );
+    } on DioError catch (e) {
+      final errorMassege = dioErrorType(e);
+      yield BuildAndContractError(errorMassage: errorMassege);
     }
   }
 }

@@ -7,12 +7,6 @@ import 'package:provider/provider.dart';
 
 import '../providers/auth_provider.dart';
 import '../utils/app_constant.dart';
-import '../lang/language_provider.dart';
-
-// enum ImageType {
-//   GALLERY,
-//   CAMERA,
-// }
 
 class EditProfileScreen extends StatefulWidget {
   static const routeName = '/edit-profile-screen';
@@ -146,10 +140,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     var isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
     ScreenUtil screenUtil = ScreenUtil();
-
-    final langugeProvider =
-        Provider.of<LanguageProvider>(context, listen: false);
-    final language = langugeProvider.appLocal.languageCode;
 
     return Scaffold(
       appBar: AppBar(

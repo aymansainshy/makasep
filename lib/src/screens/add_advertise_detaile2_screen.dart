@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../bloc/post_realEstate/post_realestate_bloc.dart';
 import '../providers/modifid_real_estate_provider.dart';
-import '../providers/categories_provider.dart';
 import '../widgets/build_form_field.dart';
 import '../providers/auth_provider.dart';
 import '../screens/home_screen.dart';

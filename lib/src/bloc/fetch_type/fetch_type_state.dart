@@ -20,4 +20,8 @@ class FetchTypeDone extends FetchTypeState {
   List<Object> get props => [typeList];
 }
 
-class FetchTypeError extends FetchTypeState {}
+class FetchTypeError extends FetchTypeState {
+  final String errorMassege;
+
+  FetchTypeError({this.errorMassege});
+}

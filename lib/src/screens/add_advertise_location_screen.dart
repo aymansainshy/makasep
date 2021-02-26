@@ -4,7 +4,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:location/location.dart';
 
-import '../providers/categories_provider.dart';
 import '../providers/modifid_real_estate_provider.dart';
 import '../screens/add_advertise_detailes_screen.dart';
 import '../utils/app_constant.dart';
@@ -56,11 +55,10 @@ class _AddAdvertiseLocationScreenState
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context).size;
     ScreenUtil.init(context);
-    ScreenUtil screenUtil = ScreenUtil();
-    var isLandScape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    // ScreenUtil screenUtil = ScreenUtil();
+    // var isLandScape =
+    //     MediaQuery.of(context).orientation == Orientation.landscape;
     final _modifiedRealEstat =
         Provider.of<ModifiedRealEstat>(context, listen: false);
 

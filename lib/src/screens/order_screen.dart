@@ -12,10 +12,10 @@ class OrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
-    ScreenUtil screenUtil = ScreenUtil();
-    var isLandScape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-    var mediaQuery = MediaQuery.of(context).size;
+    // ScreenUtil screenUtil = ScreenUtil();
+    // var isLandScape =
+    //     MediaQuery.of(context).orientation == Orientation.landscape;
+
     return Scaffold(
       key: _scaffoldKey,
       // drawer: AppDrawer(),

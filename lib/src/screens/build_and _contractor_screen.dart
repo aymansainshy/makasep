@@ -266,7 +266,7 @@ class _BuildAndContractorsState extends State<BuildAndContractors> {
                             showDialog(
                               context: context,
                               builder: (ctx) => AlertDialog(
-                                title: Text("An error occurred"),
+                                title: Text("يوجد خطأ"),
                                 content: Text(state.errorMassage),
                                 actions: [
                                   FlatButton(

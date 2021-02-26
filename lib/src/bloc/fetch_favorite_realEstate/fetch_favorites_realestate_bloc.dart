@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:dio/dio.dart';
 
 import '../../repositories/real_estate_repo.dart';
 import '../../models/real_estate_model.dart';
+import '../../utils/app_constant.dart';
 
 part 'fetch_favorites_realestate_event.dart';
 part 'fetch_favorites_realestate_state.dart';
@@ -34,8 +36,9 @@ class FetchFavoritesRealestateBloc
         userId: event.userId,
       );
       yield FetchFavoritesInDone(realEstates: _realEstate);
-    } catch (e) {
-      yield FetchFavoritesInError(errorMassege: e.toString());
+    } on DioError catch (e) {
+      final errorMassege = dioErrorType(e);
+      yield FetchFavoritesInError(errorMassege: errorMassege);
     }
   }
 }

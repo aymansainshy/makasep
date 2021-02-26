@@ -27,7 +27,6 @@ class BestAdsScreen extends StatelessWidget {
     ScreenUtil screenUtil = ScreenUtil();
     var isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
-    var mediaQuery = MediaQuery.of(context).size;
 
     final userData = Provider.of<AuthProvider>(context, listen: false);
     _loadedDate(userData.userId, context);
@@ -53,12 +52,38 @@ class BestAdsScreen extends StatelessWidget {
             );
           } else if (state is FetchFavoritesInError) {
             return Center(
-              child: Text("يوجد خطأ الرجاء المحاولة لاحقا"),
+              child: Container(
+                padding: EdgeInsets.all(5),
+                height: screenUtil.setHeight(300),
+                width: screenUtil.setWidth(700),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.blueGrey,
+                    width: 1,
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    state.errorMassege,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: AppColors.primaryColor,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ),
             );
           } else if (state is FetchFavoritesInDone) {
             if (state.realEstates.isEmpty) {
               return Center(
-                child: Text("عفوا لا يوجد لديك بيانات مفضلة"),
+                child: Text(
+                  "عفوا لا يوجد لديك بيانات مفضلة",
+                  style: TextStyle(
+                    color: AppColors.primaryColor,
+                    fontSize: 12,
+                  ),
+                ),
               );
             }
             return ListView.builder(

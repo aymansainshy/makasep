@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/categories_provider.dart';
 import '../providers/modifid_real_estate_provider.dart';
 import '../screens/add_advertise_detaile2_screen.dart';
 import '../utils/app_constant.dart';
@@ -20,13 +19,10 @@ class _AddAdvertiseDetaileScreenState extends State<AddAdvertiseDetaileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context).size;
     ScreenUtil.init(context);
     ScreenUtil screenUtil = ScreenUtil();
     var isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
-    final categoriesProvider =
-        Provider.of<CategoriesProvider>(context, listen: false);
 
     return Scaffold(
       key: _scaffoldKey,
