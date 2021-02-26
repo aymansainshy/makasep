@@ -66,14 +66,14 @@ class FetchRealEstate extends RealEstateRepo {
   @override
   Future<List<RealEstate>> fetchRealEstate(
       String catId, String fliterId, int selectedUrl) async {
-    print("Cat id //////////////  " + catId);
-    print("Filter id //////////////  " + fliterId);
-    print("Selected Url id //////////////  " + selectedUrl.toString());
+    // print("Cat id //////////////  " + catId);
+    // print("Filter id //////////////  " + fliterId);
+    // print("Selected Url id //////////////  " + selectedUrl.toString());
 
     var url = "";
 
     if (selectedUrl == 0) {
-      url = "http://162.0.230.58/api/realEstate/secondryy/$fliterId";
+      url = "http://162.0.230.58/api/realEstate/secondry/$fliterId";
     }
     if (selectedUrl == 1) {
       url = "http://162.0.230.58/api/realEstate/secondry/$fliterId/byPrice";
@@ -109,8 +109,19 @@ class FetchRealEstate extends RealEstateRepo {
         );
       });
       return _loadedRealStates;
-    } catch (e) {
-      throw DioError(error: e.toString());
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print("RESPONSE Error Respons Data == " + e.response.data.toString());
+        print("RESPONSE Error Respons Status massege == " +
+            e.response.statusMessage.toString());
+        print("RESPONSE Error Response Request == " +
+            e.response.request.uri.toString());
+      }
+      print("ERROR Error error == " + e.error.toString());
+      print("ERROR Error request == " + e.request.uri.toString());
+      print("ERROR Error type == " + e.type.toString());
+      print("ERROR Error massege == " + e.message.toString());
+      throw DioError(error: e);
     }
   }
 

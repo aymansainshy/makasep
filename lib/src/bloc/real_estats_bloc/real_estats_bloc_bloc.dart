@@ -41,7 +41,7 @@ class RealEstatsBlocBloc
         yield RealEstatsLoaded(realEstats: realEstats);
       }
     } on DioError catch (e) {
-      final errorMassege = dioErrorType(e.type);
+      final errorMassege = dioErrorType(e);
       yield RealEstatsError(errorMassage: errorMassege);
     }
   }

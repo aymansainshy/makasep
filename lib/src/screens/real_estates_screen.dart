@@ -77,34 +77,39 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
           SafeArea(
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildTapSelector(
-                      mediaQuery / 4,
-                      "الاحدث",
-                      0,
-                    ),
-                    _buildTapSelector(
-                      mediaQuery / 4,
-                      "السعر",
-                      1,
-                    ),
-                    _buildTapSelector(
-                      mediaQuery / 4,
-                      "المساحة",
-                      2,
-                    ),
-                    // Expanded(
-                    //   child: IconButton(
-                    //     icon: Icon(Icons.search),
-                    //     onPressed: () {},
-                    //   ),
-                    // ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildTapSelector(
+                        mediaQuery / 4,
+                        "الاحدث",
+                        0,
+                      ),
+                      _buildTapSelector(
+                        mediaQuery / 4,
+                        "السعر",
+                        1,
+                      ),
+                      _buildTapSelector(
+                        mediaQuery / 4,
+                        "المساحة",
+                        2,
+                      ),
+                      Expanded(
+                        child: Container(),
+
+                        //  IconButton(
+                        //   icon: Icon(Icons.search),
+                        //   onPressed: () {},
+                        // ),
+                      ),
+                    ],
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10, right: 10),
                   child: Row(
                     children: [
                       DropdownButtonHideUnderline(
@@ -220,7 +225,27 @@ class Area extends StatelessWidget {
           );
         } else if (state is RealEstatsError) {
           return Center(
-            child: Text("Error Massage " + state.errorMassage),
+            child: Container(
+              padding: EdgeInsets.all(5),
+              height: screenUtil.setHeight(300),
+              width: screenUtil.setWidth(700),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.blueGrey,
+                  width: 1,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  state.errorMassage,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.primaryColor,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
           );
         } else if (state is RealEstatsLoaded) {
           if (state.realEstats.isEmpty) {
@@ -272,7 +297,27 @@ class Price extends StatelessWidget {
           );
         } else if (state is RealEstatsError) {
           return Center(
-            child: Text("Error Massage " + state.errorMassage),
+            child: Container(
+              padding: EdgeInsets.all(5),
+              height: screenUtil.setHeight(300),
+              width: screenUtil.setWidth(700),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.blueGrey,
+                  width: 1,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  state.errorMassage,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.primaryColor,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
           );
         } else if (state is RealEstatsLoaded) {
           if (state.realEstats.isEmpty) {
@@ -328,7 +373,27 @@ class _NewestState extends State<Newest> {
           );
         } else if (state is RealEstatsError) {
           return Center(
-            child: Text(state.errorMassage),
+            child: Container(
+              padding: EdgeInsets.all(5),
+              height: screenUtil.setHeight(300),
+              width: screenUtil.setWidth(700),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.blueGrey,
+                  width: 1,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  state.errorMassage,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.primaryColor,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
           );
         } else if (state is RealEstatsLoaded) {
           if (state.realEstats.isEmpty) {

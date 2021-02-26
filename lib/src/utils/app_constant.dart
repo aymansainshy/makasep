@@ -113,12 +113,24 @@ Widget sleekCircularSlider(
   );
 }
 
-String dioErrorType(DioErrorType errorType) {
-  switch (errorType) {
+String dioErrorType(DioError errorType) {
+  switch (errorType.type) {
     case DioErrorType.DEFAULT:
       return "يوجد خطأ الرجا الرجاء التأكد من خدمة الانترنت والمحاولة لاحقا";
       break;
+    case DioErrorType.RECEIVE_TIMEOUT:
+      return "عفوا انتهت مهلة الاتصال الرجاء المحاولة مرة اخرى";
+      break;
+    case DioErrorType.CONNECT_TIMEOUT:
+      return "عفوا انتهت مهلة الاتصال الرجاء المحاولة مرة اخرى";
+      break;
+    case DioErrorType.RESPONSE:
+      return "يوجد خطأ الرجا الرجاء التأكد من خدمة الانترنت والمحاولة لاحقا";
+      break;
+    case DioErrorType.CANCEL:
+      return "يوجد خطأ الرجا الرجاء التأكد من خدمة الانترنت والمحاولة لاحقا";
+      break;
     default:
-      return "666666666666666666666666";
+      return "يوجد خطأ الرجا الرجاء التأكد من خدمة الانترنت والمحاولة لاحقا";
   }
 }
