@@ -16,6 +16,8 @@ class SemilarRealEstateLoadingDone extends SemilarRealEstateState {
   final User userData;
 
   SemilarRealEstateLoadingDone({this.realEstates, this.userData});
+  @override
+  List<Object> get props => [realEstates, userData];
 }
 
 class SemilarRealEstateError extends SemilarRealEstateState {

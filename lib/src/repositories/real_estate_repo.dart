@@ -1,9 +1,9 @@
 import 'dart:io';
-
-import 'package:dio/dio.dart';
-import 'package:makasep/src/models/secondryType.dart';
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
+
+import '../models/secondryType.dart';
 import '../models/real_estate_model.dart';
 import '../models/user_model.dart';
 
@@ -90,7 +90,7 @@ class FetchRealEstate extends RealEstateRepo {
         },
         options: Options(
           sendTimeout: 5000,
-          receiveTimeout: 1000,
+          receiveTimeout: 5000,
           headers: {
             'content-type': 'application/json',
             'Accept': 'application/json',
@@ -120,8 +120,8 @@ class FetchRealEstate extends RealEstateRepo {
       final _response = await dio.get(
         url,
         options: Options(
-          sendTimeout: 2000,
-          receiveTimeout: 1000,
+          sendTimeout: 5000,
+          receiveTimeout: 5000,
           headers: {
             'content-type': 'application/json',
             'Accept': 'application/json',
@@ -154,8 +154,8 @@ class FetchRealEstate extends RealEstateRepo {
       final _response = await dio.get(
         url,
         options: Options(
-          sendTimeout: 2000,
-          receiveTimeout: 1000,
+          sendTimeout: 5000,
+          receiveTimeout: 5000,
           headers: {
             'content-type': 'application/json',
             'Accept': 'application/json',
@@ -188,8 +188,8 @@ class FetchRealEstate extends RealEstateRepo {
       final _response = await dio.get(
         url,
         options: Options(
-          sendTimeout: 2000,
-          receiveTimeout: 1000,
+          sendTimeout: 5000,
+          receiveTimeout: 5000,
           headers: {
             'content-type': 'application/json',
             'Accept': 'application/json',
@@ -224,8 +224,8 @@ class FetchSimelarRealEstate extends RealEstateRepo {
       final _response = await dio.get(
         url,
         options: Options(
-          sendTimeout: 2000,
-          receiveTimeout: 1000,
+          sendTimeout: 5000,
+          receiveTimeout: 5000,
           headers: {
             'content-type': 'application/json',
             'Accept': 'application/json',
@@ -318,8 +318,8 @@ class PostRealEstate extends RealEstateRepo {
         url,
         data: data,
         options: Options(
-          sendTimeout: 5000,
-          receiveTimeout: 5000,
+          sendTimeout: 6000,
+          receiveTimeout: 6000,
           headers: {
             'Accept': '*/*',
             'content-type': 'multipart/form-data',
@@ -351,8 +351,8 @@ class FavoriteRealEstatePost extends RealEstateRepo {
         url,
         data: jsonEncode(data),
         options: Options(
-          sendTimeout: 2000,
-          receiveTimeout: 1000,
+          sendTimeout: 5000,
+          receiveTimeout: 5000,
           headers: {
             'content-type': 'application/json',
             'Accept': 'application/json',
@@ -373,8 +373,8 @@ class FetchFavoritRealEState extends RealEstateRepo {
       final _response = await dio.get(
         url,
         options: Options(
-          sendTimeout: 2000,
-          receiveTimeout: 1000,
+          sendTimeout: 5000,
+          receiveTimeout: 5000,
           headers: {
             'content-type': 'application/json',
             'Accept': 'application/json',
@@ -423,8 +423,8 @@ class BuildingAndContract extends RealEstateRepo {
         url,
         data: jsonEncode(data),
         options: Options(
-          sendTimeout: 2000,
-          receiveTimeout: 1000,
+          sendTimeout: 5000,
+          receiveTimeout: 5000,
           headers: {
             'content-type': 'application/json',
             'Accept': 'application/json',
@@ -445,8 +445,8 @@ class FetchType extends RealEstateRepo {
       final _response = await dio.get(
         url,
         options: Options(
-          sendTimeout: 2000,
-          receiveTimeout: 1000,
+          sendTimeout: 5000,
+          receiveTimeout: 5000,
           headers: {
             'content-type': 'application/json',
             'Accept': 'application/json',

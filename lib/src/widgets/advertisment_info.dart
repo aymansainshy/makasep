@@ -104,33 +104,35 @@ class AdvertisInfo extends StatelessWidget {
                                     letterSpacing: 1,
                                   ),
                                 ),
-                                RaisedButton(
-                                  color: AppColors.primaryColor,
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => MassagesScreen(
-                                          realEstateId: realEstateId,
-                                          realEstatOwner: state.userData.userId,
-                                          userId: _userData.userId,
-                                          isStarChat: true,
+                                if (_userData.userId != state.userData.userId)
+                                  RaisedButton(
+                                    color: AppColors.primaryColor,
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) => MassagesScreen(
+                                            realEstateId: realEstateId,
+                                            realEstatOwner:
+                                                state.userData.userId,
+                                            userId: _userData.userId,
+                                            isStarChat: true,
+                                          ),
                                         ),
+                                      );
+                                      // Navigator.of(context)
+                                      //     .pushNamed(MassagesScreen.routeName);
+                                    },
+                                    child: Text(
+                                      "محادثة",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: isLandScape
+                                            ? screenUtil.setSp(25)
+                                            : screenUtil.setSp(30),
+                                        letterSpacing: 1,
                                       ),
-                                    );
-                                    // Navigator.of(context)
-                                    //     .pushNamed(MassagesScreen.routeName);
-                                  },
-                                  child: Text(
-                                    "محادثة",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: isLandScape
-                                          ? screenUtil.setSp(25)
-                                          : screenUtil.setSp(30),
-                                      letterSpacing: 1,
                                     ),
                                   ),
-                                ),
                               ],
                             ),
                           ),

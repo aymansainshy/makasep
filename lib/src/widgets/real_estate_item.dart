@@ -154,7 +154,7 @@ class _MealItemState extends State<RealEstateItem> {
                         Transform.translate(
                           offset: Offset(0, -5),
                           child: Text(
-                            "${widget.realEstat.description.substring(0, 15)}....",
+                            "${widget.realEstat.description.length < 15 ? widget.realEstat.description : widget.realEstat.description.substring(0, 15)}....",
                             // "الخرطوم الرياض , شارع المشتل ",
                             style: TextStyle(
                               color: Colors.grey.shade800,
