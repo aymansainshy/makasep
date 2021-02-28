@@ -27,12 +27,15 @@ class _AddAdvertiseLocationScreenState
     extends State<AddAdvertiseLocationScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  LatLng selectedLocation;
+  GoogleMapController mapController;
 
-  final Map<String, dynamic> address = {
-    "lan": 4442432.334,
-    "lat": 223.3341414,
-  };
+  final LatLng _center = const LatLng(45.521563, -122.677433);
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
+
+  LatLng selectedLocation;
 
   Future<void> _getCurrentUserLocation() async {
     final locationData = await Location().getLocation();
@@ -56,15 +59,12 @@ class _AddAdvertiseLocationScreenState
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
-    // ScreenUtil screenUtil = ScreenUtil();
-    // var isLandScape =
-    //     MediaQuery.of(context).orientation == Orientation.landscape;
+
     final _modifiedRealEstat =
         Provider.of<ModifiedRealEstat>(context, listen: false);
 
     return Scaffold(
       key: _scaffoldKey,
-      // drawer: AppDrawer(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryColor,
         onPressed: () {
@@ -93,6 +93,7 @@ class _AddAdvertiseLocationScreenState
         color: Colors.blueAccent,
         child: Center(
           child: GoogleMap(
+            onMapCreated: _onMapCreated,
             onTap: (LatLng latLng) {
               setState(() {
                 selectedLocation = LatLng(
@@ -108,10 +109,7 @@ class _AddAdvertiseLocationScreenState
             },
             initialCameraPosition: CameraPosition(
               target: selectedLocation == null
-                  ? LatLng(
-                      47.6255,
-                      -122.3365,
-                    )
+                  ? _center
                   : LatLng(
                       selectedLocation.latitude,
                       selectedLocation.longitude,
