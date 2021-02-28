@@ -243,7 +243,7 @@ class FetchSimelarRealEstate extends RealEstateRepo {
         userId: _respostUserData["id"].toString(),
         imageUrl: _respostUserData["image"] == null
             ? null
-            : 'http://162.0.230.58' + _respostUserData["image"],
+            : 'http://162.0.230.58${_respostUserData["image"]}',
         phoneNumber: _respostUserData["phone_number"].toString(),
         showContct: _respostUserData["show_contact"].toString(),
         rating: double.parse(_respostUserData["rating"].toString()),

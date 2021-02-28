@@ -153,14 +153,16 @@ class _MealItemState extends State<RealEstateItem> {
                         ),
                         Transform.translate(
                           offset: Offset(0, -5),
-                          child: Text(
-                            "${widget.realEstat.description.length < 15 ? widget.realEstat.description : widget.realEstat.description.substring(0, 15)}....",
-                            // "الخرطوم الرياض , شارع المشتل ",
-                            style: TextStyle(
-                              color: Colors.grey.shade800,
-                              fontSize: widget.isLandScape
-                                  ? widget.screenUtil.setSp(20)
-                                  : widget.screenUtil.setSp(35),
+                          child: FittedBox(
+                            child: Text(
+                              "${widget.realEstat.description}....",
+                              // "الخرطوم الرياض , شارع المشتل ",
+                              style: TextStyle(
+                                color: Colors.grey.shade800,
+                                fontSize: widget.isLandScape
+                                    ? widget.screenUtil.setSp(20)
+                                    : widget.screenUtil.setSp(35),
+                              ),
                             ),
                           ),
                         ),
@@ -182,7 +184,7 @@ class _MealItemState extends State<RealEstateItem> {
                           "assets/images/building.png",
                         ),
                         image: NetworkImage(
-                            "http://162.0.230.58" + widget.realEstat.imageUrl),
+                            "http://162.0.230.58${widget.realEstat.imageUrl}"),
                         fit: BoxFit.fill,
                       ),
                       height: widget.isLandScape
