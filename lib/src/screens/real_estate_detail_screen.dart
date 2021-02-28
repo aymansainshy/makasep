@@ -128,7 +128,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            expandedHeight: 250,
+            expandedHeight: 300,
             backgroundColor: AppColors.primaryColor,
             automaticallyImplyLeading: false,
             centerTitle: true,

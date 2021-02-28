@@ -162,16 +162,17 @@ class _AppDrawerState extends State<AppDrawer> {
                 SizedBox(height: 10),
                 Row(
                   children: [
-                    Expanded(
-                      child: BuilDraweGridViewItem(
-                        imageUrl: "assets/icons/file-contract.png",
-                        text: "اضافة إعلان",
-                        function: () {
-                          Navigator.of(context)
-                              .pushNamed(AddAdvertiseRoleScreen.routeName);
-                        },
+                    if (authProvider.isAuth)
+                      Expanded(
+                        child: BuilDraweGridViewItem(
+                          imageUrl: "assets/icons/file-contract.png",
+                          text: "اضافة إعلان",
+                          function: () {
+                            Navigator.of(context)
+                                .pushNamed(AddAdvertiseRoleScreen.routeName);
+                          },
+                        ),
                       ),
-                    ),
                     Expanded(
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/home.png",
@@ -242,20 +243,36 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
                 Row(
                   children: [
-                    Expanded(
-                      child: BuilDraweGridViewItem(
-                        imageUrl: "assets/icons/logout.png",
-                        text: "تسجيل خروج",
-                        function: () async {
-                          Navigator.of(context).pop();
-                          await authProvider.logOut();
-                          Navigator.pushReplacementNamed(
-                            context,
-                            '/',
-                          );
-                        },
+                    if (authProvider.isAuth)
+                      Expanded(
+                        child: BuilDraweGridViewItem(
+                          imageUrl: "assets/icons/logout.png",
+                          text: "تسجيل خروج",
+                          function: () async {
+                            Navigator.of(context).pop();
+                            await authProvider.logOut();
+                            Navigator.pushReplacementNamed(
+                              context,
+                              '/',
+                            );
+                          },
+                        ),
                       ),
-                    ),
+                    if (!authProvider.isAuth)
+                      Expanded(
+                        child: BuilDraweGridViewItem(
+                          imageUrl: "assets/icons/logout.png",
+                          text: "تسجيل دخول",
+                          function: () async {
+                            Navigator.of(context).pop();
+
+                            Navigator.pushReplacementNamed(
+                              context,
+                              '/',
+                            );
+                          },
+                        ),
+                      ),
                     Expanded(
                       child: BuilDraweGridViewItem(
                         imageUrl: "assets/icons/Star.png",
