@@ -98,6 +98,8 @@ class FetchRealEstate extends RealEstateRepo {
         ),
       );
 
+      print("Response Body ....  ${_response.data}");
+
       final _respostDate = _response.data as List<dynamic>;
 
       List<RealEstate> _loadedRealStates = [];
@@ -108,6 +110,17 @@ class FetchRealEstate extends RealEstateRepo {
       });
       return _loadedRealStates;
     } on DioError catch (e) {
+      if (e.response != null) {
+        print("RESPONSE Error Respons Data == " + e.response.data.toString());
+        print("RESPONSE Error Respons Status massege == " +
+            e.response.statusMessage.toString());
+        print("RESPONSE Error Response Request == " +
+            e.response.request.uri.toString());
+      }
+      print("ERROR Error error == " + e.error.toString());
+      print("ERROR Error request == " + e.request.uri.toString());
+      print("ERROR Error type == " + e.type.toString());
+      print("ERROR Error massege == " + e.message.toString());
       throw DioError(error: e);
     }
   }
