@@ -189,7 +189,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               children: [
                 Container(
                   child: Stack(
-                    overflow: Overflow.visible,
+                    clipBehavior: Clip.none,
                     children: [
                       Container(
                         height: isLandScape
