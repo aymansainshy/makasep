@@ -11,11 +11,13 @@ import '../utils/app_constant.dart';
 class AddAdvertiseLocationScreen extends StatefulWidget {
   static const routeName = "/add-advertise-location-screen";
 
-  final isSelecting;
+  final bool isReadOnly;
+  final LatLng target;
 
   const AddAdvertiseLocationScreen({
     Key key,
-    this.isSelecting = true,
+    this.target = const LatLng(45.521563, -122.677433),
+    this.isReadOnly = false,
   }) : super(key: key);
 
   @override
@@ -29,31 +31,29 @@ class _AddAdvertiseLocationScreenState
 
   GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
-
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
 
-  LatLng selectedLocation;
+  LatLng _selectedLocation;
 
   Future<void> _getCurrentUserLocation() async {
     final locationData = await Location().getLocation();
-    final _currentLocation = LatLng(
+    LatLng _currentLocation = LatLng(
       locationData.latitude,
       locationData.longitude,
     );
     setState(() {
-      selectedLocation = _currentLocation;
+      _selectedLocation = _currentLocation;
     });
-    print(locationData.latitude);
-    print(locationData.longitude);
+    print("Current Location Lat " + _selectedLocation.latitude.toString());
+    print("Current Location Lon " + _selectedLocation.longitude.toString());
   }
 
   @override
   void initState() {
-    _getCurrentUserLocation();
     super.initState();
+    _getCurrentUserLocation();
   }
 
   @override
@@ -69,13 +69,13 @@ class _AddAdvertiseLocationScreenState
         backgroundColor: AppColors.primaryColor,
         onPressed: () {
           _modifiedRealEstat.setAdderess(
-            latitude: selectedLocation.latitude,
-            longitude: selectedLocation.longitude,
+            latitude: _selectedLocation.latitude,
+            longitude: _selectedLocation.longitude,
           );
-          print(_modifiedRealEstat.reatEstate.address.lat.toString() +
-              " ppppppppppppp");
-          print(_modifiedRealEstat.reatEstate.address.lan.toString() +
-              " ppppppppppppp");
+          print("Modified RealEstate lat" +
+              _modifiedRealEstat.reatEstate.address.lat.toString());
+          print("Modified RealEstate lan" +
+              _modifiedRealEstat.reatEstate.address.lan.toString());
           Navigator.of(context).pushNamed(AddAdvertiseDetaileScreen.routeName);
         },
         child: Text("استمرار"),
@@ -94,28 +94,38 @@ class _AddAdvertiseLocationScreenState
         child: Center(
           child: GoogleMap(
             onMapCreated: _onMapCreated,
-            onTap: (LatLng latLng) {
-              setState(() {
-                selectedLocation = LatLng(
-                  latLng.latitude,
-                  latLng.longitude,
-                );
-              });
+            onTap: widget.isReadOnly
+                ? null
+                : (LatLng latLng) {
+                    setState(() {
+                      _selectedLocation = LatLng(
+                        latLng.latitude,
+                        latLng.longitude,
+                      );
+                    });
 
-              print(selectedLocation.latitude.toString() +
-                  "--------------------------");
-              print(selectedLocation.longitude.toString() +
-                  "--------------------------");
+                    print("Selected Location lat .. " +
+                        _selectedLocation.latitude.toString());
+                    print("Selected Location lon .. " +
+                        _selectedLocation.longitude.toString());
+                  },
+            initialCameraPosition: widget.isReadOnly
+                ? CameraPosition(
+                    target: widget.target,
+                    zoom: 16,
+                  )
+                : CameraPosition(
+                    target: _selectedLocation ?? widget.target,
+                    zoom: 16,
+                  ),
+            markers: {
+              Marker(
+                markerId: MarkerId("1"),
+                position: widget.isReadOnly
+                    ? widget.target
+                    : _selectedLocation ?? widget.target,
+              )
             },
-            initialCameraPosition: CameraPosition(
-              target: selectedLocation == null
-                  ? _center
-                  : LatLng(
-                      selectedLocation.latitude,
-                      selectedLocation.longitude,
-                    ),
-              zoom: 16,
-            ),
           ),
         ),
       ),
