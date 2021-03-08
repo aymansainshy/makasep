@@ -221,22 +221,22 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                  child: Text(
-                    // realEstat.hashCode.toString(),
-                    "الخرطوم الرياض , شارع المشتل",
-                    style: TextStyle(
-                      // fontFamily: "Cairo",
-                      color: Colors.grey.shade700,
-                      fontSize: isLandScape
-                          ? screenUtil.setSp(20)
-                          : screenUtil.setSp(40),
-                      letterSpacing: 1,
-                    ),
-                  ),
-                ),
+                SizedBox(height: 10), // Padding(
+                //   padding:
+                //       const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                //   child: Text(
+                //     // realEstat.hashCode.toString(),
+                //     "الخرطوم الرياض , شارع المشتل",
+                //     style: TextStyle(
+                //       // fontFamily: "Cairo",
+                //       color: Colors.grey.shade700,
+                //       fontSize: isLandScape
+                //           ? screenUtil.setSp(20)
+                //           : screenUtil.setSp(40),
+                //       letterSpacing: 1,
+                //     ),
+                //   ),
+                // ),
                 BuildContainerRowText(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,

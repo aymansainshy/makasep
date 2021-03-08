@@ -27,7 +27,7 @@ class AddAdvertisePhontoScreen extends StatelessWidget {
         centerTitle: true,
         elevation: 0.0,
         title: Text(
-          "2 اضافة اعلان",
+          " اضافة اعلان",
           style: TextStyle(fontSize: 15),
         ),
       ),
@@ -173,10 +173,12 @@ class AddAdvertisePhontoScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(AddAdvertiseLocationScreen.routeName);
-                  },
+                  onPressed: modifiedRealEstateProvider.storedImage == null
+                      ? null
+                      : () {
+                          Navigator.of(context)
+                              .pushNamed(AddAdvertiseLocationScreen.routeName);
+                        },
                 ),
               ),
             ],
