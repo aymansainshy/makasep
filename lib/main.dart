@@ -121,7 +121,7 @@ class MyApp extends StatelessWidget {
                                   : LoginScreen(),
                         ),
                   duration: 2500,
-                  type: AnimatedSplashType.StaticDuration,
+                  type: AnimatedSplashType.BackgroundProcess,
                   imagePath: 'assets/images/makasep_logo.png',
                 ),
               ),

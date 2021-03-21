@@ -6,6 +6,7 @@ import '../widgets/build_form_field.dart';
 import '../providers/auth_provider.dart';
 import '../models/http_exception.dart';
 import '../screens/login_screen.dart';
+import '../screens/home_screen.dart';
 import '../utils/app_constant.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -214,13 +215,8 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
       setState(() {
         isLoading = false;
       });
-      // if (widget.isLogin) {
-      //   Navigator.of(context).pushReplacementNamed('/');
-      // } else {
-      // Navigator.of(context).pop();
-      //   Navigator.of(context).pop();
-      Navigator.of(context).pushReplacementNamed('/');
-      // }
+
+      Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
     } on HttpException catch (e) {
       setState(() {
         isLoading = false;

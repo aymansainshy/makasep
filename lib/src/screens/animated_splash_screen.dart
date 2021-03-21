@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../providers/categories_provider.dart';
+import '../utils/app_constant.dart';
+
 Widget _home;
-Function _customFunction;
-String _imagePath;
 int _duration;
-AnimatedSplashType _runfor;
+String _imagePath;
+AnimatedSplashType _animatedType;
 
 enum AnimatedSplashType { StaticDuration, BackgroundProcess }
 
-Map<dynamic, Widget> _outputAndHome = {};
-
 class AnimatedSplashScreen extends StatefulWidget {
   AnimatedSplashScreen({
-    @required String imagePath,
-    @required Widget home,
-    Function customFunction,
     int duration,
     AnimatedSplashType type,
-    Map<dynamic, Widget> outputAndHome,
+    @required Widget home,
+    @required String imagePath,
   }) {
     assert(duration != null);
     assert(home != null);
@@ -27,10 +26,8 @@ class AnimatedSplashScreen extends StatefulWidget {
 
     _home = home;
     _duration = duration;
-    _customFunction = customFunction;
     _imagePath = imagePath;
-    _runfor = type;
-    _outputAndHome = outputAndHome;
+    _animatedType = type;
   }
 
   @override
@@ -47,7 +44,7 @@ class _AnimatedSplashState extends State<AnimatedSplashScreen>
     super.initState();
     if (_duration < 1000) _duration = 2000;
     _animationController = new AnimationController(
-        vsync: this, duration: Duration(milliseconds: 800));
+        vsync: this, duration: Duration(milliseconds: 1000));
     _animation = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
         parent: _animationController, curve: Curves.easeInCirc));
     _animationController.forward();
@@ -59,31 +56,66 @@ class _AnimatedSplashState extends State<AnimatedSplashScreen>
     _animationController.reset();
   }
 
-  // navigator(home) {
-  //   Navigator.of(context).pushReplacement(
-  //       CupertinoPageRoute(builder: (BuildContext context) => home));
-  // }
+  String error;
 
   @override
   Widget build(BuildContext context) {
-    _runfor == AnimatedSplashType.BackgroundProcess
-        ? Future.delayed(Duration.zero).then((value) {
-            var res = _customFunction();
-            //print("$res+${_outputAndHome[res]}");
-            Future.delayed(Duration(milliseconds: _duration)).then((value) {
-              Navigator.of(context).pushReplacement(CupertinoPageRoute(
-                  builder: (BuildContext context) => _outputAndHome[res]));
-            });
+    _animatedType == AnimatedSplashType.BackgroundProcess
+        ? Future.delayed(Duration.zero).then((_) async {
+            try {
+              await Provider.of<CategoriesProvider>(context, listen: false)
+                  .fetchType();
+
+              Future.delayed(Duration(milliseconds: 1000)).then((_) {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => _home));
+              });
+            } catch (e) {
+              showDialog(
+                context: context,
+                builder: (context) => GestureDetector(
+                  onTap: () {},
+                  behavior: HitTestBehavior.opaque,
+                  child: AlertDialog(
+                    title: Text(
+                      translate("anErrorOccurred", context),
+                      style: TextStyle(
+                        color: AppColors.primaryColor,
+                        fontSize: 12,
+                      ),
+                    ),
+                    actions: [
+                      MaterialButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          setState(() {});
+                        },
+                        child: Text(
+                          "Ok",
+                          style: TextStyle(
+                            color: AppColors.primaryColor,
+                            fontSize: 14,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+
+              return;
+            }
           })
-        : Future.delayed(Duration(milliseconds: _duration)).then((value) {
+        : Future.delayed(Duration(milliseconds: _duration)).then((_) {
             Navigator.of(context).pushReplacement(
-                CupertinoPageRoute(builder: (BuildContext context) => _home));
+                MaterialPageRoute(builder: (BuildContext context) => _home));
           });
 
     ScreenUtil.init(context);
+    ScreenUtil screenUtil = ScreenUtil();
+
     var isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
-    ScreenUtil screenUtil = ScreenUtil();
 
     return Scaffold(
       backgroundColor: Colors.white,

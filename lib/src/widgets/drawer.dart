@@ -9,7 +9,6 @@ import '../screens/edit_profile_screen.dart';
 import '../screens/today_ads_screen.dart';
 import '../providers/auth_provider.dart';
 import '../screens/best_ads_screen.dart';
-import '../lang/language_provider.dart';
 import '../screens/chats_screen.dart';
 import '../utils/app_constant.dart';
 
@@ -23,12 +22,6 @@ class _AppDrawerState extends State<AppDrawer> {
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
     ScreenUtil screenUtil = ScreenUtil();
-    var isLandScape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
-    final langugeProvider = Provider.of<LanguageProvider>(context);
-    String appLang =
-        langugeProvider.appLocal.toString() == "ar" ? "العربية" : "English";
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
@@ -41,63 +34,61 @@ class _AppDrawerState extends State<AppDrawer> {
             child: Column(
               children: [
                 SizedBox(height: 25),
-                Row(
-                  children: [
-                    Container(),
-                    Spacer(),
-                    DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                        // dropdownColor: AppColors.primaryColor,
-                        items: langugeProvider.languages
-                            .map(
-                              (lang) => DropdownMenuItem(
-                                value: lang.localName,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      lang.localName,
-                                      style: TextStyle(
-                                        fontSize: isLandScape
-                                            ? screenUtil.setSp(20)
-                                            : screenUtil.setSp(35),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Container(
-                                      height: isLandScape
-                                          ? screenUtil.setHeight(55)
-                                          : screenUtil.setHeight(40),
-                                      width: isLandScape
-                                          ? screenUtil.setWidth(55)
-                                          : screenUtil.setWidth(40),
-                                      child: Image.asset(
-                                        lang.flag,
-                                        fit: BoxFit.contain,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                onTap: () {
-                                  // langugeProvider
-                                  //     .changeLanguage(Locale(lang.code));
-                                },
-                              ),
-                            )
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            // appLang = value;
-                          });
-                        },
-                        value: appLang,
-                      ),
-                    ),
-                  ],
-                ),
+
+                Container(),
+                // Spacer(),
+                // DropdownButtonHideUnderline(
+                //   child: DropdownButton(
+                //     // dropdownColor: AppColors.primaryColor,
+                //     items: langugeProvider.languages
+                //         .map(
+                //           (lang) => DropdownMenuItem(
+                //             value: lang.localName,
+                //             child: Row(
+                //               mainAxisAlignment:
+                //                   MainAxisAlignment.spaceAround,
+                //               children: [
+                //                 Text(
+                //                   lang.localName,
+                //                   style: TextStyle(
+                //                     fontSize: isLandScape
+                //                         ? screenUtil.setSp(20)
+                //                         : screenUtil.setSp(35),
+                //                   ),
+                //                 ),
+                //                 SizedBox(
+                //                   height: 5,
+                //                 ),
+                //                 Container(
+                //                   height: isLandScape
+                //                       ? screenUtil.setHeight(55)
+                //                       : screenUtil.setHeight(40),
+                //                   width: isLandScape
+                //                       ? screenUtil.setWidth(55)
+                //                       : screenUtil.setWidth(40),
+                //                   child: Image.asset(
+                //                     lang.flag,
+                //                     fit: BoxFit.contain,
+                //                   ),
+                //                 )
+                //               ],
+                //             ),
+                //             onTap: () {
+                //               // langugeProvider
+                //               //     .changeLanguage(Locale(lang.code));
+                //             },
+                //           ),
+                //         )
+                //         .toList(),
+                //     onChanged: (value) {
+                //       setState(() {
+                //         // appLang = value;
+                //       });
+                //     },
+                //     value: appLang,
+                //   ),
+                // ),
+
                 CircleAvatar(
                   radius: 55,
                   backgroundColor: AppColors.primaryColor,

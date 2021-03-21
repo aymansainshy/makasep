@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:makasep/src/providers/categories_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../bloc/real_estats_bloc/real_estats_bloc_bloc.dart';
-import '../bloc/fetch_type/fetch_type_bloc.dart';
 import '../widgets/real_estate_item.dart';
 import '../utils/app_constant.dart';
 
@@ -113,23 +114,20 @@ class _RealEstateScreenState extends State<RealEstateScreen> {
                   child: Row(
                     children: [
                       DropdownButtonHideUnderline(
-                        child: BlocBuilder<FetchTypeBloc, FetchTypeState>(
-                          builder: (context, state) {
-                            if (state is FetchTypeDone) {
-                              return DropdownButton(
-                                items: state.typeList
-                                    .map(
-                                      (e) => DropdownMenuItem(
-                                        child: Text(e.name),
-                                        value: e.id,
-                                      ),
-                                    )
-                                    .toList(),
-                                value: filterStateId,
-                                onChanged: selectedFilter,
-                              );
-                            }
-                            return Text("Done");
+                        child: Consumer<CategoriesProvider>(
+                          builder: (context, catType, child) {
+                            return DropdownButton(
+                              items: catType.secondryType
+                                  .map(
+                                    (e) => DropdownMenuItem(
+                                      child: Text(e.name),
+                                      value: e.id,
+                                    ),
+                                  )
+                                  .toList(),
+                              value: filterStateId,
+                              onChanged: selectedFilter,
+                            );
                           },
                         ),
                       ),

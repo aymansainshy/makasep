@@ -22,18 +22,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  void _fetchType() {
-    BlocProvider.of<FetchTypeBloc>(context, listen: false).add(
-      FetchTypeNow(),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchType();
-  }
-
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);

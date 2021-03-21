@@ -4,9 +4,10 @@ import 'package:provider/provider.dart';
 
 import '../widgets/build_form_field.dart';
 import '../providers/auth_provider.dart';
-import '../models/http_exception.dart';
-import '../screens/sign_up_screen.dart';
 import '../lang/language_provider.dart';
+import '../screens/sign_up_screen.dart';
+import '../models/http_exception.dart';
+import '../screens/home_screen.dart';
 import '../utils/app_constant.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -96,57 +97,57 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: screenUtil.setHeight(80),
               ),
-              Center(
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                    // dropdownColor: AppColors.primaryColor,
-                    items: langugeProvider.languages
-                        .map(
-                          (lang) => DropdownMenuItem(
-                            value: lang.localName,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  lang.localName,
-                                  style: TextStyle(
-                                    fontSize: isLandScape
-                                        ? screenUtil.setSp(20)
-                                        : screenUtil.setSp(35),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                  height: isLandScape
-                                      ? screenUtil.setHeight(55)
-                                      : screenUtil.setHeight(40),
-                                  width: isLandScape
-                                      ? screenUtil.setWidth(55)
-                                      : screenUtil.setWidth(40),
-                                  child: Image.asset(
-                                    lang.flag,
-                                    fit: BoxFit.contain,
-                                  ),
-                                )
-                              ],
-                            ),
-                            onTap: () {
-                              langugeProvider.changeLanguage(Locale(lang.code));
-                            },
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        appLang = value;
-                      });
-                    },
-                    value: appLang,
-                  ),
-                ),
-              ),
+              // Center(
+              //   child: DropdownButtonHideUnderline(
+              //     child: DropdownButton(
+              //       // dropdownColor: AppColors.primaryColor,
+              //       items: langugeProvider.languages
+              //           .map(
+              //             (lang) => DropdownMenuItem(
+              //               value: lang.localName,
+              //               child: Row(
+              //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //                 children: [
+              //                   Text(
+              //                     lang.localName,
+              //                     style: TextStyle(
+              //                       fontSize: isLandScape
+              //                           ? screenUtil.setSp(20)
+              //                           : screenUtil.setSp(35),
+              //                     ),
+              //                   ),
+              //                   SizedBox(
+              //                     height: 5,
+              //                   ),
+              //                   Container(
+              //                     height: isLandScape
+              //                         ? screenUtil.setHeight(55)
+              //                         : screenUtil.setHeight(40),
+              //                     width: isLandScape
+              //                         ? screenUtil.setWidth(55)
+              //                         : screenUtil.setWidth(40),
+              //                     child: Image.asset(
+              //                       lang.flag,
+              //                       fit: BoxFit.contain,
+              //                     ),
+              //                   )
+              //                 ],
+              //               ),
+              //               onTap: () {
+              //                 langugeProvider.changeLanguage(Locale(lang.code));
+              //               },
+              //             ),
+              //           )
+              //           .toList(),
+              //       onChanged: (value) {
+              //         setState(() {
+              //           appLang = value;
+              //         });
+              //       },
+              //       value: appLang,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -219,14 +220,7 @@ class _LogInFormState extends State<LogInForm> {
       setState(() {
         isLoading = false;
       });
-      if (widget.isSignUp) {
-        Navigator.of(context).pushReplacementNamed('/');
-      }
-      //  else {
-      //   Navigator.of(context).pop();
-      //   Navigator.of(context).pop();
-      //   Navigator.of(context).pushReplacementNamed('/');
-      // }
+      Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
     } on HttpException catch (e) {
       setState(() {
         isLoading = false;

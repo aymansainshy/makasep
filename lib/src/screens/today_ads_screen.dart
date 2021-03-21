@@ -43,7 +43,7 @@ class TodayAdsScreen extends StatelessWidget {
               // fontFamily: "cairo",
             ),
             tabs: [
-              Tab(text: "المفضلة"),
+              Tab(text: "اعلانات اليوم"),
               Tab(text: "المكالمات الاخيرة"),
             ],
           ),
