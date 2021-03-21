@@ -73,13 +73,15 @@ class FetchRealEstate extends RealEstateRepo {
     var url = "";
 
     if (selectedUrl == 0) {
-      url = "http://162.0.230.58/api/realEstate/secondry/$fliterId";
+      url = "https://makaseib.website/api/realEstate/secondry/$fliterId";
     }
     if (selectedUrl == 1) {
-      url = "http://162.0.230.58/api/realEstate/secondry/$fliterId/byPrice";
+      url =
+          "https://makaseib.website/api/realEstate/secondry/$fliterId/byPrice";
     }
     if (selectedUrl == 2) {
-      url = "http://162.0.230.58/api/realEstate/secondry/$fliterId/bySpace";
+      url =
+          "https://makaseib.website/api/realEstate/secondry/$fliterId/bySpace";
     }
 
     try {
@@ -127,7 +129,7 @@ class FetchRealEstate extends RealEstateRepo {
 
   @override
   Future<List<RealEstate>> fetchEspecialRealStates() async {
-    final url = 'http://162.0.230.58/api/realEstate/special';
+    final url = 'https://makaseib.website/api/realEstate/special';
 
     try {
       final _response = await dio.get(
@@ -161,7 +163,7 @@ class FetchRealEstate extends RealEstateRepo {
 
   @override
   Future<List<RealEstate>> fetchLastCallRealStates(String userId) async {
-    final url = 'http://162.0.230.58/api/realEstate/lastViewed/$userId';
+    final url = 'https://makaseib.website/api/realEstate/lastViewed/$userId';
 
     try {
       final _response = await dio.get(
@@ -195,7 +197,7 @@ class FetchRealEstate extends RealEstateRepo {
 
   @override
   Future<List<RealEstate>> fetchTodayRealStates() async {
-    final url = 'http://162.0.230.58/api/realEstate/today';
+    final url = 'https://makaseib.website/api/realEstate/today';
 
     try {
       final _response = await dio.get(
@@ -231,7 +233,7 @@ class FetchRealEstate extends RealEstateRepo {
 class FetchSimelarRealEstate extends RealEstateRepo {
   @override
   Future<Map<String, dynamic>> fetchSemilerRealStates(int realEstateId) async {
-    final url = 'http://162.0.230.58/api/realestate/$realEstateId';
+    final url = 'https://makaseib.website/api/realestate/$realEstateId';
 
     try {
       final _response = await dio.get(
@@ -256,7 +258,7 @@ class FetchSimelarRealEstate extends RealEstateRepo {
         userId: _respostUserData["id"].toString(),
         imageUrl: _respostUserData["image"] == null
             ? null
-            : 'http://162.0.230.58${_respostUserData["image"]}',
+            : 'https://makaseib.website${_respostUserData["image"]}',
         phoneNumber: _respostUserData["phone_number"].toString(),
         showContct: _respostUserData["show_contact"].toString(),
         rating: double.parse(_respostUserData["rating"].toString()),
@@ -288,7 +290,7 @@ class PostRealEstate extends RealEstateRepo {
   @override
   Future<void> postRealEstate(
       {String userId, RealEstate realEstate, File image}) async {
-    final url = 'http://162.0.230.58/api/realEstate';
+    final url = 'https://makaseib.website/api/realEstate';
 
     String fileName = image.path.split('/').last;
     // FormData formData = FormData.fromMap({
@@ -354,7 +356,7 @@ class FavoriteRealEstatePost extends RealEstateRepo {
     String usetId,
     int realEstateId,
   }) async {
-    final url = 'http://162.0.230.58/api/Customer/$usetId/favorit';
+    final url = 'https://makaseib.website/api/Customer/$usetId/favorit';
 
     Map<String, dynamic> data = {
       "real_estate_id": realEstateId,
@@ -381,7 +383,7 @@ class FavoriteRealEstatePost extends RealEstateRepo {
 class FetchFavoritRealEState extends RealEstateRepo {
   @override
   Future<List<RealEstate>> fetchFavoritesRealStates({String userId}) async {
-    final url = 'http://162.0.230.58/api/Customer/$userId/favorit';
+    final url = 'https://makaseib.website/api/Customer/$userId/favorit';
     try {
       final _response = await dio.get(
         url,
@@ -422,7 +424,7 @@ class BuildingAndContract extends RealEstateRepo {
     String description,
     String buildingTypeId,
   }) async {
-    final url = 'http://162.0.230.58/api/Building';
+    final url = 'https://makaseib.website/api/Building';
 
     Map<String, dynamic> data = {
       "user_id": usetId,
@@ -453,7 +455,7 @@ class BuildingAndContract extends RealEstateRepo {
 class FetchType extends RealEstateRepo {
   @override
   Future<List<SecondryType>> fetchType() async {
-    final url = 'http://162.0.230.58/api/secondry';
+    final url = 'https://makaseib.website/api/secondry';
     try {
       final _response = await dio.get(
         url,

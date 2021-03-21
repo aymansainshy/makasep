@@ -16,7 +16,7 @@ class AddAdvertiseLocationScreen extends StatefulWidget {
 
   const AddAdvertiseLocationScreen({
     Key key,
-    this.target = const LatLng(45.521563, -122.677433),
+    this.target = const LatLng(24.758347052836406, 46.647991463541985),
     this.isReadOnly = false,
   }) : super(key: key);
 
@@ -116,7 +116,7 @@ class _AddAdvertiseLocationScreenState
                   )
                 : CameraPosition(
                     target: _selectedLocation ?? widget.target,
-                    zoom: 16,
+                    zoom: 12,
                   ),
             markers: {
               Marker(

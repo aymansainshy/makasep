@@ -63,7 +63,7 @@ class AuthProvider with ChangeNotifier {
       _userToken = responseData["remember_token"];
       imageUrl = responseData["image"] == null
           ? null
-          : 'http://162.0.230.58${responseData["image"]}';
+          : 'https://makaseib.website${responseData["image"]}';
       rating = responseData["rating"].toString();
       showContact = responseData["show_contact"].toString();
       userTypeId = responseData["user_type_id"].toString();
@@ -84,7 +84,7 @@ class AuthProvider with ChangeNotifier {
         "userToken": responseData["remember_token"],
         "imageUrl": responseData["image"] == null
             ? null
-            : 'http://162.0.230.58${responseData["image"]}',
+            : 'https://makaseib.website${responseData["image"]}',
         "rating": responseData["rating"].toString(),
         "showContact": responseData["show_contact"].toString(),
         "userTypeId": responseData["user_type_id"].toString(),
@@ -102,7 +102,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> register(
       {String name, String address, String phone, String password}) async {
-    final url = 'http://162.0.230.58/api/Customer';
+    final url = 'https://makaseib.website/api/Customer';
     var data = {
       "user_name": name,
       "password": password,
@@ -114,7 +114,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> login({String phone, String password}) async {
-    final url = 'http://162.0.230.58/api/Customer/login';
+    final url = 'https://makaseib.website/api/Customer/login';
     var data = {
       "phone_number": phone,
       "password": password,
@@ -160,7 +160,7 @@ class AuthProvider with ChangeNotifier {
     @required String userPhone,
     @required String userAddress,
   }) async {
-    final url = 'http://162.0.230.58/api/Customer/$userId';
+    final url = 'https://makaseib.website/api/Customer/$userId';
 
     Map<String, dynamic> data = {
       "user_name": userName,
@@ -201,7 +201,7 @@ class AuthProvider with ChangeNotifier {
         "userToken": responseData["remember_token"],
         "imageUrl": responseData["image"] == null
             ? null
-            : 'http://162.0.230.58${responseData["image"]}',
+            : 'https://makaseib.website${responseData["image"]}',
         "rating": responseData["rating"].toString(),
         "showContact": responseData["show_contact"].toString(),
         "userTypeId": responseData["user_type_id"].toString(),
@@ -219,7 +219,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> uploadImage({File image, String userId}) async {
-    final url = 'http://162.0.230.58/api/Customer/$userId/imageUpdate';
+    final url = 'https://makaseib.website/api/Customer/$userId/imageUpdate';
     print(userId);
     try {
       String fileName = image.path.split('/').last;
@@ -260,7 +260,7 @@ class AuthProvider with ChangeNotifier {
         "userToken": responseData["remember_token"],
         "imageUrl": responseData["image"] == null
             ? null
-            : 'http://162.0.230.58${responseData["image"]}',
+            : 'https://makaseib.website${responseData["image"]}',
         "rating": responseData["rating"].toString(),
         "showContact": responseData["show_contact"].toString(),
         "userTypeId": responseData["user_type_id"].toString(),
@@ -275,30 +275,6 @@ class AuthProvider with ChangeNotifier {
       print(" Errror" + e.toString());
 
       throw e.toString();
-    }
-  }
-
-  Future<void> forgetPassword(String email) async {
-    final url = 'http://backend.bdcafrica.site/api/user/forgetpassword';
-    try {
-      final response = await _dio.post(
-        url,
-        data: jsonEncode(email),
-        options: Options(
-          sendTimeout: 2000,
-          receiveTimeout: 1000,
-          headers: {
-            'content-type': 'application/json',
-            'Accept': 'application/json',
-          },
-        ),
-      );
-
-      print("Response Data .........." + response.data.toString());
-      print("Response Stause Code .........." + response.statusCode.toString());
-      print("Response Message .......... " + response.statusMessage.toString());
-    } on DioError catch (e) {
-      print("Catch E " + e.toString());
     }
   }
 }

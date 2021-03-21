@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import '../models/massages_model.dart';
 
 final _options = BaseOptions(
-  baseUrl: "http://162.0.230.58/api",
+  baseUrl: "https://makaseib.website/api",
   connectTimeout: 5000,
   receiveTimeout: 1000,
   headers: {

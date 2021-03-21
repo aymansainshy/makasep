@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<network-security-config>
-    <domain-config cleartextTrafficPermitted="false">
-        <domain includeSubdomains="true">http://162.0.230.58</domain>
-    </domain-config>
-</network-security-config>
