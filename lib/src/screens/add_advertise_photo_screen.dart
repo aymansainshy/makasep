@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../providers/categories_provider.dart';
 import '../screens/add_advertise_location_screen.dart';
-import '../bloc/fetch_type/fetch_type_bloc.dart';
 import '../providers/modifid_real_estate_provider.dart';
 import '../utils/app_constant.dart';
 
@@ -48,26 +47,23 @@ class AddAdvertisePhontoScreen extends StatelessWidget {
               ),
               SizedBox(height: 10),
               DropdownButtonHideUnderline(
-                child: BlocBuilder<FetchTypeBloc, FetchTypeState>(
-                  builder: (context, state) {
-                    if (state is FetchTypeDone) {
-                      return DropdownButton(
-                        items: state.typeList
-                            .map(
-                              (e) => DropdownMenuItem(
-                                child: Text(e.name),
-                                value: e.id,
-                              ),
-                            )
-                            .toList(),
-                        value: int.parse(
-                            modifiedRealEstateProvider.reatEstate.type),
-                        onChanged: (value) {
-                          modifiedRealEstateProvider.setType(value.toString());
-                        },
-                      );
-                    }
-                    return Text("Done");
+                child: Consumer<CategoriesProvider>(
+                  builder: (context, state, _) {
+                    return DropdownButton(
+                      items: state.secondryType
+                          .map(
+                            (e) => DropdownMenuItem(
+                              child: Text(e.name),
+                              value: e.id,
+                            ),
+                          )
+                          .toList(),
+                      value:
+                          int.parse(modifiedRealEstateProvider.reatEstate.type),
+                      onChanged: (value) {
+                        modifiedRealEstateProvider.setType(value.toString());
+                      },
+                    );
                   },
                 ),
               ),

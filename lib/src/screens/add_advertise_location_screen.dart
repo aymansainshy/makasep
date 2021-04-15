@@ -65,21 +65,24 @@ class _AddAdvertiseLocationScreenState
 
     return Scaffold(
       key: _scaffoldKey,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.primaryColor,
-        onPressed: () {
-          _modifiedRealEstat.setAdderess(
-            latitude: _selectedLocation.latitude,
-            longitude: _selectedLocation.longitude,
-          );
-          print("Modified RealEstate lat" +
-              _modifiedRealEstat.reatEstate.address.lat.toString());
-          print("Modified RealEstate lan" +
-              _modifiedRealEstat.reatEstate.address.lan.toString());
-          Navigator.of(context).pushNamed(AddAdvertiseDetaileScreen.routeName);
-        },
-        child: Text("استمرار"),
-      ),
+      floatingActionButton: widget.isReadOnly
+          ? Container()
+          : FloatingActionButton(
+              backgroundColor: AppColors.primaryColor,
+              onPressed: () {
+                _modifiedRealEstat.setAdderess(
+                  latitude: _selectedLocation.latitude,
+                  longitude: _selectedLocation.longitude,
+                );
+                print("Modified RealEstate lat" +
+                    _modifiedRealEstat.reatEstate.address.lat.toString());
+                print("Modified RealEstate lan" +
+                    _modifiedRealEstat.reatEstate.address.lan.toString());
+                Navigator.of(context)
+                    .pushNamed(AddAdvertiseDetaileScreen.routeName);
+              },
+              child: Text("استمرار"),
+            ),
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
