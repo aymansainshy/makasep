@@ -35,7 +35,7 @@ class _MealItemState extends State<RealEstateItem> {
         );
       },
       child: Container(
-        height: widget.isLandScape ? 150 : 130,
+        height: widget.isLandScape ? 150 : 140,
         child: Card(
           elevation: 4.0,
           child: Padding(
@@ -184,7 +184,7 @@ class _MealItemState extends State<RealEstateItem> {
                           "assets/images/building.png",
                         ),
                         image: NetworkImage(
-                            "http://162.0.230.58${widget.realEstat.imageUrl}"),
+                            "https://162.0.230.58${widget.realEstat.imageUrl}"),
                         fit: BoxFit.fill,
                       ),
                       height: widget.isLandScape
