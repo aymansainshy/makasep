@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Makasip</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -14,14 +16,6 @@
 	<string>Makasip</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>we need to take a picture</string>
-	<key>NSCameraUsageDescription</key>
-    <string>we need to take a picture</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-    <string> Need to get your location</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-    <string> Need to get your location</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
@@ -30,6 +24,14 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>we need to take a picture</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string> Need to get your location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string> Need to get your location</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>we need to take a picture</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

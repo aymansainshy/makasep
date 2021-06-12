@@ -64,7 +64,7 @@ class _MealItemState extends State<RealEstateItem> {
                                   fontWeight: FontWeight.bold,
                                   fontSize: widget.isLandScape
                                       ? widget.screenUtil.setSp(20)
-                                      : widget.screenUtil.setSp(40),
+                                      : widget.screenUtil.setSp(35),
                                   wordSpacing: 1.0,
                                 ),
                               ),
@@ -160,8 +160,8 @@ class _MealItemState extends State<RealEstateItem> {
                               style: TextStyle(
                                 color: Colors.grey.shade800,
                                 fontSize: widget.isLandScape
-                                    ? widget.screenUtil.setSp(20)
-                                    : widget.screenUtil.setSp(35),
+                                    ? widget.screenUtil.setSp(16)
+                                    : widget.screenUtil.setSp(28),
                               ),
                             ),
                           ),
