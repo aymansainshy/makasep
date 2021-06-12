@@ -171,7 +171,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                 StretchMode.zoomBackground,
               ],
               background: Image.network(
-                "http://162.0.230.58" + widget.realEstat.imageUrl,
+                "https://162.0.230.58" + widget.realEstat.imageUrl,
                 fit: BoxFit.fill,
               ),
             ),

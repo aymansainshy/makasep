@@ -190,7 +190,7 @@ class _MealItemState extends State<RealEstateItem> {
                       height: widget.isLandScape
                           ? widget.screenUtil.setHeight(720)
                           : widget.screenUtil.setHeight(330),
-                      width: widget.screenUtil.setWidth(400),
+                      width: widget.screenUtil.setWidth(380),
                     ),
                   ),
                 ),
