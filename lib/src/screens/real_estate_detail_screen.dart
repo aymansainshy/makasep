@@ -171,7 +171,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                 StretchMode.zoomBackground,
               ],
               background: Image.network(
-                "https://162.0.230.58" + widget.realEstat.imageUrl,
+                "https://162.0.230.58${widget.realEstat.imageUrl == null ? "":widget.realEstat.imageUrl}",
                 fit: BoxFit.fill,
               ),
             ),
@@ -182,7 +182,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
                   child: Text(
-                    '${realEstateType(int.parse(widget.realEstat.type))} ${realEstatePrimaryType(widget.realEstat.categoryType)}',
+                    '${realEstateType(int.parse(widget.realEstat.type))} - ${realEstatePrimaryType(widget.realEstat.categoryType)}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: isLandScape
@@ -197,7 +197,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: '${widget.realEstat.price.toStringAsFixed(0)}',
+                          text:   widget.realEstat == null ? "" : '${widget.realEstat.price.toStringAsFixed(0)}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: isLandScape
@@ -221,28 +221,14 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10), // Padding(
-                //   padding:
-                //       const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                //   child: Text(
-                //     // realEstat.hashCode.toString(),
-                //     "الخرطوم الرياض , شارع المشتل",
-                //     style: TextStyle(
-                //       // fontFamily: "Cairo",
-                //       color: Colors.grey.shade700,
-                //       fontSize: isLandScape
-                //           ? screenUtil.setSp(20)
-                //           : screenUtil.setSp(40),
-                //       letterSpacing: 1,
-                //     ),
-                //   ),
-                // ),
+                const SizedBox(height: 10), 
                 BuildContainerRowText(
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade100,
                   text: "النوع",
                   widget: Text(
+                    widget.realEstat.type == null ? "":
                     "${realEstateType(int.parse(widget.realEstat.type))}",
                     style: TextStyle(
                       color: Colors.grey.shade700,
@@ -260,6 +246,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                   text: "المساحة",
                   widget: FittedBox(
                     child: Text(
+                      widget.realEstat.area == null ? "":
                       "${widget.realEstat.area}",
                       style: TextStyle(
                         color: Colors.grey.shade700,
@@ -285,6 +272,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                       ),
                       SizedBox(width: 3),
                       Text(
+                        widget.realEstat.details == null ? "":
                         "${widget.realEstat.details.rooms}",
                         style: TextStyle(
                           color: Colors.grey.shade700,
@@ -311,6 +299,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                       ),
                       SizedBox(width: 3),
                       Text(
+                        widget.realEstat.details == null ? "":
                         "${widget.realEstat.details.hall}",
                         style: TextStyle(
                           color: Colors.grey.shade700,
@@ -337,6 +326,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                       ),
                       SizedBox(width: 6),
                       Text(
+                        widget.realEstat.details == null ? "":
                         "${widget.realEstat.details.bathroom}",
                         style: TextStyle(
                           color: Colors.grey.shade700,
@@ -356,7 +346,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                   text: "الدور",
                   widget: Text(
                     widget.realEstat.details.steps == 0
-                        ? " الطابق الارضي"
+                        ? " الطابق الأرضي"
                         : "${widget.realEstat.details.steps}",
                     style: TextStyle(
                       color: Colors.grey.shade700,
@@ -449,9 +439,9 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
                   isLandScape: isLandScape,
                   screenUtil: screenUtil,
                   color: Colors.grey.shade300,
-                  text: "رقم العلان",
+                  text: "رقم الإعلان",
                   widget: Text(
-                    "${widget.realEstat.id}",
+                    "${widget.realEstat.id ?? ""}",
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: isLandScape
@@ -510,7 +500,7 @@ class _RealEstateDetailScreenState extends State<RealEstateDetailScreen> {
       child: Row(
         children: [
           Text(
-            "ابلاغ",
+            "إبلاغ",
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.red,
@@ -596,7 +586,7 @@ class SemilerAds extends StatelessWidget {
                   if (state.realEstates.isEmpty) {
                     return Center(
                       child: Text(
-                        "عفوا لا يوجد اعلانات مشابهه لهذ النوع",
+                        "عفوا لا توجد إعلانات مشابهه لهذ النوع",
                         style: TextStyle(
                           color: AppColors.primaryColor,
                           fontSize: 12,

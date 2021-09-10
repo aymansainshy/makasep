@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text("Ok"),
+                      child: Text("حسنا"),
                     ),
                   ],
                 ),

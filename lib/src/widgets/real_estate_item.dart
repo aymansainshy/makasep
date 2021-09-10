@@ -59,7 +59,7 @@ class _MealItemState extends State<RealEstateItem> {
                           children: [
                             FittedBox(
                               child: Text(
-                                '${realEstateType(int.parse(widget.realEstat.type))} ${realEstatePrimaryType(widget.realEstat.categoryType)}',
+                                '${realEstateType(int.parse(widget.realEstat.type))} - ${realEstatePrimaryType(widget.realEstat.categoryType)}',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: widget.isLandScape

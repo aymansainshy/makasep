@@ -55,7 +55,7 @@ class SignUpScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 25),
                 child: Text(
-                  "أنشاء حساب",
+                  "إنشاء حساب",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: isLandScape
@@ -259,7 +259,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
             SlideTransition(
               position: _slidAnimation2,
               child: BuilFormField(
-                fieldName: "اسمك الكامل ",
+                fieldName: "إسمك الكامل ",
                 contentPadding: 8.0,
                 keyboardType: TextInputType.name,
                 textInputAction: TextInputAction.next,
@@ -347,7 +347,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
             SlideTransition(
               position: _slidAnimation,
               child: BuilFormField(
-                fieldName: "كلمة السر",
+                fieldName: "كلمة المرور",
                 contentPadding: 8.0,
                 obscureText: isPasswordHide,
                 textInputAction: TextInputAction.next,
@@ -372,10 +372,10 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                 },
                 validator: (value) {
                   if (value.isEmpty) {
-                    return "الرجاء ادخال كلمة السر";
+                    return "الرجاء ادخال كلمة المرور";
                   }
                   if (value.toString().length < 5) {
-                    return "كلمة السر لا يجب عن تقل عن 5 احرف ";
+                    return "كلمة المرور لا يجب عن تقل عن 5 احرف ";
                   }
                   return null;
                 },
@@ -390,7 +390,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
             SlideTransition(
               position: _slidAnimation2,
               child: BuilFormField(
-                fieldName: "تأكيد كلمة السر",
+                fieldName: "تأكيد كلمة المرور",
                 contentPadding: 8.0,
                 obscureText: isPasswordHide,
                 textInputAction: TextInputAction.next,
@@ -402,7 +402,7 @@ class _SignUpFormState extends State<SignUpForm> with TickerProviderStateMixin {
                 },
                 validator: (value) {
                   if (value != _passwordController.text) {
-                    return "كلمة السر لا تتطابق ";
+                    return "كلمة المرور لا تتطابق ";
                   }
                   return null;
                 },

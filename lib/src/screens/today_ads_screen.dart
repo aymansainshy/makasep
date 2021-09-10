@@ -31,7 +31,7 @@ class TodayAdsScreen extends StatelessWidget {
           centerTitle: true,
           elevation: 0.0,
           title: Text(
-            "اعلانات اليوم",
+            "إعلانات اليوم",
             style: TextStyle(fontSize: 15),
           ),
           bottom: TabBar(
@@ -43,7 +43,7 @@ class TodayAdsScreen extends StatelessWidget {
               // fontFamily: "cairo",
             ),
             tabs: [
-              Tab(text: "اعلانات اليوم"),
+              Tab(text: "إعلانات اليوم"),
               Tab(text: "المكالمات الاخيرة"),
             ],
           ),

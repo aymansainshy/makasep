@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.only(right: 25),
                 child: Text(
-                  "انشاء حساب",
+                  "إنشاء حساب",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: isLandScape
@@ -132,14 +132,14 @@ class _LogInFormState extends State<LogInForm> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text("An error accured "),
+        title: Text("يوجد خطأ"),
         content: Text(message),
         actions: [
           FlatButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("Ok"))
+              child: Text("حسنا"))
         ],
       ),
     );
@@ -235,7 +235,7 @@ class _LogInFormState extends State<LogInForm> {
             ),
             BuilFormField(
               contentPadding: 8.0,
-              fieldName: "كلمة السر",
+              fieldName: "كلمة المرور",
               keyboardType: TextInputType.visiblePassword,
               obscureText: isPasswordHide,
               textInputAction: TextInputAction.done,
@@ -257,10 +257,10 @@ class _LogInFormState extends State<LogInForm> {
               },
               validator: (value) {
                 if (value.isEmpty) {
-                  return "الرجاء اخال كلمة السر";
+                  return "الرجاء اخال كلمة المرور";
                 }
                 if (value.toString().length < 5) {
-                  return "كلمة السر يجب ان لا تقل عن 5 احرف";
+                  return "كلمة المرور يجب ان لا تقل عن 5 احرف";
                 }
                 return null;
               },
@@ -329,7 +329,7 @@ class _LogInFormState extends State<LogInForm> {
                 color: Colors.white,
                 textColor: AppColors.scondryColor,
                 child: Text(
-                  "انشاء حساب",
+                  "إنشاء حساب",
                   style: TextStyle(
                     fontSize: widget.isLandScape
                         ? widget.screenUtil.setSp(25)

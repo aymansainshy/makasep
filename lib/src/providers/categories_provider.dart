@@ -25,12 +25,12 @@ class CategoriesProvider with ChangeNotifier {
     ),
     Category(
       id: "4",
-      title: "استثمار",
+      title: "إستثمار",
       imageUrl: "assets/icons/business.png",
     ),
     Category(
       id: "5",
-      title: "ايجار",
+      title: "إيجار",
       imageUrl: "assets/icons/balance.png",
     ),
     Category(
@@ -72,12 +72,12 @@ class CategoriesProvider with ChangeNotifier {
     ),
     Category(
       id: "4",
-      title: "استثمار",
+      title: "إستثمار",
       imageUrl: "assets/icons/business.png",
     ),
     Category(
       id: "5",
-      title: "ايجار",
+      title: "إيجار",
       imageUrl: "assets/icons/balance.png",
     ),
     Category(

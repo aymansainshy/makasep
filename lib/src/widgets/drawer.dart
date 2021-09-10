@@ -34,62 +34,8 @@ class _AppDrawerState extends State<AppDrawer> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 25),
-
+                  const SizedBox(height: 25),
                   Container(),
-                  // Spacer(),
-                  // DropdownButtonHideUnderline(
-                  //   child: DropdownButton(
-                  //     // dropdownColor: AppColors.primaryColor,
-                  //     items: langugeProvider.languages
-                  //         .map(
-                  //           (lang) => DropdownMenuItem(
-                  //             value: lang.localName,
-                  //             child: Row(
-                  //               mainAxisAlignment:
-                  //                   MainAxisAlignment.spaceAround,
-                  //               children: [
-                  //                 Text(
-                  //                   lang.localName,
-                  //                   style: TextStyle(
-                  //                     fontSize: isLandScape
-                  //                         ? screenUtil.setSp(20)
-                  //                         : screenUtil.setSp(35),
-                  //                   ),
-                  //                 ),
-                  //                 SizedBox(
-                  //                   height: 5,
-                  //                 ),
-                  //                 Container(
-                  //                   height: isLandScape
-                  //                       ? screenUtil.setHeight(55)
-                  //                       : screenUtil.setHeight(40),
-                  //                   width: isLandScape
-                  //                       ? screenUtil.setWidth(55)
-                  //                       : screenUtil.setWidth(40),
-                  //                   child: Image.asset(
-                  //                     lang.flag,
-                  //                     fit: BoxFit.contain,
-                  //                   ),
-                  //                 )
-                  //               ],
-                  //             ),
-                  //             onTap: () {
-                  //               // langugeProvider
-                  //               //     .changeLanguage(Locale(lang.code));
-                  //             },
-                  //           ),
-                  //         )
-                  //         .toList(),
-                  //     onChanged: (value) {
-                  //       setState(() {
-                  //         // appLang = value;
-                  //       });
-                  //     },
-                  //     value: appLang,
-                  //   ),
-                  // ),
-
                   CircleAvatar(
                     radius: 55,
                     backgroundColor: AppColors.primaryColor,
@@ -158,7 +104,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         Expanded(
                           child: BuilDraweGridViewItem(
                             imageUrl: "assets/icons/file-contract.png",
-                            text: "اضافة إعلان",
+                            text: "إضافة إعلان",
                             function: () {
                               Navigator.of(context)
                                   .pushNamed(AddAdvertiseRoleScreen.routeName);
@@ -212,7 +158,7 @@ class _AppDrawerState extends State<AppDrawer> {
                       Expanded(
                         child: BuilDraweGridViewItem(
                           imageUrl: "assets/icons/newspaper.png",
-                          text: "اعلانات اليوم",
+                          text: "إعلانات اليوم",
                           function: () {
                             Navigator.of(context)
                                 .pushNamed(TodayAdsScreen.routeName);
