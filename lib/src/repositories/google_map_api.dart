@@ -1,4 +1,4 @@
-const GOOGLE_API_KEY = 'AIzaSyALjuHPIlFu_Y5wstCXgBV6UxSuz9F5wZ0';
+
 
 class GoogleServicesApi {
   static String genarateLocationImage({double latitude, double longitude}) {
