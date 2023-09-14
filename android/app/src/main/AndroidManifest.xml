@@ -13,7 +13,7 @@
         android:usesCleartextTraffic="true"> <!-- Alternative Approach network_Security-->
 
         <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyALjuHPIlFu_Y5wstCXgBV6UxSuz9F5wZ0"/>
+               android:value="ApiKey"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
